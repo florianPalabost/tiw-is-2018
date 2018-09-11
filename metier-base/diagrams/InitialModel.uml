@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="346.5" y="485.0">fr.univlyon1.m2tiw.tiw1.metier.Reservation</node>
+    <node x="649.0" y="231.0">fr.univlyon1.m2tiw.tiw1.metier.Seance</node>
+    <node x="308.0" y="-35.0">fr.univlyon1.m2tiw.tiw1.metier.Cinema</node>
+    <node x="-2.5" y="273.0">fr.univlyon1.m2tiw.tiw1.metier.Salle</node>
+    <node x="1029.0" y="273.0">fr.univlyon1.m2tiw.tiw1.metier.Film</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Cinema" target="fr.univlyon1.m2tiw.tiw1.metier.Film">
+      <point x="132.0" y="-0.0" />
+      <point x="1120.0" y="40.0" />
+      <point x="0.0" y="-47.0" />
+    </edge>
+    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Seance" target="fr.univlyon1.m2tiw.tiw1.metier.Reservation">
+      <point x="0.0" y="89.0" />
+      <point x="800.0" y="680.0" />
+      <point x="440.0" y="680.0" />
+      <point x="0.0" y="75.0" />
+    </edge>
+    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Seance" target="fr.univlyon1.m2tiw.tiw1.metier.Salle">
+      <point x="-151.0" y="-0.0" />
+      <point x="82.5" y="-0.0" />
+    </edge>
+    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Seance" target="fr.univlyon1.m2tiw.tiw1.metier.Film">
+      <point x="151.0" y="-0.0" />
+      <point x="-91.0" y="-0.0" />
+    </edge>
+    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Cinema" target="fr.univlyon1.m2tiw.tiw1.metier.Seance">
+      <point x="132.0" y="40.0" />
+      <point x="800.0" y="80.0" />
+      <point x="0.0" y="-89.0" />
+    </edge>
+    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Cinema" target="fr.univlyon1.m2tiw.tiw1.metier.Salle">
+      <point x="-132.0" y="-0.0" />
+      <point x="80.0" y="40.0" />
+      <point x="0.0" y="-47.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="604.5" y="582.5" />
+  <SelectedNodes>
+    <node>fr.univlyon1.m2tiw.tiw1.metier.Seance</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
