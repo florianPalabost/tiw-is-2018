@@ -1,0 +1,557 @@
+{
+  "cinema" : {
+    "nom" : "Mon Cinema",
+    "salles" : [
+      {
+        "nom" : "Salle 1",
+        "capacite" : 100
+      },
+      {
+        "nom" : "Salle 2",
+        "capacite" : 70
+      },
+      {
+        "nom" : "Salle 3",
+        "capacite" : 50
+      }
+    ],
+    "films" : [
+      {
+        "titre" : "Mission Impossible - Fallout",
+        "version" : "VO",
+        "fiche" : "https://www.imdb.com/title/tt4912910/?ref_=inth_ov_tt"
+      },
+      {
+        "titre" : "Mission Impossible - Fallout",
+        "version" : "VF",
+        "fiche" : "https://www.imdb.com/title/tt4912910/?ref_=inth_ov_tt"
+      },
+      {
+        "titre" : "Operation Finale",
+        "version" : "VF",
+        "fiche" : "https://www.imdb.com/title/tt5208252/?ref_=inth_ov_tt"
+      },
+      {
+        "titre" : "BlacKkKlansman",
+        "version" : "VO",
+        "fiche" : "https://www.imdb.com/title/tt7349662/?ref_=inth_ov_tt"
+      },
+      {
+        "titre" : "Burning",
+        "version" : "VO",
+        "fiche" : "https://www.imdb.com/title/tt7282468/?ref_=shtt_ov_tt"
+      },
+      {
+        "titre" : "Le poirier sauvage",
+        "version" : "VF",
+        "fiche" : "https://www.imdb.com/title/tt6628102/?ref_=shtt_ov_tt"
+      }
+    ],
+    "seances" : [
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-19 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-19 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-19 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-19 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-19 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-19 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-19 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-19 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-19 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-19 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-19 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-19 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-20 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-20 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-20 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-20 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-20 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-20 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-20 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-20 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-20 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-20 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-20 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-20 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-21 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-21 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-21 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-21 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-21 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-21 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-21 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-21 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-21 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-21 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-21 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-21 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-22 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-22 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-22 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-22 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-22 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-22 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-22 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-22 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-22 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-22 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-22 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-22 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-23 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-23 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-23 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-23 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-23 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-23 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-23 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-23 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-23 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-23 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-23 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-23 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-24 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-24 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-24 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-24 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-24 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-24 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-24 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-24 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-24 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-24 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-24 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-24 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-25 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VO",
+        "salle" : "Salle 1",
+        "date" : "2018-09-25 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-25 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Mission Impossible - Fallout - VF",
+        "salle" : "Salle 1",
+        "date" : "2018-09-25 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-25 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Operation Finale - VF",
+        "salle" : "Salle 2",
+        "date" : "2018-09-25 16:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-25 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "BlacKkKlansman - VO",
+        "salle" : "Salle 2",
+        "date" : "2018-09-25 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-25 22:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-25 20:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Le poirier sauvage - VF",
+        "salle" : "Salle 3",
+        "date" : "2018-09-25 18:00:00 +0200",
+        "prix" : 10.00
+      },
+      {
+        "film" : "Burning - VO",
+        "salle" : "Salle 3",
+        "date" : "2018-09-25 16:00:00 +0200",
+        "prix" : 10.00
+      }
+    ]
+  }
+}
