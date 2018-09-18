@@ -13,7 +13,6 @@
     <modules>
         <module>metier-base</module>
         <module>tp1</module>
-        <module>tp1-web</module>
     </modules>
 
     <properties>

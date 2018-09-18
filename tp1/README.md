@@ -11,10 +11,9 @@ Si ce n'est pas déjà fait:
 > * Lire la [description du métier](../metier.md) qui servira à illustrer les différents TP de cette année.
 > * Lire les [consignes sur les TPs](../README.md).
 
-Le module `metier-base` contient un ensemble d'interfaces et de classes décrivant le métier de l'application.
-Le module `inmemory` contient une implémentation en mémoire des différents DAOs.
+Le module `metier-base` contient un ensemble de classes décrivant le métier de l'application.
 
-> Lire chaque classe/interface de ces modules et faire le lien entre les différentes méthodes et le métier, comprendre le fonctionnement du code.
+> Lire chaque classe de ces modules et faire le lien entre les différentes méthodes et le métier, comprendre le fonctionnement du code.
 
 ## Maven
 
@@ -22,7 +21,7 @@ Avant de se lancer dans la partie développement du TP, il est important de comp
 C'est [Maven](https://maven.apache.org/) qui sera majoritairement utilisé dans les TPs.
 Chaque module contient un fichier de configuration `pom.xml`.
 
-> Lire les fichier `pom.xml` des modules, de `tp1`, et de la racine du dépôt.
+> Lire les fichier `pom.xml` des modules et de la racine du dépôt.
 
 On peut remarquer que les fichiers de `metier-base` et de `tp1` sont presque vides. 
 Seules les dépendances sont décrites dans ces fichiers.
@@ -58,34 +57,47 @@ Le fichier [.gitlab-ci.yml](../exemples/gitlab-ci.yml) peut servir de point de d
 
 > Faire une étape de vérification séparée pour checkstyle dans le cadre de l'intégration continue.
 
-Corriger au besoin votre projet pour que l'intégration continue se termine correctement.
+L'intégration continue va échouer à cause du test unitaire `TestAllSeances::testSeances`.
+Cela fait l'objet de la section suivante.
 
-## Révisions liaisons classes - données
 
-On souhaite réaliser des DAOs de différents types en plus des DAO _in memory_ fournis dans le module `metier-base`.
+## DAO JSON
 
-Ces DAO vont nécessiter l'utilisation de bibliothèques externes. Il faut bien penser à déclarer les versions dans le `pom.xml` racine et à les utiliser dans celui du `tp1`.
-Il est possible d'annoter les classes du module `metier-base` pour spécifier les mappings.
-Éviter l'utilisation de Spring Data afin d'éviter les dépendances vers Spring.
+> Dans le module `metier-base`, créer un ensemble de DAOs fonctionnant sur la base de fichiers JSON
+> * On pourra utiliser par exemple la bibliothèque [Jackson](https://github.com/FasterXML/jackson)
+> * Par défaut, les données seront sauvegardées dans un fichier `sample-data/mon-cinema.json`.
+> * Élaborer un [schéma JSON](http://json-schema.org/) et  vérifier que vos désérialisations sont conformes à ce schéma via des tests unitaires. Ce schéma devra être compatible avec `sample-data/mon-cinema.json`.
+> * Tester et assurer la qualité du code. Le test unitaire `TestAllSeances::testSeances` devra maintenant fonctionner.
 
-### DAO relationnel
+Votre intégration continue doit maintenant s'exécuter sans erreurs. Corriger au besoin.
+
+### Remarques et liens
+
+* La classe `org.everit.json.schema.Schema` de la bibliothèque [JSON-Schema](https://github.com/everit-org/json-schema) permet de tester le type des documents JSON.
+* Le site https://search.maven.org/ peut être utilisé pour chercher des modules maven et obtenir la configuration XML correspondante.
+
+
+## DAO en mémoire
+
+Abstraire vos DAO JSON en interfaces dans le module `metier_base`.
+Dans le module `tp1`, créer des implémentations de vos interfaces de DAO fonctionnant en conservant simplement les objets en mémoire.
+Écrire des tests unitaires pour ces DAO.
+
+Vérifier que l'intégration continue est toujours "au vert", corriger les problèmes au besoin.
+
+## DAO relationnel
+
 > Dans le module `tp1`, utiliser [JPA](https://fr.wikipedia.org/wiki/Java_Persistence_API) pour créer des DAOs qui s'interfaceront avec une base de données relationnelle:
 > * Tester votre mapping objet-relationnel en écrivant un/des test-s unitaire-s dédié-s avec une base de donnée H2 résidant en mémoire. 
 > * On pourra utiliser Hibernate ou EclipseLink comme runtime JPA.
 > * Assurer la qualité du code.
-
-### DAO JSON
-> Dans le module `tp1`, créer un dernier ensemble de DAOs fonctionnant sur la base de fichiers JSON
-> * On pourra utiliser par exemple la bibliothèque [Jackson](https://github.com/FasterXML/jackson)
-> * Par défaut, les données seront sauvegardées dans un fichier `data/entrepots.json`.
-> * Élaborer un [schéma JSON](http://json-schema.org/) et  vérifier que vos désérialisations sont conformes à ce schéma via des tests unitaires.
-> * Tester et assurer la qualité du code.
-
 
 ### Remarques / liens utiles:
 * [Cours de M1 sur les ORM](http://liris.cnrs.fr/ecoquery/dokuwiki/lib/exe/fetch.php?media=enseignement:bdav:mapping-objets-relationnel-xml.pdf)
 * [Tutoriel JPA](https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html)
 * [H2](http://h2database.com/html/main.html) et [configuration pour une BD en mémoire](http://h2database.com/html/features.html#in_memory_databases)
 * Un exemple de fichier [`persistence.xml`](../exemples/persistence.xml) se trouve dans le répertoire `exemples` à la racine.
-* La classe `org.everit.json.schema.Schema` de la bibliothèque [JSON-Schema](https://github.com/everit-org/json-schema) permet de tester le type des documents JSON.
-* Le site https://search.maven.org/ peut être utilisé pour chercher des modules maven et obtenir la configuration XML correspondante.
+* Comme pour le cas JSON, ces DAO vont nécessiter l'utilisation de bibliothèques externes. Il faut bien penser à déclarer les versions dans le `pom.xml` racine et à les utiliser dans celui du `tp1`.
+* Il est possible d'annoter les classes du module `metier-base` pour spécifier les mappings.
+* Ne pas utiliser Spring Data afin d'éviter les dépendances vers Spring.
+
