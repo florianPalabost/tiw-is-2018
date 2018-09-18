@@ -41,12 +41,22 @@ Le système d'héritage de Maven va en effet permettre aux sous-modules de récu
 
 Suivre ensuite les [instructions](http://maven.apache.org/ide.html) pour lancer la phase d'installation (et l'analyse de code) depuis votre IDE.
 
+## Qualité de code avec Checkstyle
+
+Lancer `mvn site` dans le module `metier-base`. 
+Ouvrir le fichier `target/site/index.html` puis trouver dans le menu la section _Project Reports_ -> _Checkstyle_ et vérifier les erreurs.
+
+> Configurer une utilisation supplémentaire du plugin checkstyle de façon à vérifier et faire échouer le build si le style n'est pas respecté.
+
 ## Intégration continue
 
-Mettre en place un fichier `.gitlab-ci.yml` à la racine de votre dépôt.
-Le fichier [.gitlab-ci.yml](../exemples/gitlab-ci.yml) peut servir de point de départ, mais il fautdra probablement l'adapter (_e.g._ changer [le tag de l'image `maven`](https://hub.docker.com/_/maven/), les étapes d'intégration continue, en ajouter ou en retirer, etc).
+> Mettre en place un fichier `.gitlab-ci.yml` à la racine de votre dépôt.
+
+Le fichier [.gitlab-ci.yml](../exemples/gitlab-ci.yml) peut servir de point de départ, mais il faudra probablement l'adapter (_e.g._ changer [le tag de l'image `maven`](https://hub.docker.com/_/maven/), les étapes d'intégration continue, en ajouter ou en retirer, etc).
 
 À chaque push sur la forge, l'intégration continue est lancée automatiquement (_c.f._ Le menu CI/CD de votre projet sur l'interface Web de la forge.
+
+> Faire une étape de vérification séparée pour checkstyle dans le cadre de l'intégration continue.
 
 Corriger au besoin votre projet pour que l'intégration continue se termine correctement.
 
@@ -78,3 +88,4 @@ Il est possible d'annoter les classes du module `metier-base` pour spécifier le
 * [H2](http://h2database.com/html/main.html) et [configuration pour une BD en mémoire](http://h2database.com/html/features.html#in_memory_databases)
 * Un exemple de fichier [`persistence.xml`](../exemples/persistence.xml) se trouve dans le répertoire `exemples` à la racine.
 * La classe `org.everit.json.schema.Schema` de la bibliothèque [JSON-Schema](https://github.com/everit-org/json-schema) permet de tester le type des documents JSON.
+* Le site https://search.maven.org/ peut être utilisé pour chercher des modules maven et obtenir la configuration XML correspondante.

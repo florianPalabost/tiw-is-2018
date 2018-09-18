@@ -10,18 +10,15 @@
         <version>2018</version>
         <relativePath>..</relativePath>
     </parent>
-    <artifactId>metier-base</artifactId>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <artifactId>tp1-web</artifactId>
+
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
         </dependency>
     </dependencies>
-
 </project>
