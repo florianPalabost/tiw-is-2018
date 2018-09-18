@@ -3,45 +3,15 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="827.0" y="485.0">fr.univlyon1.m2tiw.tiw1.metier.Reservation</node>
-    <node x="449.0" y="471.0">fr.univlyon1.m2tiw.tiw1.metier.Seance</node>
-    <node x="-11.0" y="205.0">fr.univlyon1.m2tiw.tiw1.metier.Cinema</node>
-    <node x="38.5" y="-7.0">fr.univlyon1.m2tiw.tiw1.metier.Salle</node>
-    <node x="29.0" y="499.0">fr.univlyon1.m2tiw.tiw1.metier.Film</node>
+    <node x="-31.0" y="-9.0">fr.univlyon1.m2tiw.tiw1.metier.Seance</node>
+    <node x="-13.0" y="285.0">fr.univlyon1.m2tiw.tiw1.metier.Reservation</node>
+    <node x="389.0" y="-35.0">fr.univlyon1.m2tiw.tiw1.metier.Cinema</node>
+    <node x="-1.5" y="513.0">fr.univlyon1.m2tiw.tiw1.metier.Salle</node>
+    <node x="269.0" y="259.0">fr.univlyon1.m2tiw.tiw1.metier.Film</node>
   </nodes>
   <notes />
-  <edges>
-    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Cinema" target="fr.univlyon1.m2tiw.tiw1.metier.Film">
-      <point x="0.0" y="75.0" />
-      <point x="0.0" y="-61.0" />
-    </edge>
-    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Seance" target="fr.univlyon1.m2tiw.tiw1.metier.Reservation">
-      <point x="0.0" y="89.0" />
-      <point x="600.0" y="720.0" />
-      <point x="920.0" y="720.0" />
-      <point x="0.0" y="75.0" />
-    </edge>
-    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Seance" target="fr.univlyon1.m2tiw.tiw1.metier.Salle">
-      <point x="0.0" y="-89.0" />
-      <point x="600.0" y="40.0" />
-      <point x="81.5" y="-0.0" />
-    </edge>
-    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Seance" target="fr.univlyon1.m2tiw.tiw1.metier.Film">
-      <point x="-151.0" y="-0.0" />
-      <point x="91.0" y="-0.0" />
-    </edge>
-    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Cinema" target="fr.univlyon1.m2tiw.tiw1.metier.Seance">
-      <point x="40.0" y="75.0" />
-      <point x="160.0" y="400.0" />
-      <point x="480.0" y="400.0" />
-      <point x="-120.0" y="-89.0" />
-    </edge>
-    <edge source="fr.univlyon1.m2tiw.tiw1.metier.Cinema" target="fr.univlyon1.m2tiw.tiw1.metier.Salle">
-      <point x="0.0" y="-75.0" />
-      <point x="0.0" y="47.0" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Group" zoom="0.9161290322580645" x="674.5" y="380.0" />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="0.9161290322580645" x="675.0" y="380.0" />
   <SelectedNodes />
   <Categories>
     <Category>Fields</Category>

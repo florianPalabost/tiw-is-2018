@@ -42,4 +42,8 @@ public class Cinema {
     public void removeSeance(Seance seance) {
         seances.remove(seance);
     }
+
+    public int getNbSeances() {
+        return seances.size();
+    }
 }
