@@ -22,11 +22,5 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.cliftonlabs</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>3.0.2</version>
-        </dependency>
     </dependencies>
-
 </project>
