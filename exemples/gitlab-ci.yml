@@ -12,6 +12,9 @@ variables:
   # Use the cached directory above.
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
 
+# Executed before each job
+before_script:
+  - . config/maven/setup-proxy-settings.sh
 
 stages:
   - build
