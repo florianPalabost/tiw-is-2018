@@ -1,5 +1,8 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.*;
 
 public class Cinema {
@@ -8,7 +11,8 @@ public class Cinema {
     private Map<String, Film> films;
     private List<Seance> seances;
 
-    public Cinema(String nom) {
+    @JsonCreator()
+    public Cinema(@JsonProperty("nom") String nom) {
         this.nom = nom;
         this.salles = new HashMap<String, Salle>();
         this.films = new HashMap<String, Film>();
@@ -45,5 +49,38 @@ public class Cinema {
 
     public int getNbSeances() {
         return seances.size();
+    }
+
+    @JsonProperty("salles")
+    public Collection<Salle> getSalles() {
+        return salles.values();
+    }
+
+    public void setSalles(Collection<Salle> nSalles) {
+        this.salles.clear();
+        for(Salle s : nSalles) {
+            addSalle(s);
+        }
+    }
+
+    @JsonProperty("films")
+    public Collection<Film> getFilms() {
+        return films.values();
+    }
+
+    public void setFilms(Collection<Film> nFilms) {
+        this.films.clear();
+        for(Film f : nFilms) {
+            addFilm(f);
+        }
+    }
+
+    @JsonProperty("seances")
+    public List<Seance> getSeances() {
+        return seances;
+    }
+
+    public void setSeances(List<Seance> seances) {
+        this.seances = seances;
     }
 }
