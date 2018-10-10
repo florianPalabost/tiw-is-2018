@@ -90,6 +90,8 @@ Alternativement :
 
 À ce stade, vous avez inversé le contrôle de vos objets métier en les plaçant dans un serveur (i.e. un framework) qui se charge d'instancier, de gérer et d'utiliser ces objets.
 
+Ne vous préoccupez pas pour l'instant des méthodes permettant de gérer les réservations.
+
 ## 2. Isolation et uniformisation des objets côté serveur
 
 ### 2.1. Isolation
@@ -108,5 +110,11 @@ Bien entendu, vous ne pouvez pas laisser le client accéder directement à l'ins
 Remarquez que la classe `ServeurImpl` masque désormais complètement l'implémentation du traitement des requêtes par les objets métier. Il suffit au client de connaître son API pour utiliser le cinéma.
 
 ### 2.2. Uniformisation
+
+Plutôt que d'avoir un objet `Cinema` qui répond à différentes requêtes, vous allez créer plusieurs objets sur le même modèle, mais traitant chacun un type de requête spécifique. Pour cela :
+- Commencez par définir une interface et une classe abstraite reprenant les principales caractéristiques du cinema : dépendances, implémentation de Startable et méthode de service process()
+- Créez les classes implémentant ce modèle et correspondant à chacune des méthodes de service addFilm(), removeFilm(), getFilm(), createSeance() et createReservation(), etc.
+- Modifiez le serveur pour que votre conteneur crée les composants correspondants aux instances de vos nouvelles classes
+- Créez une méthode d' "aiguillage" des requêtes vers les instances de chacune de ces classes qui sera appelée par la méthode de service du serveur : la commande correspond au nom de la classe à appeler, comme un nom de ressource sur un serveur Web.
 
 To be continued...
