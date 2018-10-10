@@ -69,6 +69,7 @@ Alternativement :
 
   La doc est disponible [sur le site](http://picocontainer.com/) et une Javadoc de la version 2.14.3 [en local](https://perso.liris.cnrs.fr/lionel.medini/enseignement/CAHD/TP1/picocontainer-2.14.3-javadoc.jar). Commencez par lire la première page d'introduction à l'utilisation de cet outil, située [ici](http://picocontainer.com/introduction.html).
 - Arbre de dépendances (pour l'instant, il est assez plat) :
+
   > Cinema -> string contenant son nom
 
   > Cinema -> List<Salle>
