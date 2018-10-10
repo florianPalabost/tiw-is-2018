@@ -58,7 +58,7 @@ public class Cinema {
 
     public void setSalles(Collection<Salle> nSalles) {
         this.salles.clear();
-        for(Salle s : nSalles) {
+        for (Salle s : nSalles) {
             addSalle(s);
         }
     }
@@ -70,7 +70,7 @@ public class Cinema {
 
     public void setFilms(Collection<Film> nFilms) {
         this.films.clear();
-        for(Film f : nFilms) {
+        for (Film f : nFilms) {
             addFilm(f);
         }
     }
@@ -82,5 +82,13 @@ public class Cinema {
 
     public void setSeances(List<Seance> seances) {
         this.seances = seances;
+    }
+
+    public Salle getSalle(String salle) {
+        return salles.get(salle);
+    }
+
+    public Film getFilm(String film) {
+        return films.get(film);
     }
 }
