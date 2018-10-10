@@ -116,8 +116,19 @@ Remarquez que la classe `ServeurImpl` masque désormais complètement l'impléme
 
 Plutôt que d'avoir un objet `Cinema` qui répond à différentes requêtes, vous allez créer plusieurs objets sur le même modèle, mais traitant chacun un type de requête spécifique. Pour cela :
 - Commencez par définir une interface et une classe abstraite reprenant les principales caractéristiques du cinema : dépendances, implémentation de Startable et méthode de service process()
-- Créez les classes implémentant ce modèle et correspondant à chacune des méthodes de service addFilm(), removeFilm(), getFilm(), createSeance() et createReservation(), etc. On pourra éventuellement regrouper certaines fonctionnalités dans une même classe, par exemple une classe pour la mise à jour et la consultation de films, une classe pour la gestion des séances, etc.
+- Créez les classes implémentant ce modèle et correspondant aux méthodes de service `addFilm()`, `removeFilm()`, `getFilm()`, `createSeance()` et `createReservation()`, etc. Vous regrouperez les fonctionnalités dans des classes représentant des ressources (et non des opérations), par exemple une classe pour la mise à jour et la consultation de films, une classe pour la gestion des séances, etc. Par conséquent, il faut que vous implémentiez la notion de "méthode", qui indique l'opération à réaliser sur la ressource.
 - Modifiez le serveur pour que votre conteneur crée les composants correspondants aux instances de vos nouvelles classes
 - Créez une méthode d' "aiguillage" des requêtes vers les instances de chacune de ces classes qui sera appelée par la méthode de service du serveur : la commande correspond au nom de la classe à appeler, comme un nom de ressource sur un serveur Web.
+
+**Normalement, votre application ne doit pas fonctionner** et vous renvoie des maps et une liste vides à chaque opération. Vous constatez également que les instances des DAO sont différentes dans les messages d'initialisation des méthodes de gestion du cycle de vie.
+
+Cela vient du fait que bien que les classes List, ProgrammationDao et ReservationDao soient des dépendances communes de tous les cinemas du conteneur, par défaut, celui-ci résout les dépendances en instanciant un objet différent pour chaque instance de `Cinema`. Toutefois, vous pouvez indiquer que vous souhaitez procéder autrement, c'est-à-dire qu'il "cache" les instances. Vous pouvez résoudre ce problème à deux niveaux :
+
+1.	Au niveau du composant : en spécifiant la caractéristique "Cache" des composants que vous voulez cacher. Le plus simple est d'utiliser la méthode `as()` du conteneur, comme spécifié [ici](http://picocontainer.com/properties.html).
+2.	Au niveau du conteneur : en spécifiant un [comportement](http://picocontainer.com/behaviors.html) global de type "Caching" pour tous les composants du conteneur dans le constructeur de celui-ci.
+
+Si vous choisissez la seconde solution, les cinémas seront cachés également, et vous n'aurez plus besoin de les stocker dans une variable globale. Par ailleurs, comme indiqué dans le warning du début de la [page sur la gestion du cycle de vie des composants](http://picocontainer.com/lifecycle.html), les méthodes `start()`, `stop()`, etc. sont conçues pour fonctionner avec des composants cachés, et vous pourrez appelez directement la méthode `start()` du conteneur pour qu'il démarre tous les composants qui implémentent `Startable` en même temps...
+
+À ce stade, vous avez réalisé un outil équivalent à un conteneur de servlets. Il pourra fonctionner avec n'importe quel type de ressource (an sens ReST) utilisé par l'application du cinéma, effectuer différentes opérations (correspondant à des méthodes HTTP), à partir du moment où celle-ci est déclarée dans le serveur et correspond à une commande reconnue.
 
 To be continued...
