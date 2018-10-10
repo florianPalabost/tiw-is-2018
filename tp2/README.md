@@ -116,7 +116,7 @@ Remarquez que la classe `ServeurImpl` masque désormais complètement l'impléme
 
 Plutôt que d'avoir un objet `Cinema` qui répond à différentes requêtes, vous allez créer plusieurs objets sur le même modèle, mais traitant chacun un type de requête spécifique. Pour cela :
 - Commencez par définir une interface et une classe abstraite reprenant les principales caractéristiques du cinema : dépendances, implémentation de Startable et méthode de service process()
-- Créez les classes implémentant ce modèle et correspondant à chacune des méthodes de service addFilm(), removeFilm(), getFilm(), createSeance() et createReservation(), etc.
+- Créez les classes implémentant ce modèle et correspondant à chacune des méthodes de service addFilm(), removeFilm(), getFilm(), createSeance() et createReservation(), etc. On pourra éventuellement regrouper certaines fonctionnalités dans une même classe, par exemple une classe pour la mise à jour et la consultation de films, une classe pour la gestion des séances, etc.
 - Modifiez le serveur pour que votre conteneur crée les composants correspondants aux instances de vos nouvelles classes
 - Créez une méthode d' "aiguillage" des requêtes vers les instances de chacune de ces classes qui sera appelée par la méthode de service du serveur : la commande correspond au nom de la classe à appeler, comme un nom de ressource sur un serveur Web.
 
