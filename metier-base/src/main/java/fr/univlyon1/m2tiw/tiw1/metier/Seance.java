@@ -18,7 +18,7 @@ public class Seance {
         this.date = date;
         this.prix = prix;
         this.reservations = new ArrayList<Reservation>();
-        this.id = UUID.fromString(film.getTitre() + film.getVersion() + salle.getNom() + date.toString()).toString();
+        this.id = UUID.nameUUIDFromBytes((film.getTitre() + film.getVersion() + salle.getNom() + date.toString()).getBytes()).toString();
     }
 
     public Film getFilm() {

@@ -2,6 +2,7 @@ package fr.univlyon1.m2tiw.tiw1.metier.dao;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import fr.univlyon1.m2tiw.tiw1.metier.Cinema;
 import fr.univlyon1.m2tiw.tiw1.metier.Film;
@@ -13,22 +14,25 @@ import fr.univlyon1.m2tiw.tiw1.metier.jsondto.SeanceDTO;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static fr.univlyon1.m2tiw.tiw1.metier.jsondto.CinemaDTO.DATE_PARSER;
 
 public class JSONProgrammationDAO implements ProgrammationDAO {
 
+    public static final File SEANCES_JSON = new File("seances.json");
+    public static final File FILMS_JSON = new File("films.json");
     private static ObjectMapper mapper = new ObjectMapper();
+
+    static {
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+    }
 
     private static JavaType list_of_seances_type = TypeFactory.defaultInstance().constructCollectionType(Collection.class, SeanceDTO.class);
     private static JavaType list_of_films_type = TypeFactory.defaultInstance().constructCollectionType(Collection.class, FilmDTO.class);
 
-    private Collection<Film> films = null;
+    private List<Film> films = null;
     private Map<String, Seance> seances = null;
     private Map<String, Salle> salles;
 
@@ -46,20 +50,24 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
 
     private void save() throws IOException {
         Collection<SeanceDTO> seanceDTOs = seances.values().stream().map(SeanceDTO::fromSeance).collect(Collectors.toList());
-        mapper.writeValue(new File("seances.json"), seanceDTOs);
+        mapper.writeValue(SEANCES_JSON, seanceDTOs);
         Collection<FilmDTO> filmDTOs = films.stream().map(FilmDTO::fromFilm).collect(Collectors.toList());
-        mapper.writeValue(new File("films.json"), filmDTOs);
+        mapper.writeValue(FILMS_JSON, filmDTOs);
     }
 
     private void load() throws IOException, ParseException {
-        Collection<FilmDTO> filmDTOs = mapper.readValue(new File("films.json"), list_of_films_type);
         films = new ArrayList<>();
-        films.addAll(filmDTOs.stream().map(FilmDTO::asFilm).collect(Collectors.toList()));
-        Collection<SeanceDTO> seanceDTOs = mapper.readValue(new File("seances.json"), list_of_seances_type);
         seances = new HashMap<>();
-        for (SeanceDTO dto : seanceDTOs) {
-            Seance s = new Seance(getFilmById(dto.film), salles.get(dto.salle), DATE_PARSER.parse(dto.date), dto.prix);
-            seances.put(s.getId(),s);
+        if (FILMS_JSON.exists()) {
+            Collection<FilmDTO> filmDTOs = mapper.readValue(FILMS_JSON, list_of_films_type);
+            films.addAll(filmDTOs.stream().map(FilmDTO::asFilm).collect(Collectors.toList()));
+            if (SEANCES_JSON.exists()) {
+                Collection<SeanceDTO> seanceDTOs = mapper.readValue(SEANCES_JSON, list_of_seances_type);
+                for (SeanceDTO dto : seanceDTOs) {
+                    Seance s = new Seance(getFilmById(dto.film), salles.get(dto.salle), DATE_PARSER.parse(dto.date), dto.prix);
+                    seances.put(s.getId(), s);
+                }
+            }
         }
     }
 
@@ -107,5 +115,22 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
             }
         }
         return result;
+    }
+
+    @Override
+    public void save(Seance seance) throws IOException {
+        seances.put(seance.getId(), seance);
+        save();
+    }
+
+    @Override
+    public void save(Film film) throws IOException {
+        int idx = films.indexOf(film);
+        if (idx == -1) {
+            films.add(film);
+        } else {
+            films.set(idx, film);
+        }
+        save();
     }
 }

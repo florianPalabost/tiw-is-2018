@@ -12,4 +12,6 @@ public interface ProgrammationDAO {
     Seance getSeanceById(String id);
     Film getFilmByTitreVersion(String titre, String version);
     Collection<Seance> getSeanceByFilm(Film film);
+    void save(Seance seance) throws IOException;
+    void save(Film film) throws IOException;
 }
