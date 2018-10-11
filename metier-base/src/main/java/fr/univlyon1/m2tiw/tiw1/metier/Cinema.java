@@ -1,7 +1,5 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.*;
 
@@ -11,8 +9,7 @@ public class Cinema {
     private Map<String, Film> films;
     private List<Seance> seances;
 
-    @JsonCreator()
-    public Cinema(@JsonProperty("nom") String nom) {
+    public Cinema(String nom) {
         this.nom = nom;
         this.salles = new HashMap<String, Salle>();
         this.films = new HashMap<String, Film>();
@@ -51,7 +48,6 @@ public class Cinema {
         return seances.size();
     }
 
-    @JsonProperty("salles")
     public Collection<Salle> getSalles() {
         return salles.values();
     }
@@ -63,7 +59,6 @@ public class Cinema {
         }
     }
 
-    @JsonProperty("films")
     public Collection<Film> getFilms() {
         return films.values();
     }
@@ -75,7 +70,6 @@ public class Cinema {
         }
     }
 
-    @JsonProperty("seances")
     public List<Seance> getSeances() {
         return seances;
     }

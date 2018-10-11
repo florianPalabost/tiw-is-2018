@@ -1,7 +1,5 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Film {
     private final String titre;
@@ -10,10 +8,9 @@ public class Film {
     //La fiche du film sur Linked Movie Database
     private final String fiche;
 
-    @JsonCreator
-    public Film(@JsonProperty("titre") String titre,
-                @JsonProperty("version") String version,
-                @JsonProperty("fiche") String fiche) {
+    public Film(String titre,
+                String version,
+                String fiche) {
         this.titre = titre;
         this.version = version;
         this.fiche = fiche;
