@@ -24,7 +24,7 @@ Créez un package `serveur` dans lequel vous placerez une classe `Serveur`. Cett
 
 ### Injection de la liste des salles
 
-- Faites en sorte que le constructeur de `Cinema` prenne un autre paramètre qui sera de type `List<Salle>` et remplisse automatiquement sa liste de salles à partir de celle-ci.
+- Faites en sorte que le constructeur de `Cinema` prenne un autre paramètre qui sera de type `List<Salle>` et remplisse automatiquement sa map de salles à partir de celle-ci.
 - Enlevez les salles du fichier de données `mon-cinema.json` (au besoin, modifiez vos DAOs en conséquence), et stockez-les dans un autre fichier.
 - Faites en sorte que `Serveur` lise ce fichier, crée une liste de salles à partir du DAO le concernant, et l'injecte dans le constructeur de `Cinema`.
 - Vous pouvez désormais supprimer les méthodes d'ajout et de suppression de salles.
@@ -119,7 +119,7 @@ Plutôt que d'avoir un objet `Cinema` qui répond à différentes requêtes, vou
 - Modifiez le serveur pour que votre conteneur crée les composants correspondants aux instances de vos nouvelles classes
 - Créez une méthode d' "aiguillage" des requêtes vers les instances de chacune de ces classes qui sera appelée par la méthode de service du serveur : la commande correspond au nom de la classe à appeler, comme un nom de ressource sur un serveur Web. Créez ensuite (et factorisez dans la classe abstraite), le mécanisme qui appellera la bonne méthode de la classe, en fonction de la valeur du paramètre "méthode" défini plus haut.
 
-**Normalement, votre application ne doit pas fonctionner** et vous renvoie des maps et une liste vides à chaque opération. Vous constatez également que les instances des DAO sont différentes dans les messages d'initialisation des méthodes de gestion du cycle de vie.
+**Normalement, votre application ne doit pas fonctionner :** le container vous renvoie une liste vide à chaque opération et les instances des DAO sont différentes dans les messages d'initialisation des méthodes de gestion du cycle de vie.
 
 Cela vient du fait que bien que les classes List, ProgrammationDao et ReservationDao soient des dépendances communes de tous les `CinemaRessourceXxx` du conteneur, par défaut, celui-ci résout les dépendances en instanciant un objet différent pour chaque instance de `CinemaRessourceXxx`. Toutefois, vous pouvez indiquer que vous souhaitez procéder autrement, c'est-à-dire qu'il "cache" les instances. Vous pouvez résoudre ce problème à deux niveaux :
 
