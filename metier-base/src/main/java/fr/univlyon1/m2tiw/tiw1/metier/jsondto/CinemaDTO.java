@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Date;
 
 public class CinemaDTO {
-    SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss zzz");
+    public static final SimpleDateFormat DATE_PARSER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss zzz");
 
     public String nom;
     public Collection<SalleDTO> salles;
@@ -24,7 +24,7 @@ public class CinemaDTO {
             cinema.addSalle(s.asSalle());
         }
         for (SeanceDTO s : seances) {
-            Date d = dateParser.parse(s.date);
+            Date d = DATE_PARSER.parse(s.date);
             cinema.createSeance(cinema.getSalle(s.salle), cinema.getFilm(s.film), d, s.prix);
         }
         return cinema;

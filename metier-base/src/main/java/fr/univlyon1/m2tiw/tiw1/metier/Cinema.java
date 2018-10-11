@@ -29,7 +29,7 @@ public class Cinema {
     }
 
     public void addFilm(Film film) {
-        this.films.put(film.getTitre(), film);
+        this.films.put(film.getTitre() + " - " + film.getVersion(), film);
     }
 
     public void removeFilm(Film film) {

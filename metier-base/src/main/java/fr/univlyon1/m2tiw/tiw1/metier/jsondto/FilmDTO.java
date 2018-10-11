@@ -10,4 +10,12 @@ public class FilmDTO {
     public Film asFilm() {
         return new Film(titre, version, fiche);
     }
+
+    public static FilmDTO fromFilm(Film f) {
+        FilmDTO dto = new FilmDTO();
+        dto.titre = f.getTitre();
+        dto.version = f.getVersion();
+        dto.fiche = f.getFiche();
+        return dto;
+    }
 }
