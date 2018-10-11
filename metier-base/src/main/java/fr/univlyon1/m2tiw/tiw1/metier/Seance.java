@@ -49,15 +49,17 @@ public class Seance {
         this.reservationDAO = reservationDAO;
     }
 
-    public void createReservation(String prenom, String nom, String email) throws SeanceCompleteException {
-        if (this.salle.getCapacite() >= this.reservations.size())
+    public Reservation createReservation(String prenom, String nom, String email) throws SeanceCompleteException {
+        if (this.salle.getCapacite() <= this.reservations.size())
             throw new SeanceCompleteException();
         Reservation resa = new Reservation(prenom, nom, email);
         this.reservations.add(resa);
+        resa.setSeanceId(getId());
         resa.setPaye(true);
         if (reservationDAO != null) {
             reservationDAO.save(resa);
         }
+        return resa;
     }
 
     public void cancelReservation(Reservation reservation) {
