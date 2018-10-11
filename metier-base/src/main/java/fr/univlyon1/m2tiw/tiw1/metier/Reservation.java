@@ -1,11 +1,12 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="getBySeance", query="SELECT r FROM Reservation r WHERE r.seanceId = ?")
+})
 public class Reservation {
     @Id
     @GeneratedValue
@@ -14,6 +15,8 @@ public class Reservation {
     private String nom;
     private String email;
     private boolean paye;
+    @Column(nullable = false)
+    private String seanceId;
 
     public Reservation() {
     }
@@ -65,6 +68,14 @@ public class Reservation {
         this.paye = paye;
     }
 
+    public String getSeanceId() {
+        return seanceId;
+    }
+
+    public void setSeanceId(String seanceId) {
+        this.seanceId = seanceId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,7 +86,6 @@ public class Reservation {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
     }
 }

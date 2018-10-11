@@ -1,14 +1,13 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.json.JSONCinemaDAO;
+import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONCinemaDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.CinemaWrapper;
 import org.junit.Test;
 
 import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.*;
 
 public class CinemaTest {
 

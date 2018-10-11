@@ -1,8 +1,7 @@
-package fr.univlyon1.m2tiw.tiw1.metier.dao.json;
+package fr.univlyon1.m2tiw.tiw1.metier.dao;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univlyon1.m2tiw.tiw1.metier.Cinema;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.CinemaDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.CinemaDTO;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.CinemaWrapper;
 
