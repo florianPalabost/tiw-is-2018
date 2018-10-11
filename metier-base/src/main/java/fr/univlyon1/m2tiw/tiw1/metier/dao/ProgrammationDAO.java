@@ -14,4 +14,5 @@ public interface ProgrammationDAO {
     Collection<Seance> getSeanceByFilm(Film film);
     void save(Seance seance) throws IOException;
     void save(Film film) throws IOException;
+    void delete(Seance seance) throws IOException;
 }

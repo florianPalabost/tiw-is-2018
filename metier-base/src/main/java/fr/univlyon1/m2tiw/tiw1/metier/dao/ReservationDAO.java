@@ -7,6 +7,8 @@ import java.util.Collection;
 public interface ReservationDAO {
     void save(Reservation reservation);
 
+    void delete(Reservation reservation);
+
     Collection<Reservation> getBySeance(String seanceId);
 
     Reservation getById(long id);

@@ -1,11 +1,14 @@
 package fr.univlyon1.m2tiw.tiw1.metier.jsondto;
 
 import fr.univlyon1.m2tiw.tiw1.metier.Cinema;
+import fr.univlyon1.m2tiw.tiw1.metier.Salle;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 public class CinemaDTO {
     public static final SimpleDateFormat DATE_PARSER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss zzz");
@@ -15,13 +18,11 @@ public class CinemaDTO {
     public Collection<FilmDTO> films;
     public Collection<SeanceDTO> seances;
 
-    public Cinema asCinema() throws ParseException {
-        Cinema cinema = new Cinema(nom);
+    public Cinema asCinema() throws ParseException, IOException {
+        Collection<Salle> sallesCinema = salles.stream().map(SalleDTO::asSalle).collect(Collectors.toList());
+        Cinema cinema = new Cinema(nom, sallesCinema);
         for (FilmDTO f : films) {
             cinema.addFilm(f.asFilm());
-        }
-        for (SalleDTO s : salles) {
-            cinema.addSalle(s.asSalle());
         }
         for (SeanceDTO s : seances) {
             Date d = DATE_PARSER.parse(s.date);

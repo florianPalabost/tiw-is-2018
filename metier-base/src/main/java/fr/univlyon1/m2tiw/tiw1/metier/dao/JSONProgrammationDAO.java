@@ -64,6 +64,10 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
             if (SEANCES_JSON.exists()) {
                 Collection<SeanceDTO> seanceDTOs = mapper.readValue(SEANCES_JSON, list_of_seances_type);
                 for (SeanceDTO dto : seanceDTOs) {
+                    System.err.println(dto.salle);
+                    System.err.println(salles.get(dto.salle));
+                    System.err.println(salles.size());
+                    System.err.println(salles.values().iterator().next().getNom());
                     Seance s = new Seance(getFilmById(dto.film), salles.get(dto.salle), DATE_PARSER.parse(dto.date), dto.prix);
                     seances.put(s.getId(), s);
                 }
@@ -131,6 +135,12 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
         } else {
             films.set(idx, film);
         }
+        save();
+    }
+
+    @Override
+    public void delete(Seance seance) throws IOException {
+        seances.remove(seance);
         save();
     }
 }

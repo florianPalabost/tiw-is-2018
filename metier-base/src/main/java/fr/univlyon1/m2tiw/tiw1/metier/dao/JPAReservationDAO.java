@@ -36,6 +36,16 @@ public class JPAReservationDAO implements ReservationDAO {
     }
 
     @Override
+    public void delete(Reservation reservation) {
+        Reservation persisted = getById(reservation.getId());
+        if (persisted != null) {
+            em.getTransaction().begin(); // Ne devrait pas être ici, mais on verra ça avec les transactions déclaratives de Spring
+            em.remove(persisted);
+            em.getTransaction().commit();
+        }
+    }
+
+    @Override
     public Collection<Reservation> getBySeance(String seanceId) {
         return em.createNamedQuery("getBySeance", Reservation.class).setParameter(1, seanceId).getResultList();
     }
