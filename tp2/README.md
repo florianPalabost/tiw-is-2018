@@ -121,7 +121,7 @@ Plutôt que d'avoir un objet `Cinema` qui répond à différentes requêtes, vou
 
 **Normalement, votre application ne doit pas fonctionner :** le container vous renvoie une liste vide à chaque opération et les instances des DAO sont différentes dans les messages d'initialisation des méthodes de gestion du cycle de vie.
 
-Cela vient du fait que bien que les classes List, ProgrammationDao et ReservationDao soient des dépendances communes de tous les `CinemaRessourceXxx` du conteneur, par défaut, celui-ci résout les dépendances en instanciant un objet différent pour chaque instance de `CinemaRessourceXxx`. Toutefois, vous pouvez indiquer que vous souhaitez procéder autrement, c'est-à-dire qu'il "cache" les instances. Vous pouvez résoudre ce problème à deux niveaux :
+Cela vient du fait que bien que les List, ProgrammationDao et ReservationDao soient des dépendances communes de tous les `CinemaRessourceXxx` du conteneur, par défaut, celui-ci résout les dépendances en instanciant un objet différent pour chaque instance de `CinemaRessourceXxx`. Toutefois, vous pouvez indiquer que vous souhaitez procéder autrement, c'est-à-dire qu'il "cache" les instances. Vous pouvez résoudre ce problème à deux niveaux :
 
 1.	Au niveau du composant : en spécifiant la caractéristique "Cache" des composants que vous voulez cacher. Le plus simple est d'utiliser la méthode `as()` du conteneur, comme spécifié [ici](http://picocontainer.com/properties.html).
 2.	Au niveau du conteneur : en spécifiant un [comportement](http://picocontainer.com/behaviors.html) global de type "Caching" pour tous les composants du conteneur dans le constructeur de celui-ci.
@@ -167,19 +167,19 @@ Remarque : dans ce cas, supprimez l'appel à la méthode `toString()` de l'insta
 
 Actuellement, votre contexte n'est capable que de gérer un DAO. Modifiez-en l'API pour qu'il puisse stocker des références à tous les types d'objets et que ces objets soient accessibles par un nom (String).
 
-Testez ce contexte générique en lui injectant aussi la map des salles et en forçant le passage par le contexte pour permettre aux cinéma-ressources de communiquer avec cette map.
+Testez ce contexte générique en lui injectant aussi la liste des salles et en forçant le passage par le contexte pour permettre aux cinéma-ressources d'obtenir cette liste.
 
 > Votre serveur a désormais une responsabilité supplémentaire : en plus de fournir un conteneur de composants métier, il gère un contexte pour l'isolation des composants du conteneur. Le contexte est accessible à l'intérieur du conteneur pour permettre et contrôler l'accès par les composants aux éléments externes tels que le DAO. Vous avez mis en place les principaux éléments d'un framework applicatif, que vous allez perfectionner dans la suite.
 
 ## 4. Création d'un Annuaire
 
-Encapsulez le contexte dans une structure de type annuaire (cf. cours). Un annuaire sera une hiérarchie de contextes, spécifiques à différents éléments de votre conteneur et de vos applications. Ces éléments correspondront aux différents types d'objets à isoler (les cinéma-ressources, les maps de salles et de films, la liste de séances et les DAOs). Faites en sorte que votre annuaire soit capable de décomposer les noms de la manière suivante : nom de contexte + "/" + nom d'objet stocké.
+Encapsulez le contexte dans une structure de type annuaire (cf. cours). Un annuaire sera une hiérarchie de contextes, spécifiques à différents éléments de votre conteneur et de vos applications. Ces éléments correspondront aux différents types d'objets à isoler (les cinéma-ressources, la liste de salles et les DAOs). Faites en sorte que votre annuaire soit capable de décomposer les noms de la manière suivante : nom de contexte + "/" + nom d'objet stocké.
 
 Vous allez maintenant commencer à remplir votre annuaire. Bindez :
 
 - dans le contexte racine de l'annuaire : le serveur
 - dans un contexte spécifique à l'application : les objets "de premier niveau" (ici, les différents cinema-ressources), c'est-à-dire qui répondent aux requêtes du client,
-- dans un sous-contexte du précédent : les objets métier spécifiques à l'application (ici, les maps et la liste)
+- dans un sous-contexte du précédent : les objets métier spécifiques à l'application (ici, la liste)
 - dans un sous-contexte du contexte de l'application, spécifiquement dédié à la persistence : les instances de ProgrammationDAO et de ReservationsDao
 
 Remarque : les bindings dans l'annuaire s'effectuent avec des références à des instances déjà créées. Ces instances doivent donc être déjà créées (éventuellement par le conteneur), l'annuaire étant uniquement un moyen de permettre les accès à ces objets.
@@ -265,5 +265,88 @@ Pour mettre en oeuvre cette spécialisation, vous pouvez soit faire hériter cha
 De la même manière, pour prendre en compte cette spécialisation au niveau du serveur, vous pouvez soit modifier ce serveur (et son mode de configuration) pour que le fichier de configuration mentionne la nature des composants, et que le serveur la "comprenne", soit rajouter un composant intermédiaire qui intercepte toutes les requêtes et s'appuie sur son propre mode de configuration pour instancier et rediriger les requêtes sur ces composants.
 
 > À ce stade, vous avez réalisé un serveur d'applications, composé d'un serveur et d'un framework capable de mettre en place et de faire tourner différents types d'applications. Si vous avez réalisé la partie 5.2 en modifiant le serveur, vous avez créé un serveur qui fonctionne d'une manière proche des serveurs Java EE. Si vous l'avez réalisée par ajout d'une couche supplémentaire entre le serveur de la question 4 et l'application, votre serveur se rapproche plus d'un conteneur Spring inclus dans un conteneur de servlets.
+
+## 6. Hiérarchie de conteneurs
+
+Dans cette partie, vous allez changer l'implémentation de la liste de séances gérée par les cinéma-ressources en remplaçant le composant ArrayList du conteneur par une classe implémentant l'interface List mais dérivant la classe `DefaultPicoContainer`. Cette liste sera à la fois un composant et un conteneur fils du conteneur existant. Vos objets `Seance` deviendront des composants de ce conteneur fils : il va y injecter les dépendances (vers `ReservationDao`) et gérer leur cycle de vie. Vous devrez donc éventuellement modifier la classe `Seance` pour qu'elle soit compatible avec cette nouvelle implémentation.
+
+### 6.1. Création d'une hiérarchie de conteneurs
+
+Dans les classes `CinemaRessourceXxx`, remplacez l'ArrayList qui contient les objets Event par un nouveau conteneur, fils du premier (voir partie "Container hierarchies" de l'[introduction](http://picocontainer.com/introduction.html) sur le site picocontainer). Tant qu'à faire, le conteneur fils utilisera un autre type d'injection de dépendances que le premier : l'[injection par annotation de champs](http://picocontainer.com/annotated-field-injection.html). Vous pouvez utiliser deux méthodes pour créer le conteneur fils :
+
+- [spécifier les factories dans le constructeur](http://picocontainer.com/annotated-field-injection.html)
+  ```
+  MutablePicoContainer fils = new DefaultPicoContainer(new Caching().wrap(new AnnotatedFieldInjection()), pere);
+  ```
+- [utiliser un builder](http://picocontainer.com/builder.html)
+  ```
+  PicoBuilder builder = new PicoBuilder(pere);
+  MutablePicoContainer fils = (DefaultPicoContainer) builder.withAnnotatedFieldInjection().build();
+  ```
+
+Dans tous les cas, il faut construire le fils en lui passant une référence sur le père (fait dans les exemples ci-dessus) ET ajouter le fils comme composant du père : voir [ici](http://picocontainer.com/scopes.html) (à faire).
+
+Remarque : si l'on veut que le conteneur père puisse résoudre les dépendances des `CinemaRessourceXxx` vers le conteneur fils, il faut ajouter ce dernier en tant que component et non en tant que child container dans le père. Contrairement à ce qui est marqué dans la doc, l'appel à la méthode `start()` du fils sera cascadée correctement.
+
+En tant que composant, faites en sorte que `Seance` implémente l'interface Startable (vous vous servirez de la méthode `start()` plus tard). Pour cela, il faut que le conteneur fils possède également le comportement "Caching". Modifiez la création du fils en conséquence.
+
+Dans `Seance`, supprimez le constructeur prenant les différents champs en paramètre et précédez la déclaration des champs de la classe `Seance` d'une annotation @Inject (de org.picocontainer.annotations).
+
+### 6.2. Instanciation des composants
+
+Dans cette question vous allez faire en sorte que votre conteneur fils reproduise le même comportement que celui de l'ArrayList utilisée dans les questions précédentes. Par conséquent, le serveur instanciera et gèrera dans ce deuxième conteneur autant de composants `Seance` qu'il y en a dans les cinema-ressources. En plus des modifications de la classe `Seance`, il faut modifier les méthodes de service des différents `CinemaRessourceXxx` en fonction des règles suivantes :
+
+1. Comme tous les composants du conteneur fils sont du même type, il faut utiliser le nommage des composants et gérer un String qui indique leur numéro d'ordre pour les désigner. Pour simplifier cela, il est conseillé de dériver le type de conteneur que vous allez utiliser comme fils. Cela permettra de lui rajouter les comportements désirés (par exemple la gestion de l'indice des séances) tout en conservant celui du conteneur.
+2. L'injection de dépendances étant faite au moment de l'appel des composants par le conteneur (`getComponent()`), il faut que le(s) composant(s) qui est/sont injecté(s) dans chaque instance de `Seance` représente(nt) les données à injecter. En d'autres termes, créez un composant `SeanceDto` dans le conteneur fils et faites en sorte qu'il possède des données à jour au moment où vous appellez la méthode `getComponent()` du conteneur fils.
+3. Il faut arrêter le conteneur fils avant de supprimer un événement parmi ses composants. Veillez à bien utiliser les méthodes `stop()` puis `start()` du fils autour des traitements effectués par les cinéma-ressouces (si vous ne le "restartez" pas, il ne pourra pas faire l'injection des dépendances dans les séances).
+
+Ensuite, il faut faire attention à des problèmes spécifiques pour chaque `CinemaRessourceXxx` :
+
+- Ajout d'une séance : rien de particulier, sinon respecter les règles ci-dessus.
+- Suppression d'une séance :
+
+  Il faut modifier la méthode remove pour qu'elle supprime la référence aux séances effacées du conteneur fils (et qu'elle décale les suivantes si elles sont gérées avec un nom qui dépend de leur numéro d'ordre).
+
+  ```
+  private int removeSeance(SeanceDto dto) {
+    //Remarque : on construit une Seance sans contexte, uniquement pour utiliser sa méthode equals()
+    Seance p = new Seance(dto);
+    int result = 0;
+
+    List<java.lang.Object> seances = conteneurFils.getComponents();
+    Seance temp;
+    int i=0;
+
+    conteneurFils.stop();
+    try {
+      for(Iterator<java.lang.Object> iter = eventslist.iterator(); iter.hasNext() ;) {
+        temp = (Event) iter.next();
+        if (p.equals(temp)) {
+          temp.delete();
+          conteneurFils.removeComponent("Event" + i);
+          // On coupe le lien entre le conteneur et le composant
+          // Plus aucune référence n'existe sur cet objet
+          // On attend que le garbage collecting passe...
+          conteneurFils.removeComponentByInstance(temp);
+          result++;
+        } else {
+          // Il faut changer les noms de référence des composants suivant ceux qu'on a enlevés,
+          // sans quoi on aura un problème pour en rajouter d'autres...
+          if (result>0) {
+    		conteneurFils.addComponent("Event" + (i-result), conteneurFils.getComponent("Event"+i));
+            conteneurFils.removeComponent("Event"+i);
+    	  }
+    	}
+        i++;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      result = -1;
+    }
+    conteneurFils.start();
+    return result;
+  }
+  ```
+- Récupération des séances : pas grand chose de nouveau à faire, si ce n'est modifier l'itérateur de la boucle pour qu'il itère sur les composants du conteneur.
 
 To be continued...
