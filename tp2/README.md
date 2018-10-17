@@ -81,14 +81,14 @@ Alternativement :
   - utilisez le même string pour déduire le nom du ficher et nommer le cinéma
   - [Désambiguïsez](http://picocontainer.com/disambiguation.html) les noms dans les paramètres des constructeurs pour que PicoContainer soit capable de résoudre le référentiel de dépendances. 
 
-  - Méthodes de la classe `Cinema` : 
-    - méthodes de gestion du cycle de vie : faites en sorte que la classe `Cinema` implémente l'interface Startable et ajoutez-y les méthodes requises ; dans la méthode start(), rajoutez un affichage indiquant que le serveur a démarré, le type de classe d'implémentation du `Cinema` (aide : utilisez l'API Reflection) et l'instance du DAO qu'il utilise pour accéder aux données (aide : méthode toString() de l'instance). L'objectif est d'obtenir un affichage du style :
+- Méthodes de la classe `Cinema` : 
+  - méthodes de gestion du cycle de vie : faites en sorte que la classe `Cinema` implémente l'interface Startable et ajoutez-y les méthodes requises ; dans la méthode start(), rajoutez un affichage indiquant que le serveur a démarré, le type de classe d'implémentation du `Cinema` (aide : utilisez l'API Reflection) et l'instance du DAO qu'il utilise pour accéder aux données (aide : méthode toString() de l'instance). L'objectif est d'obtenir un affichage du style :
 
   ```Composant Cinema démarré. Objet d'accès aux données : fr.univlyon1.m2tiw.tiw1.metier.cinema.dao.ProgrammationDAO@95c083```
   
-  - Méthodes de la classe `Serveur` : 
-    - constructeur : il instanciera un `DefaultPicoContainer`, puis y rajoutera les composants avec des dépendances entre eux. Il récupèrera ensuite le composant `Cinema` instancié par le conteneur, le stockera dans une variable globale et appellera sa méthode start().
-    - méthode (provisoire) de service : getCinema(), renvoyant au client une référence vers l'instance de `Cinema`.
+- Méthodes de la classe `Serveur` : 
+  - constructeur : il instanciera un `DefaultPicoContainer`, puis y rajoutera les composants avec des dépendances entre eux. Il récupèrera ensuite le composant `Cinema` instancié par le conteneur, le stockera dans une variable globale et appellera sa méthode start().
+  - méthode (provisoire) de service : getCinema(), renvoyant au client une référence vers l'instance de `Cinema`.
 
 > À ce stade, vous avez inversé le contrôle de vos objets métier en les plaçant dans un serveur (i.e. un framework) qui se charge d'instancier, de gérer et d'utiliser ces objets.
 
