@@ -17,7 +17,7 @@ import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static fr.univlyon1.m2tiw.tiw1.metier.jsondto.CinemaDTO.DATE_PARSER;
+import static fr.univlyon1.m2tiw.tiw1.metier.Utils.DATE_PARSER;
 
 public class JSONProgrammationDAO implements ProgrammationDAO {
 
@@ -137,6 +137,39 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
     @Override
     public void delete(Seance seance) throws IOException {
         seances.remove(seance);
+        save();
+    }
+
+    @Override
+    public void delete(Film film) throws IOException {
+        films.remove(film);
+        save();
+    }
+
+    @Override
+    public int getNbSeance() {
+        return seances.size();
+    }
+
+    @Override
+    public Collection<Film> getFilms() {
+        return films;
+    }
+
+    @Override
+    public void clearFilms() throws IOException {
+        films.clear();
+        save();
+    }
+
+    @Override
+    public Collection<Seance> getSeances() {
+        return seances.values();
+    }
+
+    @Override
+    public void clearSeance() throws IOException {
+        seances.clear();
         save();
     }
 }

@@ -12,4 +12,10 @@ public class ServeurTest {
         Serveur s = new Serveur();
     }
 
+    @Test
+    public void testReservation() throws IOException, ParseException {
+        Serveur s = new Serveur();
+        // TODO: finir
+    }
+
 }

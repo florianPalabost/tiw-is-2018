@@ -1,6 +1,7 @@
 package fr.univlyon1.m2tiw.tiw1.metier.jsondto;
 
 import fr.univlyon1.m2tiw.tiw1.metier.Seance;
+import fr.univlyon1.m2tiw.tiw1.metier.Utils;
 
 public class SeanceDTO {
     public String film;
@@ -12,7 +13,7 @@ public class SeanceDTO {
         SeanceDTO dto = new SeanceDTO();
         dto.film = seance.getFilm().getTitre() + " - " + seance.getFilm().getVersion();
         dto.salle = seance.getSalle().getNom();
-        dto.date = CinemaDTO.DATE_PARSER.format(seance.getDate());
+        dto.date = Utils.DATE_PARSER.format(seance.getDate());
         dto.prix = seance.getPrix();
         return dto;
     }

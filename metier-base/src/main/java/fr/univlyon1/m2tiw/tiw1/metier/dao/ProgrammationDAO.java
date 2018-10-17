@@ -15,4 +15,10 @@ public interface ProgrammationDAO {
     void save(Seance seance) throws IOException;
     void save(Film film) throws IOException;
     void delete(Seance seance) throws IOException;
+    void delete(Film film) throws IOException;
+    int getNbSeance();
+    Collection<Film> getFilms();
+    void clearFilms() throws IOException;
+    Collection<Seance> getSeances();
+    void clearSeance() throws IOException;
 }

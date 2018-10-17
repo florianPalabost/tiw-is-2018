@@ -5,28 +5,25 @@ import fr.univlyon1.m2tiw.tiw1.metier.dao.JPAReservationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONProgrammationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ProgrammationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ReservationDAO;
+import fr.univlyon1.m2tiw.tiw1.utils.SeanceCompleteException;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Cinema {
     private final String nom;
     private Map<String, Salle> salles;
-    private Map<String, Film> films;
-    private List<Seance> seances;
     private ReservationDAO reservationDAO;
     private ProgrammationDAO programmationDAO;
 
     public Cinema(String nom, Collection<Salle> salles) throws IOException, ParseException {
         this.nom = nom;
         this.salles = new HashMap<String, Salle>();
-        this.films = new HashMap<String, Film>();
-        this.seances = new ArrayList<Seance>();
         reservationDAO = new JPAReservationDAO();
         setSalles(salles);
         programmationDAO = new JSONProgrammationDAO(this.getSalles());
-        // Attention, les salles doivent être cohérentes avec l'information contenue dans le fichier JSON des seances
     }
 
     public String getNom() {
@@ -42,28 +39,26 @@ public class Cinema {
     }
 
     public void addFilm(Film film) throws IOException {
-        this.films.put(film.getTitre() + " - " + film.getVersion(), film);
         programmationDAO.save(film);
     }
 
-    public void removeFilm(Film film) {
-        this.films.remove(film);
+    public void removeFilm(Film film) throws IOException {
+        programmationDAO.delete(film);
     }
 
-    public void createSeance(Salle salle, Film film, Date date, float prix) throws IOException {
+    public Seance createSeance(Salle salle, Film film, Date date, float prix) throws IOException {
         Seance seance = new Seance(film, salle, date, prix);
-        this.seances.add(seance);
         programmationDAO.save(seance);
         seance.setReservationDAO(reservationDAO);
+        return seance;
     }
 
     public void removeSeance(Seance seance) throws IOException {
-        seances.remove(seance);
         programmationDAO.delete(seance);
     }
 
     public int getNbSeances() {
-        return seances.size();
+        return programmationDAO.getNbSeance();
     }
 
     public Collection<Salle> getSalles() {
@@ -78,22 +73,22 @@ public class Cinema {
     }
 
     public Collection<Film> getFilms() {
-        return films.values();
+        return programmationDAO.getFilms();
     }
 
     public void setFilms(Collection<Film> nFilms) throws IOException {
-        this.films.clear();
+        programmationDAO.clearFilms();
         for (Film f : nFilms) {
             addFilm(f);
         }
     }
 
     public List<Seance> getSeances() {
-        return seances;
+        return programmationDAO.getSeances().stream().collect(Collectors.toList());
     }
 
-    public void setSeances(List<Seance> seances) {
-        this.seances = seances;
+    public void setSeances(List<Seance> seances) throws IOException {
+        programmationDAO.clearSeance();
         for (Seance s : seances) {
             s.setReservationDAO(reservationDAO);
         }
@@ -104,6 +99,36 @@ public class Cinema {
     }
 
     public Film getFilm(String film) {
-        return films.get(film);
+        String titre = Utils.titreFromFilm(film);
+        String version = Utils.titreFromFilm(film);
+        return programmationDAO.getFilmByTitreVersion(titre, version);
+    }
+
+    public String createSeance(String film, String salle, String date, String prix) throws ParseException, IOException {
+        Film f = getFilm(film);
+        Salle s = getSalle(salle);
+        Date d = Utils.DATE_PARSER.parse(date);
+        float p = Float.parseFloat(prix);
+        Seance seance = createSeance(s, f, d, p);
+        return seance.getId();
+    }
+
+    public void removeFilm(String film) throws IOException {
+        Film f = getFilm(film);
+        removeFilm(f);
+    }
+
+    public void removeSeance(String id) throws ParseException, IOException {
+        removeSeance(programmationDAO.getSeanceById(id));
+    }
+
+    public String reserver(String seance, String prenom, String nom, String email) throws SeanceCompleteException {
+        Seance s = programmationDAO.getSeanceById(seance);
+        Reservation r = s.createReservation(prenom, nom, email);
+        return r.getId().toString();
+    }
+
+    public void annulerReservation(String reservationId) {
+        reservationDAO.delete(reservationDAO.getById(Long.parseLong(reservationId)));
     }
 }
