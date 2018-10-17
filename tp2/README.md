@@ -348,5 +348,3 @@ Ensuite, il faut faire attention à des problèmes spécifiques pour chaque `Cin
   }
   ```
 - Récupération des séances : pas grand chose de nouveau à faire, si ce n'est modifier l'itérateur de la boucle pour qu'il itère sur les composants du conteneur.
-
-To be continued...
