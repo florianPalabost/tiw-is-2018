@@ -6,4 +6,5 @@ import java.io.IOException;
 
 public interface CinemaDAO {
     public Cinema load() throws IOException;
+    public String getNomCinema() throws IOException;
 }
