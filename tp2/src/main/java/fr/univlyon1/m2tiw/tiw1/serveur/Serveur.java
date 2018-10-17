@@ -20,10 +20,7 @@ public class Serveur {
         String nom = cinemaDAO.getNomCinema();
         SalleDAO salleDAO = new JSONSalleDAO();
         Collection<Salle> salles = salleDAO.loadSalles();
-        Cinema cinema = new Cinema(nom, salles);
-
-        JSONCinemaDAO dao = new JSONCinemaDAO();
-        cinema = dao.load();
+        cinema = new Cinema(nom, salles);
     }
 
 }
