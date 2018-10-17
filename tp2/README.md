@@ -157,7 +157,7 @@ Remarque : tant qu'à faire, servez-vous de la documentation de PicoContainer po
 
 ### 3.3. Initialisation et utilisation du contexte
 
-Enfin, dans le serveur, mettez en place les méthodes correspondantes du contexte de façon à ce que les classes d'implémentation de Cinema puissent définir et récupérer une référence sur le DAO (`setDAO()`, `getDAO()` ?) .
+Enfin, mettez en place les méthodes correspondantes du contexte de façon à ce que les classes d'implémentation de Cinema puissent définir et récupérer une référence sur le DAO (`setDAO()`, `getDAO()` ?) .
 
 Testez votre application. Vous pouvez ensuite par exemple vous servir du contexte pour filtrer les appels au DAO et ne renvoyer la bonne référence que si la méthode est appelée par une instance de type `CinemaRessourceXxx` (voir [ici](http://www.javalobby.org/java/forums/t67019.html) ou [là](http://stackoverflow.com/questions/421280/in-java-how-do-i-find-the-caller-of-a-method-using-stacktrace-or-reflection) pour des exemples de code sur comment trouver la classe appelant une méthode).
 
