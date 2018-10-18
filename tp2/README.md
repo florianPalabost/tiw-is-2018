@@ -220,24 +220,24 @@ Dans cette partie, vous allez rendre votre serveur générique et permettre de l
     "service-components": [
       {"class-name": "monAutrePackage.AnnuaireImpl"}
       {"class-name": "java.util.ArrayList"}
-	],
+    ],
     "persistence-components": [
       {
-	    "type": "dao",
-	    "class-name": "monTroisiemePackage.ProgrammationDAO",
-  	    "param": {
-		  "name": "file",
-		  "value": "sample-data/mon-cinema.json"
-		}
-	  }, {
-	    "type": "dao",
-	    "class-name": "monTroisiemePackage.ReservationsDAO",
-  	    "param": {
-		  "name": "base",
-		  "value": "H2"
-		}
-	  }
-	]
+        "type": "dao",
+        "class-name": "monTroisiemePackage.ProgrammationDAO",
+        "param": {
+          "name": "file",
+          "value": "sample-data/mon-cinema.json"
+        }
+      }, {
+        "type": "dao",
+        "class-name": "monTroisiemePackage.ReservationsDAO",
+        "param": {
+          "name": "base",
+          "value": "H2"
+        }
+      }
+    ]
   }
 }
 ```
