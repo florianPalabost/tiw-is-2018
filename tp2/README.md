@@ -105,7 +105,6 @@ Bien entendu, vous ne pouvez pas laisser le client accéder directement à l'ins
   `public Object processRequest(String commande, Map<String, Object> parametres);`
 
   où les éléments de la Map représentent les paires nom / valeur des paramètres des requêtes
-- Dans la mesure du possible, veillez à ne transmettre (en paramètres ou valeurs de retour) que des DTO 
 - Dans le cinéma, passez les méthodes add, remove, get... en privé, et créez une méthode publique `process()`, qui appellera chacune de ces trois méthodes en fonction de la commande
 - Modifiez vos tests pour qu'ils n'appellent plus que la méthode `processRequest()` du serveur
 - Renommez la classe `Serveur` en `ServeurImpl`, extrayez l'interface de service du serveur (que vous appellerez `Serveur`) et faites en sorte que les clients (les tests) ne connaissent plus que cette interface.
