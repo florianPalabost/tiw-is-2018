@@ -1,14 +1,18 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
 
-import fr.univlyon1.m2tiw.tiw1.metier.dao.*;
+import fr.univlyon1.m2tiw.tiw1.metier.dao.ProgrammationDAO;
+import fr.univlyon1.m2tiw.tiw1.metier.dao.ReservationDAO;
+import fr.univlyon1.m2tiw.tiw1.metier.dao.SalleDAO;
 import fr.univlyon1.m2tiw.tiw1.utils.SeanceCompleteException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Cinema {
@@ -20,9 +24,9 @@ public class Cinema {
     private ProgrammationDAO programmationDAO;
     private SalleDAO salleDAO;
 
-    public Cinema(String nom, SalleDAO salleDAO, ProgrammationDAO programmationDAO) throws IOException, ParseException {
+    public Cinema(String nom, SalleDAO salleDAO, ProgrammationDAO programmationDAO, ReservationDAO reservationDAO) throws IOException, ParseException {
         this.nom = nom;
-        this.reservationDAO = new JPAReservationDAO();
+        this.reservationDAO = reservationDAO;
         this.salleDAO = salleDAO;
         this.programmationDAO = programmationDAO;
     }

@@ -19,7 +19,8 @@ public class Serveur {
         String nom = cinemaDAO.getNomCinema();
         SalleDAO salleDAO = new JSONSalleDAO();
         ProgrammationDAO programmationDAO = new JSONProgrammationDAO(salleDAO);
-        cinema = new Cinema(nom, salleDAO, programmationDAO);
+        ReservationDAO reservationDAO = new JPAReservationDAO();
+        cinema = new Cinema(nom, salleDAO, programmationDAO, reservationDAO);
     }
 
     public String addFilm(String titre, String version, String fiche) throws IOException {

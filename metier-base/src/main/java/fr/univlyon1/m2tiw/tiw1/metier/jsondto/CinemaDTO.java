@@ -2,6 +2,7 @@ package fr.univlyon1.m2tiw.tiw1.metier.jsondto;
 
 import fr.univlyon1.m2tiw.tiw1.metier.Cinema;
 import fr.univlyon1.m2tiw.tiw1.metier.Utils;
+import fr.univlyon1.m2tiw.tiw1.metier.dao.JPAReservationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONProgrammationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONSalleDAO;
 
@@ -20,7 +21,8 @@ public class CinemaDTO {
     public Cinema asCinema() throws ParseException, IOException {
         JSONSalleDAO salleDAO = new JSONSalleDAO();
         JSONProgrammationDAO programmationDAO = new JSONProgrammationDAO(salleDAO);
-        Cinema cinema = new Cinema(nom, salleDAO, programmationDAO);
+        JPAReservationDAO reservationDAO = new JPAReservationDAO();
+        Cinema cinema = new Cinema(nom, salleDAO, programmationDAO, reservationDAO);
         for (FilmDTO f : films) {
             cinema.addFilm(f.asFilm());
         }
