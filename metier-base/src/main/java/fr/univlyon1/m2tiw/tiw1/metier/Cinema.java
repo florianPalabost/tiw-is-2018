@@ -6,6 +6,8 @@ import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONProgrammationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ProgrammationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ReservationDAO;
 import fr.univlyon1.m2tiw.tiw1.utils.SeanceCompleteException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -13,6 +15,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Cinema {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Cinema.class);
+
     private final String nom;
     private Map<String, Salle> salles;
     private ReservationDAO reservationDAO;
@@ -54,6 +59,7 @@ public class Cinema {
     }
 
     public void removeSeance(Seance seance) throws IOException {
+        LOG.debug("Deleting seance: {}", seance);
         programmationDAO.delete(seance);
     }
 
@@ -100,7 +106,7 @@ public class Cinema {
 
     public Film getFilm(String film) {
         String titre = Utils.titreFromFilm(film);
-        String version = Utils.titreFromFilm(film);
+        String version = Utils.versionFromFilm(film);
         return programmationDAO.getFilmByTitreVersion(titre, version);
     }
 

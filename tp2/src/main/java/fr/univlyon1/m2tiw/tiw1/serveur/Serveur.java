@@ -25,9 +25,10 @@ public class Serveur {
         cinema = new Cinema(nom, salles);
     }
 
-    public void addFilm(String titre, String version, String fiche) throws IOException {
+    public String addFilm(String titre, String version, String fiche) throws IOException {
         Film film = new Film(titre, version, fiche);
         cinema.addFilm(film);
+        return film.getTitreVersion();
     }
 
     public void removeFilm(String film) throws IOException {

@@ -10,6 +10,8 @@ import fr.univlyon1.m2tiw.tiw1.metier.Salle;
 import fr.univlyon1.m2tiw.tiw1.metier.Seance;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.FilmDTO;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.SeanceDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 import static fr.univlyon1.m2tiw.tiw1.metier.Utils.DATE_PARSER;
 
 public class JSONProgrammationDAO implements ProgrammationDAO {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JSONProgrammationDAO.class);
 
     public static final File SEANCES_JSON = new File("seances.json");
     public static final File FILMS_JSON = new File("films.json");
@@ -64,8 +68,13 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
             if (SEANCES_JSON.exists()) {
                 Collection<SeanceDTO> seanceDTOs = mapper.readValue(SEANCES_JSON, list_of_seances_type);
                 for (SeanceDTO dto : seanceDTOs) {
-                    Seance s = new Seance(getFilmById(dto.film), salles.get(dto.salle), DATE_PARSER.parse(dto.date), dto.prix);
-                    seances.put(s.getId(), s);
+                    final Film film = getFilmById(dto.film);
+                    if (film != null) {
+                        Seance s = new Seance(film, salles.get(dto.salle), DATE_PARSER.parse(dto.date), dto.prix);
+                        seances.put(s.getId(), s);
+                    } else {
+                        LOG.warn("Seance without matching film ({}). It will not be loaded.", dto.film);
+                    }
                 }
             }
         }
@@ -99,7 +108,7 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
 
     private Film getFilmById(String id) {
         for (Film f : films) {
-            if ((f.getTitre() + " - " + f.getVersion()).equals(id)) {
+            if ((f.getTitreVersion()).equals(id)) {
                 return f;
             }
         }
@@ -136,7 +145,9 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
 
     @Override
     public void delete(Seance seance) throws IOException {
-        seances.remove(seance);
+        LOG.debug("Removing {} ({} seances)", seance, seances.size());
+        seances.remove(seance.getId());
+        LOG.debug("{} seances after remove", seances.size());
         save();
     }
 
