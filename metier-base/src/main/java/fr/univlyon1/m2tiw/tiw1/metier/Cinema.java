@@ -4,6 +4,9 @@ package fr.univlyon1.m2tiw.tiw1.metier;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ProgrammationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ReservationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.SalleDAO;
+import fr.univlyon1.m2tiw.tiw1.metier.jsondto.FilmDTO;
+import fr.univlyon1.m2tiw.tiw1.metier.jsondto.ReservationDTO;
+import fr.univlyon1.m2tiw.tiw1.metier.jsondto.SeanceDTO;
 import fr.univlyon1.m2tiw.tiw1.utils.SeanceCompleteException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +52,12 @@ public class Cinema {
 
     public void addFilm(Film film) throws IOException {
         programmationDAO.save(film);
+    }
+
+    public Film addFilm(FilmDTO filmDTO) throws IOException {
+        Film film = filmDTO.asFilm();
+        addFilm(film);
+        return film;
     }
 
     public void removeFilm(Film film) throws IOException {
@@ -107,11 +116,11 @@ public class Cinema {
         return programmationDAO.getFilmByTitreVersion(titre, version);
     }
 
-    public String createSeance(String film, String salle, String date, String prix) throws ParseException, IOException {
-        Film f = getFilm(film);
-        Salle s = getSalle(salle);
-        Date d = Utils.DATE_PARSER.parse(date);
-        float p = Float.parseFloat(prix);
+    public String createSeance(SeanceDTO seanceDTO) throws ParseException, IOException {
+        Film f = getFilm(seanceDTO.film);
+        Salle s = getSalle(seanceDTO.salle);
+        Date d = Utils.DATE_PARSER.parse(seanceDTO.date);
+        float p = seanceDTO.prix;
         Seance seance = createSeance(s, f, d, p);
         return seance.getId();
     }
@@ -125,9 +134,9 @@ public class Cinema {
         removeSeance(programmationDAO.getSeanceById(id));
     }
 
-    public String reserver(String seance, String prenom, String nom, String email) throws SeanceCompleteException {
-        Seance s = programmationDAO.getSeanceById(seance);
-        Reservation r = s.createReservation(prenom, nom, email);
+    public String reserver(ReservationDTO reservationDTO) throws SeanceCompleteException {
+        Seance s = programmationDAO.getSeanceById(reservationDTO.seance);
+        Reservation r = s.createReservation(reservationDTO.prenom, reservationDTO.nom, reservationDTO.email);
         return r.getId().toString();
     }
 

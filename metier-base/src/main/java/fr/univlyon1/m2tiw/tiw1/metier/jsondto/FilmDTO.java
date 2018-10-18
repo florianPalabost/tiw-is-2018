@@ -7,6 +7,15 @@ public class FilmDTO {
     public String version;
     public String fiche;
 
+    public FilmDTO(String titre, String version, String fiche) {
+        this.titre = titre;
+        this.version = version;
+        this.fiche = fiche;
+    }
+
+    public FilmDTO() {
+    }
+
     public Film asFilm() {
         return new Film(titre, version, fiche);
     }
