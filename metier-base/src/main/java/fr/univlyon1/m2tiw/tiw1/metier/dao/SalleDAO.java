@@ -6,5 +6,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 public interface SalleDAO {
-    Collection<Salle> loadSalles() throws IOException;
+    Salle getSalle(String nom) throws IOException;
+
+    Collection<Salle> getSalles() throws IOException;
 }

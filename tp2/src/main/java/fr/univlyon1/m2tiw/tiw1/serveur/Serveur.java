@@ -3,10 +3,7 @@ package fr.univlyon1.m2tiw.tiw1.serveur;
 import fr.univlyon1.m2tiw.tiw1.metier.Cinema;
 import fr.univlyon1.m2tiw.tiw1.metier.Film;
 import fr.univlyon1.m2tiw.tiw1.metier.Salle;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.CinemaDAO;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONCinemaDAO;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONSalleDAO;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.SalleDAO;
+import fr.univlyon1.m2tiw.tiw1.metier.dao.*;
 import fr.univlyon1.m2tiw.tiw1.utils.SeanceCompleteException;
 
 import java.io.IOException;
@@ -21,8 +18,7 @@ public class Serveur {
         CinemaDAO cinemaDAO = new JSONCinemaDAO();
         String nom = cinemaDAO.getNomCinema();
         SalleDAO salleDAO = new JSONSalleDAO();
-        Collection<Salle> salles = salleDAO.loadSalles();
-        cinema = new Cinema(nom, salles);
+        cinema = new Cinema(nom, salleDAO);
     }
 
     public String addFilm(String titre, String version, String fiche) throws IOException {

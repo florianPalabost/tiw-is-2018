@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import fr.univlyon1.m2tiw.tiw1.metier.Cinema;
 import fr.univlyon1.m2tiw.tiw1.metier.Film;
-import fr.univlyon1.m2tiw.tiw1.metier.Salle;
 import fr.univlyon1.m2tiw.tiw1.metier.Seance;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.FilmDTO;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.SeanceDTO;
@@ -38,18 +37,11 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
 
     private List<Film> films = null;
     private Map<String, Seance> seances = null;
-    private Map<String, Salle> salles;
+    private SalleDAO salleDAO;
 
-    public JSONProgrammationDAO(Collection<Salle> salles) throws IOException, ParseException {
-        setSalles(salles);
+    public JSONProgrammationDAO(SalleDAO salleDAO) throws IOException, ParseException {
+        this.salleDAO = salleDAO;
         load();
-    }
-
-    public void setSalles(Collection<Salle> salles) {
-        this.salles = new HashMap<>();
-        for (Salle s : salles) {
-            this.salles.put(s.getNom(), s);
-        }
     }
 
     private void save() throws IOException {
@@ -70,7 +62,7 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
                 for (SeanceDTO dto : seanceDTOs) {
                     final Film film = getFilmById(dto.film);
                     if (film != null) {
-                        Seance s = new Seance(film, salles.get(dto.salle), DATE_PARSER.parse(dto.date), dto.prix);
+                        Seance s = new Seance(film, salleDAO.getSalle(dto.salle), DATE_PARSER.parse(dto.date), dto.prix);
                         seances.put(s.getId(), s);
                     } else {
                         LOG.warn("Seance without matching film ({}). It will not be loaded.", dto.film);

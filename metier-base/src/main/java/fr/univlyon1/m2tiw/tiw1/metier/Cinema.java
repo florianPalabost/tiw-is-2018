@@ -1,10 +1,7 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
 
-import fr.univlyon1.m2tiw.tiw1.metier.dao.JPAReservationDAO;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONProgrammationDAO;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.ProgrammationDAO;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.ReservationDAO;
+import fr.univlyon1.m2tiw.tiw1.metier.dao.*;
 import fr.univlyon1.m2tiw.tiw1.utils.SeanceCompleteException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,28 +16,31 @@ public class Cinema {
     private static final Logger LOG = LoggerFactory.getLogger(Cinema.class);
 
     private final String nom;
-    private Map<String, Salle> salles;
     private ReservationDAO reservationDAO;
     private ProgrammationDAO programmationDAO;
+    private SalleDAO salleDAO;
 
-    public Cinema(String nom, Collection<Salle> salles) throws IOException, ParseException {
+    public Cinema(String nom, SalleDAO salleDAO) throws IOException, ParseException {
         this.nom = nom;
-        this.salles = new HashMap<String, Salle>();
-        reservationDAO = new JPAReservationDAO();
-        setSalles(salles);
-        programmationDAO = new JSONProgrammationDAO(this.getSalles());
+        this.reservationDAO = new JPAReservationDAO();
+        this.salleDAO = salleDAO;
+        this.programmationDAO = new JSONProgrammationDAO(this.salleDAO);
     }
 
     public String getNom() {
         return nom;
     }
 
-    public void addSalle(Salle salle) {
-        this.salles.put(salle.getNom(), salle);
+    ReservationDAO getReservationDAO() {
+        return reservationDAO;
     }
 
-    public void removeSalle(Salle salle) {
-        this.salles.remove(salle);
+    ProgrammationDAO getProgrammationDAO() {
+        return programmationDAO;
+    }
+
+    SalleDAO getSalleDAO() {
+        return salleDAO;
     }
 
     public void addFilm(Film film) throws IOException {
@@ -67,15 +67,8 @@ public class Cinema {
         return programmationDAO.getNbSeance();
     }
 
-    public Collection<Salle> getSalles() {
-        return salles.values();
-    }
-
-    public void setSalles(Collection<Salle> nSalles) {
-        this.salles.clear();
-        for (Salle s : nSalles) {
-            addSalle(s);
-        }
+    public Collection<Salle> getSalles() throws IOException {
+        return salleDAO.getSalles();
     }
 
     public Collection<Film> getFilms() {
@@ -100,8 +93,8 @@ public class Cinema {
         }
     }
 
-    public Salle getSalle(String salle) {
-        return salles.get(salle);
+    public Salle getSalle(String salle) throws IOException {
+        return salleDAO.getSalle(salle);
     }
 
     public Film getFilm(String film) {
