@@ -1,15 +1,14 @@
 package fr.univlyon1.m2tiw.tiw1.metier.jsondto;
 
 import fr.univlyon1.m2tiw.tiw1.metier.Cinema;
-import fr.univlyon1.m2tiw.tiw1.metier.Salle;
 import fr.univlyon1.m2tiw.tiw1.metier.Utils;
+import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONProgrammationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONSalleDAO;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 public class CinemaDTO {
 
@@ -20,7 +19,8 @@ public class CinemaDTO {
 
     public Cinema asCinema() throws ParseException, IOException {
         JSONSalleDAO salleDAO = new JSONSalleDAO();
-        Cinema cinema = new Cinema(nom, salleDAO);
+        JSONProgrammationDAO programmationDAO = new JSONProgrammationDAO(salleDAO);
+        Cinema cinema = new Cinema(nom, salleDAO, programmationDAO);
         for (FilmDTO f : films) {
             cinema.addFilm(f.asFilm());
         }

@@ -20,11 +20,11 @@ public class Cinema {
     private ProgrammationDAO programmationDAO;
     private SalleDAO salleDAO;
 
-    public Cinema(String nom, SalleDAO salleDAO) throws IOException, ParseException {
+    public Cinema(String nom, SalleDAO salleDAO, ProgrammationDAO programmationDAO) throws IOException, ParseException {
         this.nom = nom;
         this.reservationDAO = new JPAReservationDAO();
         this.salleDAO = salleDAO;
-        this.programmationDAO = new JSONProgrammationDAO(this.salleDAO);
+        this.programmationDAO = programmationDAO;
     }
 
     public String getNom() {
