@@ -210,7 +210,7 @@ Dans cette partie, vous allez rendre votre serveur générique et permettre de l
 
 ```
 {
-  "application": {
+  "application-config": {
     "name": "mon-cinema",
     "business-components": [
       {"class-name": "monPackage.CinemaRessourceSalles"},
@@ -223,19 +223,17 @@ Dans cette partie, vous allez rendre votre serveur générique et permettre de l
     ],
     "persistence-components": [
       {
-        "type": "dao",
         "class-name": "monTroisiemePackage.ProgrammationDAO",
-        "param": {
+        "params": [{
           "name": "file",
           "value": "sample-data/mon-cinema.json"
-        }
+        }]
       }, {
-        "type": "dao",
         "class-name": "monTroisiemePackage.ReservationsDAO",
-        "param": {
+        "params": [{
           "name": "base",
           "value": "H2"
-        }
+        }]
       }
     ]
   }
