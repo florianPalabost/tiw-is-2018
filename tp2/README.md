@@ -267,7 +267,7 @@ Dans cette partie, vous allez changer l'implémentation de la liste de séances 
 
 ### 6.1. Création d'une hiérarchie de conteneurs
 
-Dans les classes `CinemaRessourceXxx`, remplacez l'ArrayList qui contient les objets Event par un nouveau conteneur, fils du premier (voir partie "Container hierarchies" de l'[introduction](http://picocontainer.com/introduction.html) sur le site picocontainer). Tant qu'à faire, le conteneur fils utilisera un autre type d'injection de dépendances que le premier : l'[injection par annotation de champs](http://picocontainer.com/annotated-field-injection.html). Vous pouvez utiliser deux méthodes pour créer le conteneur fils :
+Dans les classes `CinemaRessourceXxx`, remplacez l'ArrayList qui contient les objets `Seance` par un nouveau conteneur, fils du premier (voir partie "Container hierarchies" de l'[introduction](http://picocontainer.com/introduction.html) sur le site picocontainer). Tant qu'à faire, le conteneur fils utilisera un autre type d'injection de dépendances que le premier : l'[injection par annotation de champs](http://picocontainer.com/annotated-field-injection.html). Vous pouvez utiliser deux méthodes pour créer le conteneur fils :
 
 - [spécifier les factories dans le constructeur](http://picocontainer.com/annotated-field-injection.html)
   ```
