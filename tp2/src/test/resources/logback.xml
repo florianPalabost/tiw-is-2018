@@ -12,6 +12,6 @@
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger level="DEBUG" name="fr.univlyon1.m2tiw.tiw1"/>
+    <logger level="INFO" name="fr.univlyon1.m2tiw.tiw1"/>
 </configuration>
 

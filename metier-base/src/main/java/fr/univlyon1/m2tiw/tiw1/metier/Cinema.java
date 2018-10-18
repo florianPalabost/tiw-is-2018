@@ -8,6 +8,7 @@ import fr.univlyon1.m2tiw.tiw1.metier.jsondto.FilmDTO;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.ReservationDTO;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.SeanceDTO;
 import fr.univlyon1.m2tiw.tiw1.utils.SeanceCompleteException;
+import org.picocontainer.Startable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Cinema {
+public class Cinema implements Startable {
 
     private static final Logger LOG = LoggerFactory.getLogger(Cinema.class);
 
@@ -142,5 +143,15 @@ public class Cinema {
 
     public void annulerReservation(String reservationId) {
         reservationDAO.delete(reservationDAO.getById(Long.parseLong(reservationId)));
+    }
+
+    @Override
+    public void start() {
+        LOG.info("Composant Cinema démarré. Objet d'accès aux données : {}", programmationDAO);
+    }
+
+    @Override
+    public void stop() {
+        LOG.info("Composant Cinema arrêté.");
     }
 }
