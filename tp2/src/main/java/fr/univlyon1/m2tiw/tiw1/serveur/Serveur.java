@@ -50,4 +50,8 @@ public class Serveur {
     public void annulerReservation(String reservationId) {
         cinema.annulerReservation(reservationId);
     }
+
+    public Cinema getCinema() {
+        return cinema;
+    }
 }
