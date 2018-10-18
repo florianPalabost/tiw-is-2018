@@ -209,40 +209,37 @@ Dans cette partie, vous allez rendre votre serveur générique et permettre de l
 Écrivez un fichier de configuration en XML (ou JSON) et stockez-y les dépendances de valeurs (type d'objet DAO, nom du fichier de stockage) et les types d'objets `CinemaRessourceXxx` correspondant à chaque commande (à la manière des fichiers web.xml utilisés dans un container de servlets). Ci-dessous un exemple de fichier de configuration :
 
 ```
-<? xml version="1.0" ?>
-<config>
-  <application name="mon-cinema">
-    <business>
-      <component>
-	    <class-name>monPackage.CinemaRessourceSalles</class-name>
-      </component>
-      <component>
-	    <class-name>monPackage.CinemaRessourceFilms</class-name>
-      </component>
-      <component>
-	    <class-name>monPackage.CinemaRessourceSeances</class-name>
-      </component>
-    </business>
-    <service>
-      <component>
-	    <class-name>monAutrePackage.AnnuaireImpl</class-name>
-      </component>
-      <component>
-	    <class-name>java.util.ArrayList</class-name>
-      </component>
-    </service>
-    <persistence>
-      <dao>
-  	    <class-name>monTroisiemePackage.ProgrammationDAO</class-name>
-  	    <param name="file">sample-data/mon-cinema.json</param>
-      </dao>
-      <dao>
-  	    <class-name>monTroisiemePackage.ReservationsDAO</class-name>
-  	    <param name="base">H2</param>
-      </dao>
-    </persistence>
-  </application>
-</config>
+{
+  "application": {
+    "name": "mon-cinema",
+    "business-components": [
+      {"class-name": "monPackage.CinemaRessourceSalles"},
+      {"class-name": "monPackage.CinemaRessourceFilms"},
+      {"class-name": "monPackage.CinemaRessourceSeances"}
+    ],
+    "service-components": [
+      {"class-name": "monAutrePackage.AnnuaireImpl"}
+      {"class-name": "java.util.ArrayList"}
+	],
+    "persistence-components": [
+      {
+	    "type": "dao",
+	    "class-name": "monTroisiemePackage.ProgrammationDAO",
+  	    "param": {
+		  "name": "file",
+		  "value": "sample-data/mon-cinema.json"
+		}
+	  }, {
+	    "type": "dao",
+	    "class-name": "monTroisiemePackage.ReservationsDAO",
+  	    "param": {
+		  "name": "base",
+		  "value": "H2"
+		}
+	  }
+	]
+  }
+}
 ```
 Remarque : dans le fichier de configuration, vous pouvez également indiquer :
 
