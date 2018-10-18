@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Collections;
+
+import static org.junit.Assert.assertTrue;
 
 public class ServeurTest {
 
@@ -23,14 +26,14 @@ public class ServeurTest {
     @Test
     public void testCreerSupprimer() throws IOException, ParseException, SeanceCompleteException {
         Serveur s = new Serveur();
-        String film = s.addFilm(new FilmDTO("film - A", "V1", "http://fiche.org/fiche-exemple"));
+        String film = ((FilmDTO) s.processRequest("addFilm", Collections.singletonMap("film", new FilmDTO("film - A", "V1", "http://fiche.org/fiche-exemple")))).asFilm().getTitreVersion();
         String salle = "Salle 1";
         LOG.debug("film: {}, salle: {}", film, salle);
-        String seance = s.createSeance(new SeanceDTO(film, salle, "2018-09-20 20:00:00 +0200", 5.0f));
-        String reservation = s.reserver(new ReservationDTO(seance, "toto", "machin", "toto@machin.com"));
-        s.annulerReservation(reservation);
-        s.removeSeance(seance);
-        s.removeFilm(film);
+        String seance = (String) s.processRequest("createSeance", Collections.singletonMap("seance", new SeanceDTO(film, salle, "2018-09-20 20:00:00 +0200", 5.0f)));
+        String reservation = (String) s.processRequest("reserver", Collections.singletonMap("reservation", new ReservationDTO(seance, "toto", "machin", "toto@machin.com")));
+        assertTrue((Boolean) s.processRequest("annulerReservation", Collections.singletonMap("id", reservation)));
+        assertTrue((Boolean) s.processRequest("removeSeance", Collections.singletonMap("id", seance)));
+        assertTrue((Boolean) s.processRequest("removeFilm", Collections.singletonMap("id", film)));
     }
 
 }

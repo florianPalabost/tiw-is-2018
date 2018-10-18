@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class Cinema implements Startable {
 
@@ -51,28 +50,28 @@ public class Cinema implements Startable {
         return salleDAO;
     }
 
-    public void addFilm(Film film) throws IOException {
+    private void addFilm(Film film) throws IOException {
         programmationDAO.save(film);
     }
 
-    public Film addFilm(FilmDTO filmDTO) throws IOException {
+    private FilmDTO addFilm(FilmDTO filmDTO) throws IOException {
         Film film = filmDTO.asFilm();
         addFilm(film);
-        return film;
+        return FilmDTO.fromFilm(film);
     }
 
-    public void removeFilm(Film film) throws IOException {
+    private void removeFilm(Film film) throws IOException {
         programmationDAO.delete(film);
     }
 
-    public Seance createSeance(Salle salle, Film film, Date date, float prix) throws IOException {
+    private Seance createSeance(Salle salle, Film film, Date date, float prix) throws IOException {
         Seance seance = new Seance(film, salle, date, prix);
         programmationDAO.save(seance);
         seance.setReservationDAO(reservationDAO);
         return seance;
     }
 
-    public void removeSeance(Seance seance) throws IOException {
+    private void removeSeance(Seance seance) throws IOException {
         LOG.debug("Deleting seance: {}", seance);
         programmationDAO.delete(seance);
     }
@@ -81,43 +80,25 @@ public class Cinema implements Startable {
         return programmationDAO.getNbSeance();
     }
 
-    public Collection<Salle> getSalles() throws IOException {
+    private Collection<Salle> getSalles() throws IOException {
         return salleDAO.getSalles();
     }
 
-    public Collection<Film> getFilms() {
+    private Collection<Film> getFilms() {
         return programmationDAO.getFilms();
     }
 
-    public void setFilms(Collection<Film> nFilms) throws IOException {
-        programmationDAO.clearFilms();
-        for (Film f : nFilms) {
-            addFilm(f);
-        }
-    }
-
-    public List<Seance> getSeances() {
-        return programmationDAO.getSeances().stream().collect(Collectors.toList());
-    }
-
-    public void setSeances(List<Seance> seances) throws IOException {
-        programmationDAO.clearSeance();
-        for (Seance s : seances) {
-            s.setReservationDAO(reservationDAO);
-        }
-    }
-
-    public Salle getSalle(String salle) throws IOException {
+    private Salle getSalle(String salle) throws IOException {
         return salleDAO.getSalle(salle);
     }
 
-    public Film getFilm(String film) {
+    private Film getFilm(String film) {
         String titre = Utils.titreFromFilm(film);
         String version = Utils.versionFromFilm(film);
         return programmationDAO.getFilmByTitreVersion(titre, version);
     }
 
-    public String createSeance(SeanceDTO seanceDTO) throws ParseException, IOException {
+    private String createSeance(SeanceDTO seanceDTO) throws ParseException, IOException {
         Film f = getFilm(seanceDTO.film);
         Salle s = getSalle(seanceDTO.salle);
         Date d = Utils.DATE_PARSER.parse(seanceDTO.date);
@@ -126,22 +107,22 @@ public class Cinema implements Startable {
         return seance.getId();
     }
 
-    public void removeFilm(String film) throws IOException {
+    private void removeFilm(String film) throws IOException {
         Film f = getFilm(film);
         removeFilm(f);
     }
 
-    public void removeSeance(String id) throws ParseException, IOException {
+    private void removeSeance(String id) throws ParseException, IOException {
         removeSeance(programmationDAO.getSeanceById(id));
     }
 
-    public String reserver(ReservationDTO reservationDTO) throws SeanceCompleteException {
+    private String reserver(ReservationDTO reservationDTO) throws SeanceCompleteException {
         Seance s = programmationDAO.getSeanceById(reservationDTO.seance);
         Reservation r = s.createReservation(reservationDTO.prenom, reservationDTO.nom, reservationDTO.email);
         return r.getId().toString();
     }
 
-    public void annulerReservation(String reservationId) {
+    private void annulerReservation(String reservationId) {
         reservationDAO.delete(reservationDAO.getById(Long.parseLong(reservationId)));
     }
 
@@ -153,5 +134,29 @@ public class Cinema implements Startable {
     @Override
     public void stop() {
         LOG.info("Composant Cinema arrêté.");
+    }
+
+    public Object processRequest(String commande, Map<String, Object> parameters) throws IOException, ParseException, SeanceCompleteException {
+        switch (commande) {
+            case "addFilm":
+                return addFilm((FilmDTO) parameters.get("film"));
+            case "createSeance":
+                return createSeance((SeanceDTO) parameters.get("seance"));
+            case "reserver":
+                return reserver((ReservationDTO) parameters.get("reservation"));
+            case "annulerReservation": {
+                annulerReservation((String) parameters.get("id"));
+                return true;
+            }
+            case "removeSeance": {
+                removeSeance((String) parameters.get("id"));
+                return true;
+            }
+            case "removeFilm": {
+                removeFilm((String) parameters.get("id"));
+                return true;
+            }
+        }
+        return null;
     }
 }

@@ -38,12 +38,12 @@ public class ProgrammationDAOTest {
         assertEquals("https://www.imdb.com/title/tt4912910/?ref_=inth_ov_tt", mi.getFiche());
     }
 
-    @Test
+    /*@Test
     public void testGetSeanceById() throws IOException, ParseException {
         Cinema cinema = new JSONCinemaDAO().load();
         ProgrammationDAO dao = cinema.getProgrammationDAO();
         Seance s = cinema.getSeances().get(0);
         Seance s2 = dao.getSeanceById(s.getId());
         assertEquals(s, s2);
-    }
+    }*/
 }

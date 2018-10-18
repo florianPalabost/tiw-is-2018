@@ -23,13 +23,6 @@ public class CinemaDTO {
         JSONProgrammationDAO programmationDAO = new JSONProgrammationDAO(salleDAO);
         JPAReservationDAO reservationDAO = new JPAReservationDAO();
         Cinema cinema = new Cinema(nom, salleDAO, programmationDAO, reservationDAO);
-        for (FilmDTO f : films) {
-            cinema.addFilm(f.asFilm());
-        }
-        for (SeanceDTO s : seances) {
-            Date d = Utils.DATE_PARSER.parse(s.date);
-            cinema.createSeance(cinema.getSalle(s.salle), cinema.getFilm(s.film), d, s.prix);
-        }
         return cinema;
     }
 }

@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.Collection;
 
 public interface ProgrammationDAO {
-    void initData(Cinema cinema) throws IOException;
     Seance getSeanceById(String id);
     Film getFilmByTitreVersion(String titre, String version);
     Collection<Seance> getSeanceByFilm(Film film);

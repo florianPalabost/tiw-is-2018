@@ -73,17 +73,6 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
     }
 
     @Override
-    public void initData(Cinema cinema) throws IOException {
-        films = new ArrayList<>();
-        films.addAll(cinema.getFilms());
-        seances = new HashMap<>();
-        for (Seance s : cinema.getSeances()) {
-            seances.put(s.getId(), s);
-        }
-        save();
-    }
-
-    @Override
     public Seance getSeanceById(String id) {
         return seances.get(id);
     }
