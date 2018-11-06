@@ -1,5 +1,6 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
+import fr.univlyon1.m2tiw.tiw1.Annuaire;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ProgrammationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ReservationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.SalleDAO;
@@ -17,8 +18,8 @@ public class CinemaRessourceSeances extends AbstractCinema {
 
     private static final Logger LOG = LoggerFactory.getLogger(CinemaRessourceSeances.class);
 
-    public CinemaRessourceSeances(String nom, SalleDAO salleDAO, ProgrammationDAO programmationDAO, ReservationDAO reservationDAO) throws IOException, ParseException {
-        super(nom, salleDAO, programmationDAO, reservationDAO);
+    public CinemaRessourceSeances(Annuaire annuaire) throws IOException, ParseException {
+        super(annuaire);
     }
 
     private Seance createSeance(Salle salle, Film film, Date date, float prix) throws IOException {

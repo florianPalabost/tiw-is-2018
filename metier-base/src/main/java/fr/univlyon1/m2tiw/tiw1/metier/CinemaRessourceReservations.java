@@ -1,8 +1,6 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
-import fr.univlyon1.m2tiw.tiw1.metier.dao.ProgrammationDAO;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.ReservationDAO;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.SalleDAO;
+import fr.univlyon1.m2tiw.tiw1.Annuaire;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.ReservationDTO;
 import fr.univlyon1.m2tiw.tiw1.utils.SeanceCompleteException;
 
@@ -12,8 +10,9 @@ import java.util.Map;
 
 public class CinemaRessourceReservations extends AbstractCinema {
 
-    public CinemaRessourceReservations(String nom, SalleDAO salleDAO, ProgrammationDAO programmationDAO, ReservationDAO reservationDAO) throws IOException, ParseException {
-        super(nom, salleDAO, programmationDAO, reservationDAO);
+
+    public CinemaRessourceReservations(Annuaire annuaire) throws IOException, ParseException {
+        super(annuaire);
     }
 
     private String reserver(ReservationDTO reservationDTO) throws SeanceCompleteException {

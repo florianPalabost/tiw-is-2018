@@ -33,9 +33,7 @@ public class JSONSalleDAO implements SalleDAO {
 
     @Override
     public Salle getSalle(String nom) throws IOException {
-        if (salles == null) {
-            loadSallesIfNeeded();
-        }
+        loadSallesIfNeeded();
         Salle salle = salles.get(nom);
         if (salle == null) {
             LOG.debug("Salle {} not found", nom);

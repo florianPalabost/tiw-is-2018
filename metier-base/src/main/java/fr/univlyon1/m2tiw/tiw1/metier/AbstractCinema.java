@@ -1,6 +1,7 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
 
+import fr.univlyon1.m2tiw.tiw1.Annuaire;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ProgrammationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ReservationDAO;
 import fr.univlyon1.m2tiw.tiw1.metier.dao.SalleDAO;
@@ -17,53 +18,57 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
+import static fr.univlyon1.m2tiw.tiw1.metier.Constants.*;
+
 public abstract class AbstractCinema implements Cinema {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCinema.class);
 
-    private final String nom;
-    private ReservationDAO reservationDAO;
-    private ProgrammationDAO programmationDAO;
-    private SalleDAO salleDAO;
+//    private final String nom;
+//    private ReservationDAO reservationDAO;
+//    private ProgrammationDAO programmationDAO;
+//    private SalleDAO salleDAO;
+    private Annuaire annuaire;
 
-    public AbstractCinema(String nom, SalleDAO salleDAO, ProgrammationDAO programmationDAO, ReservationDAO reservationDAO) throws IOException, ParseException {
-        this.nom = nom;
-        this.reservationDAO = reservationDAO;
-        this.salleDAO = salleDAO;
-        this.programmationDAO = programmationDAO;
+    public AbstractCinema(Annuaire annuaire) throws IOException, ParseException {
+        this.annuaire = annuaire;
+//        this.nom = nom;
+//        this.reservationDAO = reservationDAO;
+//        this.salleDAO = salleDAO;
+//        this.programmationDAO = programmationDAO;
     }
 
     public String getNom() {
-        return nom;
+        return (String) annuaire.get(NOM_CINEMA);
     }
 
     ReservationDAO getReservationDAO() {
-        return reservationDAO;
+        return (ReservationDAO) annuaire.get(RESERVATION_DAO);
     }
 
     ProgrammationDAO getProgrammationDAO() {
-        return programmationDAO;
+        return (ProgrammationDAO) annuaire.get(PROGRAMMATION_DAO);
     }
 
     SalleDAO getSalleDAO() {
-        return salleDAO;
+        return (SalleDAO) annuaire.get(SALLE_DAO);
     }
 
     public int getNbSeances() {
-        return programmationDAO.getNbSeance();
+        return getProgrammationDAO().getNbSeance();
     }
 
     protected Collection<Salle> getSalles() throws IOException {
-        return salleDAO.getSalles();
+        return getSalleDAO().getSalles();
     }
 
     protected Salle getSalle(String salle) throws IOException {
-        return salleDAO.getSalle(salle);
+        return getSalleDAO().getSalle(salle);
     }
 
     @Override
     public void start() {
-        LOG.info("Composant Cinema démarré. Objet d'accès aux données : {}", programmationDAO);
+        LOG.info("Composant {} démarré. Objet d'accès aux données : {}", getClass().getSimpleName(), getProgrammationDAO());
     }
 
     @Override
