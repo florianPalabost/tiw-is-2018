@@ -81,14 +81,14 @@ Alternativement :
   - utilisez le même string pour déduire le nom du ficher et nommer le cinéma
   - [Désambiguïsez](http://picocontainer.com/disambiguation.html) les noms dans les paramètres des constructeurs pour que PicoContainer soit capable de résoudre le référentiel de dépendances. 
 
-  - Méthodes de la classe `Cinema` : 
-    - méthodes de gestion du cycle de vie : faites en sorte que la classe `Cinema` implémente l'interface Startable et ajoutez-y les méthodes requises ; dans la méthode start(), rajoutez un affichage indiquant que le serveur a démarré, le type de classe d'implémentation du `Cinema` (aide : utilisez l'API Reflection) et l'instance du DAO qu'il utilise pour accéder aux données (aide : méthode toString() de l'instance). L'objectif est d'obtenir un affichage du style :
+- Méthodes de la classe `Cinema` : 
+  - méthodes de gestion du cycle de vie : faites en sorte que la classe `Cinema` implémente l'interface Startable et ajoutez-y les méthodes requises ; dans la méthode start(), rajoutez un affichage indiquant que le serveur a démarré, le type de classe d'implémentation du `Cinema` (aide : utilisez l'API Reflection) et l'instance du DAO qu'il utilise pour accéder aux données (aide : méthode toString() de l'instance). L'objectif est d'obtenir un affichage du style :
 
   ```Composant Cinema démarré. Objet d'accès aux données : fr.univlyon1.m2tiw.tiw1.metier.cinema.dao.ProgrammationDAO@95c083```
   
-  - Méthodes de la classe `Serveur` : 
-    - constructeur : il instanciera un `DefaultPicoContainer`, puis y rajoutera les composants avec des dépendances entre eux. Il récupèrera ensuite le composant `Cinema` instancié par le conteneur, le stockera dans une variable globale et appellera sa méthode start().
-    - méthode (provisoire) de service : getCinema(), renvoyant au client une référence vers l'instance de `Cinema`.
+- Méthodes de la classe `Serveur` : 
+  - constructeur : il instanciera un `DefaultPicoContainer`, puis y rajoutera les composants avec des dépendances entre eux. Il récupèrera ensuite le composant `Cinema` instancié par le conteneur, le stockera dans une variable globale et appellera sa méthode start().
+  - méthode (provisoire) de service : getCinema(), renvoyant au client une référence vers l'instance de `Cinema`.
 
 > À ce stade, vous avez inversé le contrôle de vos objets métier en les plaçant dans un serveur (i.e. un framework) qui se charge d'instancier, de gérer et d'utiliser ces objets.
 
@@ -102,9 +102,9 @@ Bien entendu, vous ne pouvez pas laisser le client accéder directement à l'ins
 
 - Modifiez la méthode de service du serveur pour qu'elle soit plus générique ; par exemple :
 
-  `public String processRequest(String commande, HashMap<String, String> parametres);`
+  `public Object processRequest(String commande, Map<String, Object> parametres);`
 
-  où les éléments de la HashMap représentent les paires nom / valeur des paramètres des requêtes
+  où les éléments de la Map représentent les paires nom / valeur des paramètres des requêtes
 - Dans le cinéma, passez les méthodes add, remove, get... en privé, et créez une méthode publique `process()`, qui appellera chacune de ces trois méthodes en fonction de la commande
 - Modifiez vos tests pour qu'ils n'appellent plus que la méthode `processRequest()` du serveur
 - Renommez la classe `Serveur` en `ServeurImpl`, extrayez l'interface de service du serveur (que vous appellerez `Serveur`) et faites en sorte que les clients (les tests) ne connaissent plus que cette interface.
@@ -157,7 +157,7 @@ Remarque : tant qu'à faire, servez-vous de la documentation de PicoContainer po
 
 ### 3.3. Initialisation et utilisation du contexte
 
-Enfin, dans le serveur, mettez en place les méthodes correspondantes du contexte de façon à ce que les classes d'implémentation de Cinema puissent définir et récupérer une référence sur le DAO (`setDAO()`, `getDAO()` ?) .
+Enfin, mettez en place les méthodes correspondantes du contexte de façon à ce que les classes d'implémentation de Cinema puissent définir et récupérer une référence sur le DAO (`setDAO()`, `getDAO()` ?) .
 
 Testez votre application. Vous pouvez ensuite par exemple vous servir du contexte pour filtrer les appels au DAO et ne renvoyer la bonne référence que si la méthode est appelée par une instance de type `CinemaRessourceXxx` (voir [ici](http://www.javalobby.org/java/forums/t67019.html) ou [là](http://stackoverflow.com/questions/421280/in-java-how-do-i-find-the-caller-of-a-method-using-stacktrace-or-reflection) pour des exemples de code sur comment trouver la classe appelant une méthode).
 
@@ -209,40 +209,35 @@ Dans cette partie, vous allez rendre votre serveur générique et permettre de l
 Écrivez un fichier de configuration en XML (ou JSON) et stockez-y les dépendances de valeurs (type d'objet DAO, nom du fichier de stockage) et les types d'objets `CinemaRessourceXxx` correspondant à chaque commande (à la manière des fichiers web.xml utilisés dans un container de servlets). Ci-dessous un exemple de fichier de configuration :
 
 ```
-<? xml version="1.0" ?>
-<config>
-  <application name="mon-cinema">
-    <business>
-      <component>
-	    <class-name>monPackage.CinemaRessourceSalles</class-name>
-      </component>
-      <component>
-	    <class-name>monPackage.CinemaRessourceFilms</class-name>
-      </component>
-      <component>
-	    <class-name>monPackage.CinemaRessourceSeances</class-name>
-      </component>
-    </business>
-    <service>
-      <component>
-	    <class-name>monAutrePackage.AnnuaireImpl</class-name>
-      </component>
-      <component>
-	    <class-name>java.util.ArrayList</class-name>
-      </component>
-    </service>
-    <persistence>
-      <dao>
-  	    <class-name>monTroisiemePackage.ProgrammationDAO</class-name>
-  	    <param name="file">sample-data/mon-cinema.json</param>
-      </dao>
-      <dao>
-  	    <class-name>monTroisiemePackage.ReservationsDAO</class-name>
-  	    <param name="base">H2</param>
-      </dao>
-    </persistence>
-  </application>
-</config>
+{
+  "application-config": {
+    "name": "mon-cinema",
+    "business-components": [
+      {"class-name": "monPackage.CinemaRessourceSalles"},
+      {"class-name": "monPackage.CinemaRessourceFilms"},
+      {"class-name": "monPackage.CinemaRessourceSeances"}
+    ],
+    "service-components": [
+      {"class-name": "monAutrePackage.AnnuaireImpl"}
+      {"class-name": "java.util.ArrayList"}
+    ],
+    "persistence-components": [
+      {
+        "class-name": "monTroisiemePackage.ProgrammationDAO",
+        "params": [{
+          "name": "file",
+          "value": "sample-data/mon-cinema.json"
+        }]
+      }, {
+        "class-name": "monTroisiemePackage.ReservationsDAO",
+        "params": [{
+          "name": "base",
+          "value": "H2"
+        }]
+      }
+    ]
+  }
+}
 ```
 Remarque : dans le fichier de configuration, vous pouvez également indiquer :
 
@@ -272,7 +267,7 @@ Dans cette partie, vous allez changer l'implémentation de la liste de séances 
 
 ### 6.1. Création d'une hiérarchie de conteneurs
 
-Dans les classes `CinemaRessourceXxx`, remplacez l'ArrayList qui contient les objets Event par un nouveau conteneur, fils du premier (voir partie "Container hierarchies" de l'[introduction](http://picocontainer.com/introduction.html) sur le site picocontainer). Tant qu'à faire, le conteneur fils utilisera un autre type d'injection de dépendances que le premier : l'[injection par annotation de champs](http://picocontainer.com/annotated-field-injection.html). Vous pouvez utiliser deux méthodes pour créer le conteneur fils :
+Dans les classes `CinemaRessourceXxx`, remplacez l'ArrayList qui contient les objets `Seance` par un nouveau conteneur, fils du premier (voir partie "Container hierarchies" de l'[introduction](http://picocontainer.com/introduction.html) sur le site picocontainer). Tant qu'à faire, le conteneur fils utilisera un autre type d'injection de dépendances que le premier : l'[injection par annotation de champs](http://picocontainer.com/annotated-field-injection.html). Vous pouvez utiliser deux méthodes pour créer le conteneur fils :
 
 - [spécifier les factories dans le constructeur](http://picocontainer.com/annotated-field-injection.html)
   ```
@@ -348,5 +343,3 @@ Ensuite, il faut faire attention à des problèmes spécifiques pour chaque `Cin
   }
   ```
 - Récupération des séances : pas grand chose de nouveau à faire, si ce n'est modifier l'itérateur de la boucle pour qu'il itère sur les composants du conteneur.
-
-To be continued...
