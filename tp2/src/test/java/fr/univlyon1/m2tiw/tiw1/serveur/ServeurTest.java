@@ -20,12 +20,12 @@ public class ServeurTest {
 
     @Test
     public void testServeurInstanciation() throws IOException, ParseException {
-        Serveur s = new Serveur();
+        Serveur s = new ServeurImpl();
     }
 
     @Test
     public void testCreerSupprimer() throws IOException, ParseException, SeanceCompleteException {
-        Serveur s = new Serveur();
+        Serveur s = new ServeurImpl();
         String film = ((FilmDTO) s.processRequest("addFilm", Collections.singletonMap("film", new FilmDTO("film - A", "V1", "http://fiche.org/fiche-exemple")))).asFilm().getTitreVersion();
         String salle = "Salle 1";
         LOG.debug("film: {}, salle: {}", film, salle);
