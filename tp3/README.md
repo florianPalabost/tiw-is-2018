@@ -40,6 +40,8 @@ Vous exposerez votre application en deux parties :
 - d'exposer en lecture uniquement les films et les séances,
 - de réaliser les 4 opérations sur les réservations pour une séance. Ne vous préoccupez pas des problèmes d'authentification pour l'instant.
 
+Note : pour pouvoir utiliser des JSP pour faire le templating, voir [ce tutoriel](https://howtodoinjava.com/spring-boot/spring-boot-jsp-view-example/).
+
 ### Spring Data
 
 À l’aide de [Spring Data](http://projects.spring.io/spring-data), créez un DAO s’appuyant sur JPA pour implémenter la persistance des réservations.
