@@ -20,7 +20,7 @@ public class CinemaDTO {
 
     public Cinema asCinema() throws ParseException, IOException {
         JSONSalleDAO salleDAO = new JSONSalleDAO();
-        JSONProgrammationDAO programmationDAO = new JSONProgrammationDAO(salleDAO);
+        JSONProgrammationDAO programmationDAO = new JSONProgrammationDAO(nom, salleDAO);
         JPAReservationDAO reservationDAO = new JPAReservationDAO();
         Cinema cinema = new Cinema(nom, salleDAO, programmationDAO, reservationDAO);
         return cinema;

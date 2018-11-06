@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import fr.univlyon1.m2tiw.tiw1.metier.Cinema;
 import fr.univlyon1.m2tiw.tiw1.metier.Film;
 import fr.univlyon1.m2tiw.tiw1.metier.Seance;
 import fr.univlyon1.m2tiw.tiw1.metier.jsondto.FilmDTO;
@@ -24,8 +23,8 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(JSONProgrammationDAO.class);
 
-    public static final File SEANCES_JSON = new File("seances.json");
-    public static final File FILMS_JSON = new File("films.json");
+    public static final String SEANCES_JSON = "seances.json";
+    public static final String FILMS_JSON = "films.json";
     private static ObjectMapper mapper = new ObjectMapper();
 
     static {
@@ -38,27 +37,34 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
     private List<Film> films = null;
     private Map<String, Seance> seances = null;
     private SalleDAO salleDAO;
+    private File seancesFile;
+    private File filmsFile;
 
-    public JSONProgrammationDAO(SalleDAO salleDAO) throws IOException, ParseException {
+    public JSONProgrammationDAO(String nomCinema, SalleDAO salleDAO) throws IOException, ParseException {
+        this.seancesFile = new File(nomCinema, SEANCES_JSON);
+        this.filmsFile = new File(nomCinema, FILMS_JSON);
         this.salleDAO = salleDAO;
         load();
     }
 
     private void save() throws IOException {
+        if (!filmsFile.getParentFile().exists()) {
+            filmsFile.getParentFile().mkdirs();
+        }
         Collection<SeanceDTO> seanceDTOs = seances.values().stream().map(SeanceDTO::fromSeance).collect(Collectors.toList());
-        mapper.writeValue(SEANCES_JSON, seanceDTOs);
+        mapper.writeValue(seancesFile, seanceDTOs);
         Collection<FilmDTO> filmDTOs = films.stream().map(FilmDTO::fromFilm).collect(Collectors.toList());
-        mapper.writeValue(FILMS_JSON, filmDTOs);
+        mapper.writeValue(filmsFile, filmDTOs);
     }
 
     private void load() throws IOException, ParseException {
         films = new ArrayList<>();
         seances = new HashMap<>();
-        if (FILMS_JSON.exists()) {
-            Collection<FilmDTO> filmDTOs = mapper.readValue(FILMS_JSON, list_of_films_type);
+        if (filmsFile.exists()) {
+            Collection<FilmDTO> filmDTOs = mapper.readValue(filmsFile, list_of_films_type);
             films.addAll(filmDTOs.stream().map(FilmDTO::asFilm).collect(Collectors.toList()));
-            if (SEANCES_JSON.exists()) {
-                Collection<SeanceDTO> seanceDTOs = mapper.readValue(SEANCES_JSON, list_of_seances_type);
+            if (seancesFile.exists()) {
+                Collection<SeanceDTO> seanceDTOs = mapper.readValue(seancesFile, list_of_seances_type);
                 for (SeanceDTO dto : seanceDTOs) {
                     final Film film = getFilmById(dto.film);
                     if (film != null) {
