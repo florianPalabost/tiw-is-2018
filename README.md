@@ -14,6 +14,7 @@ Le module `metier-base` comprend un ensemble de d'interfaces et de classes Java 
 Liste des TPs:
 
 * [TP1: révision Java](tp1/README.md)
+* [TP2: containers](tp2/README.md)
 
 Cette liste sera complétée au fur et à mesure de l'avancement dans l'UE.
 
