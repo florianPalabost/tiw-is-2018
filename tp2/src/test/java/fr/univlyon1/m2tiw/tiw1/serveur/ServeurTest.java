@@ -26,14 +26,14 @@ public class ServeurTest {
     @Test
     public void testCreerSupprimer() throws IOException, ParseException, SeanceCompleteException {
         Serveur s = new ServeurImpl();
-        String film = ((FilmDTO) s.processRequest("addFilm", Collections.singletonMap("film", new FilmDTO("film - A", "V1", "http://fiche.org/fiche-exemple")))).asFilm().getTitreVersion();
+        String film = ((FilmDTO) s.processRequest("film/add", Collections.singletonMap("film", new FilmDTO("film - A", "V1", "http://fiche.org/fiche-exemple")))).asFilm().getTitreVersion();
         String salle = "Salle 1";
         LOG.debug("film: {}, salle: {}", film, salle);
-        String seance = (String) s.processRequest("createSeance", Collections.singletonMap("seance", new SeanceDTO(film, salle, "2018-09-20 20:00:00 +0200", 5.0f)));
-        String reservation = (String) s.processRequest("reserver", Collections.singletonMap("reservation", new ReservationDTO(seance, "toto", "machin", "toto@machin.com")));
-        assertTrue((Boolean) s.processRequest("annulerReservation", Collections.singletonMap("id", reservation)));
-        assertTrue((Boolean) s.processRequest("removeSeance", Collections.singletonMap("id", seance)));
-        assertTrue((Boolean) s.processRequest("removeFilm", Collections.singletonMap("id", film)));
+        String seance = (String) s.processRequest("seance/create", Collections.singletonMap("seance", new SeanceDTO(film, salle, "2018-09-20 20:00:00 +0200", 5.0f)));
+        String reservation = (String) s.processRequest("reservation/reserver", Collections.singletonMap("reservation", new ReservationDTO(seance, "toto", "machin", "toto@machin.com")));
+        assertTrue((Boolean) s.processRequest("reservation/annuler", Collections.singletonMap("id", reservation)));
+        assertTrue((Boolean) s.processRequest("seance/remove", Collections.singletonMap("id", seance)));
+        assertTrue((Boolean) s.processRequest("film/remove", Collections.singletonMap("id", film)));
     }
 
 }

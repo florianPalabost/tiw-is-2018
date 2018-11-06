@@ -39,11 +39,13 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
     private SalleDAO salleDAO;
     private File seancesFile;
     private File filmsFile;
+    private ReservationDAO reservationDAO;
 
-    public JSONProgrammationDAO(String nomCinema, SalleDAO salleDAO) throws IOException, ParseException {
+    public JSONProgrammationDAO(String nomCinema, SalleDAO salleDAO, ReservationDAO reservationDAO) throws IOException, ParseException {
         this.seancesFile = new File(nomCinema, SEANCES_JSON);
         this.filmsFile = new File(nomCinema, FILMS_JSON);
         this.salleDAO = salleDAO;
+        this.reservationDAO = reservationDAO;
         load();
     }
 
@@ -69,6 +71,7 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
                     final Film film = getFilmById(dto.film);
                     if (film != null) {
                         Seance s = new Seance(film, salleDAO.getSalle(dto.salle), DATE_PARSER.parse(dto.date), dto.prix);
+                        s.setReservationDAO(reservationDAO);
                         seances.put(s.getId(), s);
                     } else {
                         LOG.warn("Seance without matching film ({}). It will not be loaded.", dto.film);
@@ -116,6 +119,7 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
     @Override
     public void save(Seance seance) throws IOException {
         seances.put(seance.getId(), seance);
+        seance.setReservationDAO(reservationDAO);
         save();
     }
 

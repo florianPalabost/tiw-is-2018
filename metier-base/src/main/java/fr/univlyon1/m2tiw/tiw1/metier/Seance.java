@@ -64,6 +64,8 @@ public class Seance {
         resa.setPaye(true);
         if (reservationDAO != null) {
             reservationDAO.save(resa);
+        } else {
+            LOG.warn("No DAO for reservations");
         }
         return resa;
     }
