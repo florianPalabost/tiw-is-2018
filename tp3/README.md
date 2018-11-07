@@ -42,7 +42,7 @@ Vous exposerez votre application en deux parties :
 
 Note : pour pouvoir utiliser des JSP pour faire le templating, vous pouvez vous aider :
 
-- du projet `exemple-spring-boot-avec-jsp` dans ce répertoire (interrogez http://localhots:8080/hello?name=Toto)
+- du projet `exemple-spring-boot-avec-jsp` dans ce répertoire (interrogez http://localhost:8080/hello?name=Toto)
 - de [ce tutoriel](https://howtodoinjava.com/spring-boot/spring-boot-jsp-view-example/).
 
 ### Spring Test
