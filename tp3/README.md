@@ -45,6 +45,13 @@ Note : pour pouvoir utiliser des JSP pour faire le templating, vous pouvez vous 
 - du projet `exemple-spring-boot-avec-jsp` dans ce répertoire
 - de [ce tutoriel](https://howtodoinjava.com/spring-boot/spring-boot-jsp-view-example/).
 
+### Spring Test
+
+Utilisez [Spring Test](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-testing) pour écrire des tests :
+
+1. Unitaires pour chacun des composants ; utilisez éventuellement 1 ou plusieurs mocks ad hoc
+2. D’intégration (1 minimum)
+
 ### Spring Data
 
 À l’aide de [Spring Data](http://projects.spring.io/spring-data), créez un DAO s’appuyant sur JPA pour implémenter la persistance des réservations.
@@ -59,13 +66,6 @@ Note : pour pouvoir utiliser des JSP pour faire le templating, vous pouvez vous 
 ### Spring AOP
 
 Utilisez [Spring AOP](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-aop-instrumentation) pour créer un nouvel aspect chargé d'intercepter la création de séances et de tenir à jour un "tableau de bord", accessible aux gestionnaires du cinéma dans le back-office.
-
-### Spring Test
-
-Utilisez [Spring Test](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-testing) pour écrire des tests :
-
-1. Unitaires pour chacun des composants ; utilisez éventuellement 1 ou plusieurs mocks ad hoc
-2. D’intégration (1 minimum)
 
 ### Rendu du TP
 
