@@ -30,6 +30,10 @@ public class Film {
         return fiche;
     }
 
+    public String getTitreVersion() {
+        return titre + " - " + version;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

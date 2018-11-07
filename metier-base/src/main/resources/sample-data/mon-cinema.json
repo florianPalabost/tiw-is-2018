@@ -1,6 +1,6 @@
 {
   "cinema" : {
-    "nom" : "Mon Cinema",
+    "nom" : "MonCinema",
     "salles" : [
       {
         "nom" : "Salle 1",

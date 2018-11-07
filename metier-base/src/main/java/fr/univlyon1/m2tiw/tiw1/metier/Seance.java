@@ -2,10 +2,15 @@ package fr.univlyon1.m2tiw.tiw1.metier;
 
 import fr.univlyon1.m2tiw.tiw1.metier.dao.ReservationDAO;
 import fr.univlyon1.m2tiw.tiw1.utils.SeanceCompleteException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 public class Seance {
+
+    private final static Logger LOG = LoggerFactory.getLogger(Seance.class);
+
     private final Film film;
     private final Salle salle;
     private final java.util.Date date;
@@ -20,6 +25,7 @@ public class Seance {
         this.date = date;
         this.prix = prix;
         this.reservations = new ArrayList<Reservation>();
+        LOG.debug("Creating from {}, {}, {}, {}", film, salle, date, prix);
         this.id = UUID.nameUUIDFromBytes(
                 (film.getTitre()
                         + film.getVersion()
@@ -58,6 +64,8 @@ public class Seance {
         resa.setPaye(true);
         if (reservationDAO != null) {
             reservationDAO.save(resa);
+        } else {
+            LOG.warn("No DAO for reservations");
         }
         return resa;
     }

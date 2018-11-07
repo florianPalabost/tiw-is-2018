@@ -8,11 +8,16 @@ import java.io.IOException;
 import java.util.Collection;
 
 public interface ProgrammationDAO {
-    void initData(Cinema cinema) throws IOException;
     Seance getSeanceById(String id);
     Film getFilmByTitreVersion(String titre, String version);
     Collection<Seance> getSeanceByFilm(Film film);
     void save(Seance seance) throws IOException;
     void save(Film film) throws IOException;
     void delete(Seance seance) throws IOException;
+    void delete(Film film) throws IOException;
+    int getNbSeance();
+    Collection<Film> getFilms();
+    void clearFilms() throws IOException;
+    Collection<Seance> getSeances();
+    void clearSeance() throws IOException;
 }
