@@ -40,7 +40,10 @@ Vous exposerez votre application en deux parties :
 - d'exposer en lecture uniquement les films et les séances,
 - de réaliser les 4 opérations sur les réservations pour une séance. Ne vous préoccupez pas des problèmes d'authentification pour l'instant.
 
-Note : pour pouvoir utiliser des JSP pour faire le templating, voir [ce tutoriel](https://howtodoinjava.com/spring-boot/spring-boot-jsp-view-example/).
+Note : pour pouvoir utiliser des JSP pour faire le templating, vous pouvez vous aider :
+
+- du projet `exemple-spring-boot-avec-jsp` dans ce répertoire
+- de [ce tutoriel](https://howtodoinjava.com/spring-boot/spring-boot-jsp-view-example/).
 
 ### Spring Data
 
