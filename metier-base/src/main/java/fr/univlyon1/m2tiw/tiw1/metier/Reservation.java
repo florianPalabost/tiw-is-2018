@@ -1,16 +1,51 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
+import javax.persistence.*;
+import java.util.Objects;
+
+@Entity
+@NamedQueries({
+        @NamedQuery(name="getBySeance", query="SELECT r FROM Reservation r WHERE r.seanceId = ?")
+})
 public class Reservation {
-    private final String prenom;
-    private final String nom;
-    private final String email;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String prenom;
+    private String nom;
+    private String email;
     private boolean paye;
+    @Column(nullable = false)
+    private String seanceId;
+
+    public Reservation() {
+    }
 
     public Reservation(String prenom, String nom, String email) {
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
         this.paye = false;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPrenom() {
@@ -31,5 +66,26 @@ public class Reservation {
 
     public void setPaye(boolean paye) {
         this.paye = paye;
+    }
+
+    public String getSeanceId() {
+        return seanceId;
+    }
+
+    public void setSeanceId(String seanceId) {
+        this.seanceId = seanceId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

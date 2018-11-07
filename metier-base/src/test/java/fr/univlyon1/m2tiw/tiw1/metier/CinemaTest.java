@@ -1,19 +1,41 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.univlyon1.m2tiw.tiw1.metier.dao.JSONCinemaDAO;
+import fr.univlyon1.m2tiw.tiw1.metier.jsondto.CinemaWrapper;
+import fr.univlyon1.m2tiw.tiw1.utils.SeanceCompleteException;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.*;
 
 public class CinemaTest {
-    //TODO importer le fichier mon-cinema.json
-    private final Cinema cinema = new Cinema("Mon Cinema");
+
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
     /**
      * Teste si on a bien 4 séances / jour x 7 jours x 3 salles = 84 séances
      */
     public void getNbSeances() throws Exception {
+        JSONCinemaDAO dao = new JSONCinemaDAO();
+        Cinema cinema = dao.load();
         assertEquals(84, cinema.getNbSeances());
+    }
+
+    @Test
+    public void testChargementJackson() throws IOException {
+        CinemaWrapper wrapper = mapper.readValue(Cinema.class.getResource("/sample-data/mon-cinema.json"), CinemaWrapper.class);
+        assertEquals(84, wrapper.cinema.seances.size());
+    }
+
+    @Test
+    public void testReservation() throws IOException, SeanceCompleteException {
+        JSONCinemaDAO dao = new JSONCinemaDAO();
+        Cinema cinema = dao.load();
+        Seance s = cinema.getSeances().get(1);
+        Reservation r = s.createReservation("titi","machin", "titi.machin@nowhere.net");
+        s.cancelReservation(r);
     }
 }
