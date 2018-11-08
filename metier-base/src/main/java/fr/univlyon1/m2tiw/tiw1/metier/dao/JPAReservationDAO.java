@@ -47,7 +47,7 @@ public class JPAReservationDAO implements ReservationDAO {
 
     @Override
     public Collection<Reservation> getBySeance(String seanceId) {
-        return em.createNamedQuery("getBySeance", Reservation.class).setParameter(1, seanceId).getResultList();
+        return em.createNamedQuery("getBySeance", Reservation.class).setParameter("sid", seanceId).getResultList();
     }
 
     @Override

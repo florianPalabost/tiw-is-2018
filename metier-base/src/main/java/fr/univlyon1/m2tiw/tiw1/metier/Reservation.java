@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name="getBySeance", query="SELECT r FROM Reservation r WHERE r.seanceId = ?")
+        @NamedQuery(name="getBySeance", query="SELECT r FROM Reservation r WHERE r.seanceId = :sid")
 })
 public class Reservation {
     @Id
