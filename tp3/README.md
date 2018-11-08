@@ -23,7 +23,7 @@ Dans cette section, vous allez utiliser les différents modules de [Spring Frame
 
 Faites les manipulations suivantes pour que votre code puisse être utilisé par [Spring Core Container](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-core-container) :
 
-- Transformez vos `CinemaRessourceXxx`, `Salle`, `Film` et `Seance` en beans Spring pour permettre au conteneur de Spring DI de les gérer dans l’application
+- Transformez vos `CinemaRessourceXxx`, ainsi que vos différents DAOs en beans Spring pour permettre au conteneur de Spring DI de les gérer dans l’application
 - Remplacez l’annuaire JNDI par un Spring Context
 
 &Agrave; ce stade, vous devez avoir une application standalone fonctionnelle, que vous pouvez tester de la même façon que lors du TP précédent.
