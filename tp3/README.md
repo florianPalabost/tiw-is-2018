@@ -15,6 +15,14 @@ Dans ce TP, vous allez utiliser le framework Spring et certains des principaux [
 
 Créez un projet Forge et poussez-y la structure d'un projet Maven et Spring préconfiguré pour les sous-projets Spring demandés dans les questions suivantes. Pour obtenir ce projet, vous pouvez le créer vous-mêmes ou l'obtenir avec l'[outil de configuration automatique](https://start.spring.io/) fourni par Spring Boot.
 
+### Interaction avec la hiérarchie de projets maven
+
+Normalement, un projet maven spring boot hérite de du projet `spring-boot-starter-parent`. Comme le TP se trouve déjà dans une hiérarchie, plusieurs possibilités s'offrent à vous:
+
+- recopier une partie de la configuration du projet `base` (risque d'erreur et complexité de maintenance)
+- faire que le projet `base` hérite de `spring-boot-starter-parent` (on embarque alors de la configuration de projet liées à spring dans un projet non-spring)
+- reprendre la configuration fournie par `spring-boot-starter-parent` [comme indiqué ici](https://www.baeldung.com/spring-boot-dependency-management-custom-parent) (configuration pom plus lourde, attention à la version de spring qui est datée dans le billet de blog)
+
 ## Spring Framework
 
 Dans cette section, vous allez utiliser les différents modules de [Spring Framework](http://projects.spring.io/spring-framework/), dont vous trouverez une documentation [ici](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-modules).
