@@ -41,4 +41,4 @@ analyse:
   variables:
     SONAR_PROJ_KEY: "$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
   stage: analyse
-  script: "mvn checkstyle:checkstyle"
+  script: "mvn install -DskipTests checkstyle:checkstyle"
