@@ -31,7 +31,7 @@ Dans cette section, vous allez utiliser les différents modules de [Spring Frame
 
 Faites les manipulations suivantes pour que votre code puisse être utilisé par [Spring Core Container](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-core-container) :
 
-- Transformez vos `CinemaRessourceXxx`, `Salle`, `Film` et `Seance` en beans Spring pour permettre au conteneur de Spring DI de les gérer dans l’application
+- Transformez vos `CinemaRessourceXxx`, ainsi que vos différents DAOs en beans Spring pour permettre au conteneur de Spring DI de les gérer dans l’application
 - Remplacez l’annuaire JNDI par un Spring Context
 
 &Agrave; ce stade, vous devez avoir une application standalone fonctionnelle, que vous pouvez tester de la même façon que lors du TP précédent.
@@ -50,8 +50,15 @@ Vous exposerez votre application en deux parties :
 
 Note : pour pouvoir utiliser des JSP pour faire le templating, vous pouvez vous aider :
 
-- du projet `exemple-spring-boot-avec-jsp` dans ce répertoire
+- du projet `exemple-spring-boot-avec-jsp` dans ce répertoire (interrogez http://localhost:8080/hello?name=Toto)
 - de [ce tutoriel](https://howtodoinjava.com/spring-boot/spring-boot-jsp-view-example/).
+
+### Spring Test
+
+Utilisez [Spring Test](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-testing) pour écrire des tests :
+
+1. Unitaires pour chacun des composants ; utilisez éventuellement 1 ou plusieurs mocks ad hoc
+2. D’intégration (1 minimum)
 
 ### Spring Data
 
@@ -67,14 +74,3 @@ Note : pour pouvoir utiliser des JSP pour faire le templating, vous pouvez vous 
 ### Spring AOP
 
 Utilisez [Spring AOP](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-aop-instrumentation) pour créer un nouvel aspect chargé d'intercepter la création de séances et de tenir à jour un "tableau de bord", accessible aux gestionnaires du cinéma dans le back-office.
-
-### Spring Test
-
-Utilisez [Spring Test](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-testing) pour écrire des tests :
-
-1. Unitaires pour chacun des composants ; utilisez éventuellement 1 ou plusieurs mocks ad hoc
-2. D’intégration (1 minimum)
-
-### Rendu du TP
-
-Ce TP n'est pas à rendre, mais vous devez le terminer avant la fin de la semaine car vous en aurez besoin pour les TPs suivants.
