@@ -15,6 +15,8 @@ Liste des TPs:
 
 * [TP1: révision Java](tp1/README.md)
 * [TP2: containers](tp2/README.md)
+* [TP3: Spring](tp3/README.md)
+* [TP4: Angular](tp4/README.md)
 
 Cette liste sera complétée au fur et à mesure de l'avancement dans l'UE.
 
