@@ -10,6 +10,11 @@ Université Claude Bernard Lyon 1 – M2 TIW – Intergiciels et Services
 
 ## Préambule
 
+Lien vers les cours :
+
+- [TypeScript](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/revealJS/#TypeScript)
+- [Angular](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/revealJS/#Angular)
+
 Dans ce TP, vous allez utiliser [Angular](https://angular.io/) pour réaliser une application de réservation de places pour le cinéma. Vous utiliserez une version fonctionnelle de votre TP en Spring côté serveur, en veillant à ce qu'elle réponde bien aux méthodes GET, PUT, POST et DELETE, en fonction des ressources pour lesquelles elle est interogée.
 
 Attention : vous devez avoir configuré votre serveur pour qu'il accepte les requêtes en CORS, car l'application front ne sera pas servie par le même serveur.
@@ -33,5 +38,3 @@ Dans un premier temps, toutes les réservations seront acceptées, dans la limit
 ## Enrichissement
 
 &Agrave; l'aide de l'URL dans la description des films, envoyez une nouvelle requête, et ajoutez ses résultats au composant de consultation.
-
-To be continued...
