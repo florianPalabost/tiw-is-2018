@@ -1,37 +1,37 @@
-Université Claude Bernard Lyon 1 – M2 TIW – Intergiciels et Services
+UniversitÃ© Claude Bernard Lyon 1 â€“ M2 TIW â€“ Intergiciels et Services
 
 # TP Angular
 
-## Objectifs pédagogiques
+## Objectifs pÃ©dagogiques
 
-- Découvrir le framework Angular
-- Savoir générer, configurer et développer un projet et différents éléments (composants, services...)
-- Faire une première application côté client qui interroge un serveur REST
+- DÃ©couvrir le framework Angular
+- Savoir gÃ©nÃ©rer, configurer et dÃ©velopper un projet et diffÃ©rents Ã©lÃ©ments (composants, services...)
+- Faire une premiÃ¨re application cÃ´tÃ© client qui interroge un serveur REST
 
-## Préambule
+## PrÃ©ambule
 
-Dans ce TP, vous allez utiliser [Angular](https://angular.io/) pour réaliser une application de réservation de places pour le cinéma. Vous utiliserez une version fonctionnelle de votre TP en Spring côté serveur, en veillant à ce qu'elle réponde bien aux méthodes GET, PUT, POST et DELETE, en fonction des ressources pour lesquelles elle est interogée.
+Dans ce TP, vous allez utiliser [Angular](https://angular.io/) pour rÃ©aliser une application de rÃ©servation de places pour le cinÃ©ma. Vous utiliserez une version fonctionnelle de votre TP en Spring cÃ´tÃ© serveur, en veillant Ã  ce qu'elle rÃ©ponde bien aux mÃ©thodes GET, PUT, POST et DELETE, en fonction des ressources pour lesquelles elle est interogÃ©e.
 
-Attention : vous devez avoir configuré votre serveur pour qu'il accepte les requêtes en CORS, car l'application front ne sera pas servie par le même serveur.
+Attention : vous devez avoir configurÃ© votre serveur pour qu'il accepte les requÃªtes en CORS, car l'application front ne sera pas servie par le mÃªme serveur.
 
 ## Structure du projet
 
-Utilisez la CLI comme indiqué en cours pour générer le projet.
+Utilisez la CLI comme indiquÃ© en cours pour gÃ©nÃ©rer le projet.
 
 ## Consultation
 
-Utilisez la CLI comme indiqué en cours pour générer un service pour les requêtes HTTP et un composant pour la consultation de chaque type de ressource (Film, Seance). Faites en sorte que Seance affiche le nombre de places disponibles, ainsi que le prix.
+Utilisez la CLI comme indiquÃ© en cours pour gÃ©nÃ©rer un service pour les requÃªtes HTTP et un composant pour la consultation de chaque type de ressource (Film, Seance). Faites en sorte que Seance affiche le nombre de places disponibles, ainsi que le prix.
 
-## Réservation
+## RÃ©servation
 
-Dans un premier temps, toutes les réservations seront acceptées, dans la limite des places disponibles.
+Dans un premier temps, toutes les rÃ©servations seront acceptÃ©es, dans la limite des places disponibles.
 
-- Faites un composant permettant de réserver, pour un utilisateur donné, une ou plusieurs places
-- Faites-en un autre permettant de modifier une réservation
-- Faites-en un troisième permettant de l'annuler
+- Faites un composant permettant de rÃ©server, pour un utilisateur donnÃ©, une ou plusieurs places pour une sÃ©ance donnÃ©e
+- Faites-en un autre permettant de modifier une rÃ©servation
+- Faites-en un troisiÃ¨me permettant de l'annuler
 
 ## Enrichissement
 
-&Agrave; l'aide de l'URL dans la description des films, envoyez une nouvelle requête, et ajoutez ses résultats au composant de consultation.
+&Agrave; l'aide de l'URL dans la description des films, envoyez une nouvelle requÃªte, et ajoutez ses rÃ©sultats au composant de consultation.
 
 To be continued...
