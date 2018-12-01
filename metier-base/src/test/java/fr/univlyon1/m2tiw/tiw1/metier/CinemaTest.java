@@ -1,5 +1,6 @@
 package fr.univlyon1.m2tiw.tiw1.metier;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -10,6 +11,7 @@ public class CinemaTest {
     private final Cinema cinema = new Cinema("Mon Cinema");
 
     @Test
+    @Ignore
     /**
      * Teste si on a bien 4 séances / jour x 7 jours x 3 salles = 84 séances
      */
