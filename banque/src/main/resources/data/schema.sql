@@ -6,10 +6,13 @@ create table compte
 );
 
 -- autorisations de prélèvements
-create table autorisations
+create table autorisation
 (
   parent       integer references compte (id),
   destinataire integer references compte (id),
   maximum      double,
   primary key (parent, destinataire)
 );
+
+-- sequence pour les comptes
+create sequence compte_sequence;

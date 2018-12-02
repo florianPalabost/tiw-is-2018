@@ -1,9 +1,6 @@
 package fr.univlyon1.tiw.tiw1.banque.metier;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -12,8 +9,24 @@ import java.util.Objects;
 public class Autorisation {
 
     public static class Key implements Serializable {
-        public Compte parent;
-        public Compte destinataire;
+        private Compte parent;
+        private Compte destinataire;
+
+        public Compte getParent() {
+            return parent;
+        }
+
+        public void setParent(Compte parent) {
+            this.parent = parent;
+        }
+
+        public Compte getDestinataire() {
+            return destinataire;
+        }
+
+        public void setDestinataire(Compte destinataire) {
+            this.destinataire = destinataire;
+        }
 
         @Override
         public boolean equals(Object o) {
@@ -31,7 +44,7 @@ public class Autorisation {
     }
 
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Compte parent;
     @Id
     @ManyToOne

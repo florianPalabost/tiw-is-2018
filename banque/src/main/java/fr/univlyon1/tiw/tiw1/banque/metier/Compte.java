@@ -1,25 +1,26 @@
 package fr.univlyon1.tiw.tiw1.banque.metier;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.MapKey;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
 @Entity
 public class Compte implements Serializable {
+    private static final String GENERATOR_NAME = "compte_generator";
     @Id
+    @GeneratedValue(generator = GENERATOR_NAME)
+    @SequenceGenerator(name = GENERATOR_NAME, sequenceName = "compte_sequence")
     private long id;
     private double solde = 0.0;
     @OneToMany(mappedBy = "parent")
     @MapKey(name = "destinataire")
-    private Map<Compte, Autorisation> autorisations = new HashMap<>();
+    private transient Map<Compte, Autorisation> autorisations = new HashMap<>();
 
     public Compte() {
     }
 
     public Compte(long id, double solde) {
+        this();
         this.id = id;
         this.solde = solde;
     }
@@ -37,6 +38,9 @@ public class Compte implements Serializable {
     }
 
     public void debit(double valeur) throws OperationImpossibleException {
+        if (valeur > getSolde()) {
+            throw new OperationImpossibleException("Solde trop faible");
+        }
         setSolde(getSolde() - valeur);
     }
 
@@ -45,7 +49,18 @@ public class Compte implements Serializable {
     }
 
     public void autoriser(Compte destinataire, double maximum) {
-        // TODO: implement
+        Autorisation autorisation = autorisations.get(destinataire);
+        if (autorisation == null) {
+            autorisation = new Autorisation(this, destinataire, maximum);
+            autorisations.put(destinataire, autorisation);
+        } else {
+            autorisation.setMaximum(maximum);
+        }
+    }
+
+    public double getMaximumAutorisation(Compte destinataire) {
+        Autorisation autorisation = autorisations.get(destinataire);
+        return autorisation == null ? 0.0 : autorisation.getMaximum();
     }
 
     @Override
