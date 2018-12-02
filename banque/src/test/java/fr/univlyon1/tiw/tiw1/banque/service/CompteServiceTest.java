@@ -10,6 +10,7 @@ import fr.univlyon1.tiw.tiw1.banque.metier.OperationImpossibleException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {App.class})
 @Transactional
+@SpringBootTest
 public class CompteServiceTest {
 
     private static final double DELTA = 0.000001;

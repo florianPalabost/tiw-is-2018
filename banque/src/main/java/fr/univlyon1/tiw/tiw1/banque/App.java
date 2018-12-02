@@ -1,6 +1,5 @@
 package fr.univlyon1.tiw.tiw1.banque;
 
-import fr.univlyon1.tiw.tiw1.banque.metier.Compte;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +25,7 @@ public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
+
 
     @Bean
     public DataSource embeddedDB() {
@@ -65,6 +65,4 @@ public class App {
         jpaTransactionManager.setDataSource(embeddedDB());
         return jpaTransactionManager;
     }
-
-
 }
