@@ -17,6 +17,7 @@ Liste des TPs:
 * [TP2: containers](tp2/README.md)
 * [TP3: Spring](tp3/README.md)
 * [TP4: Angular](tp4/README.md)
+* [TP5: OSGi](tp5/README.md)
 
 Cette liste sera complétée au fur et à mesure de l'avancement dans l'UE.
 
