@@ -12,6 +12,7 @@
         <version>2.0.7.RELEASE</version> <!-- Attention, problème avec 2.1.1 -->
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <!-- This does not work in JDK11, use JDK8 -->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -42,6 +43,18 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.1.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
