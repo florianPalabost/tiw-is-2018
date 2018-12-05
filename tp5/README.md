@@ -12,7 +12,7 @@ Dans ce TP, vous utiliserez le framework [Felix](http://felix.apache.org/documen
 
 ## Découverte du framework Felix
 
-Téléchargez et décompressez le framework. Vous pouvez ouvrir un shell en exécutant, depuis le répertoire principal du framework, la commande java `-jar bin/felix.jar`.
+Téléchargez et décompressez le framework. Vous pouvez ouvrir un shell en exécutant, depuis le répertoire principal du framework, la commande `java -jar bin/felix.jar`.
 
 Utiliser la documentation située [ici](https://felix.apache.org/documentation/subprojects/apache-felix-framework/apache-felix-framework-usage-documentation.html#framework-shell) pour démarrer. Par exemple, taper `lb` (list bundles) pour avoir la liste des bundles installés par défaut.
 
