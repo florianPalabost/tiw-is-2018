@@ -1,5 +1,7 @@
 package fr.univlyon1.tiw.tiw1.banque.metier;
 
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -13,8 +15,7 @@ public class Compte implements Serializable {
     private long id;
     private double solde = 0.0;
     @OneToMany(mappedBy = "parent")
-    @MapKey(name = "destinataire")
-    private transient Map<Compte, Autorisation> autorisations = new HashMap<>();
+    private Collection<Autorisation> autorisations = new ArrayList<>();
 
     public Compte() {
     }
@@ -48,19 +49,41 @@ public class Compte implements Serializable {
         setSolde(getSolde() + valeur);
     }
 
-    public void autoriser(Compte destinataire, double maximum) {
-        Autorisation autorisation = autorisations.get(destinataire);
-        if (autorisation == null) {
-            autorisation = new Autorisation(this, destinataire, maximum);
-            autorisations.put(destinataire, autorisation);
-        } else {
+    public Autorisation autoriser(Compte destinataire, double maximum) {
+        Optional<Autorisation> autoriationOpt =
+                getAutorisationFor(destinataire);
+        if (autoriationOpt.isPresent()) {
+            final Autorisation autorisation = autoriationOpt.get();
             autorisation.setMaximum(maximum);
+            return autorisation;
+        } else {
+            Autorisation autorisation = new Autorisation(this, destinataire, maximum);
+            autorisations.add(autorisation);
+            return autorisation;
         }
     }
 
+    private Optional<Autorisation> getAutorisationFor(Compte destinataire) {
+        return autorisations.stream().filter(a -> a.getDestinataire().equals(destinataire)).findFirst();
+    }
+
     public double getMaximumAutorisation(Compte destinataire) {
-        Autorisation autorisation = autorisations.get(destinataire);
-        return autorisation == null ? 0.0 : autorisation.getMaximum();
+        Optional<Autorisation> autoriationOpt =
+                getAutorisationFor(destinataire);
+        if (autoriationOpt.isPresent()) {
+            return autoriationOpt.get().getMaximum();
+        } else {
+            LoggerFactory.getLogger(Compte.class).info("Pas d'autorisation pour {}", destinataire.getId());
+            return 0.0;
+        }
+    }
+
+    public Collection<Autorisation> getAutorisations() {
+        return autorisations;
+    }
+
+    public void setAutorisations(Collection<Autorisation> autorisations) {
+        this.autorisations = autorisations;
     }
 
     @Override

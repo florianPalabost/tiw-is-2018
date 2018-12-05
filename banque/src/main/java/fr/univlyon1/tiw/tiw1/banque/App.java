@@ -30,8 +30,8 @@ public class App {
     @Bean
     public DataSource embeddedDB() {
         return new EmbeddedDatabaseBuilder()
-                .generateUniqueName(true)
                 .setType(EmbeddedDatabaseType.H2)
+                .setName("banquedb")
                 .setScriptEncoding("UTF-8")
                 .ignoreFailedDrops(true)
                 .addScript("/data/schema.sql")

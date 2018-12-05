@@ -2,9 +2,11 @@ package fr.univlyon1.tiw.tiw1.banque.service;
 
 
 import fr.univlyon1.tiw.tiw1.banque.App;
+import fr.univlyon1.tiw.tiw1.banque.data.AutorisationRepository;
 import fr.univlyon1.tiw.tiw1.banque.data.CompteInconnuException;
 import fr.univlyon1.tiw.tiw1.banque.data.CompteRepository;
 import fr.univlyon1.tiw.tiw1.banque.dto.CompteDTO;
+import fr.univlyon1.tiw.tiw1.banque.metier.Autorisation;
 import fr.univlyon1.tiw.tiw1.banque.metier.Compte;
 import fr.univlyon1.tiw.tiw1.banque.metier.OperationImpossibleException;
 import org.junit.Test;
@@ -32,7 +34,10 @@ public class CompteServiceTest {
     private CompteService service;
 
     @Autowired
-    private CompteRepository repository;
+    private CompteRepository compteRepository;
+
+    @Autowired
+    private AutorisationRepository autorisationRepository;
 
     @Test
     public void testCreerInfosCompte() throws CompteInconnuException {
@@ -45,14 +50,14 @@ public class CompteServiceTest {
 
     @Test
     public void testAutorisation() throws CompteInconnuException {
-        Compte compte2 = repository.findByIdOrFail(ID_COMPTE_2);
-        assertEquals(0.0,
-                repository.findByIdOrFail(ID_COMPTE_1).getMaximumAutorisation(compte2),
+        Compte compte2 = compteRepository.findByIdOrFail(ID_COMPTE_2);
+        assertEquals(10.0,
+                compteRepository.findByIdOrFail(ID_COMPTE_1).getMaximumAutorisation(compte2),
                 DELTA);
-        Compte compte1 = repository.findByIdOrFail(ID_COMPTE_1);
+        // Compte compte1 = compteRepository.findByIdOrFail(ID_COMPTE_1);
         service.autoriser(ID_COMPTE_1, ID_COMPTE_2, 5.0);
         assertEquals(5.0,
-                repository.findByIdOrFail(ID_COMPTE_1).getMaximumAutorisation(compte2),
+                compteRepository.findByIdOrFail(ID_COMPTE_1).getMaximumAutorisation(compte2),
                 DELTA);
     }
 
@@ -61,8 +66,8 @@ public class CompteServiceTest {
         service.autoriser(ID_COMPTE_1, ID_COMPTE_2, 10.0);
         service.prelevement(ID_COMPTE_1, ID_COMPTE_2, 5.0);
         service.prelevement(ID_COMPTE_1, ID_COMPTE_2, 10.0);
-        Compte compte1 = repository.findByIdOrFail(ID_COMPTE_1);
-        Compte compte2 = repository.findByIdOrFail(ID_COMPTE_2);
+        Compte compte1 = compteRepository.findByIdOrFail(ID_COMPTE_1);
+        Compte compte2 = compteRepository.findByIdOrFail(ID_COMPTE_2);
         assertEquals(185.0, compte1.getSolde(), DELTA);
         assertEquals(115.0, compte2.getSolde(), DELTA);
     }
@@ -75,7 +80,15 @@ public class CompteServiceTest {
 
     @Test(expected = OperationImpossibleException.class)
     public void testPrelevementNotOkNoAutorisation() throws CompteInconnuException, OperationImpossibleException {
-        service.prelevement(ID_COMPTE_1, ID_COMPTE_3, 1.0);
+        service.prelevement(ID_COMPTE_3, ID_COMPTE_1, 1.0);
+    }
+
+    @Test
+    public void testSaveAutorisation() throws CompteInconnuException {
+        Compte c1 = compteRepository.findByIdOrFail(ID_COMPTE_2);
+        Compte c2 = compteRepository.findByIdOrFail(ID_COMPTE_3);
+        Autorisation a = new Autorisation(c1, c2, 10.0);
+        autorisationRepository.save(a);
     }
 
 }

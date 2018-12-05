@@ -1,53 +1,23 @@
 package fr.univlyon1.tiw.tiw1.banque.metier;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@IdClass(Autorisation.Key.class)
 public class Autorisation {
-
-    public static class Key implements Serializable {
-        private Compte parent;
-        private Compte destinataire;
-
-        public Compte getParent() {
-            return parent;
-        }
-
-        public void setParent(Compte parent) {
-            this.parent = parent;
-        }
-
-        public Compte getDestinataire() {
-            return destinataire;
-        }
-
-        public void setDestinataire(Compte destinataire) {
-            this.destinataire = destinataire;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Key key = (Key) o;
-            return Objects.equals(parent, key.parent) &&
-                    Objects.equals(destinataire, key.destinataire);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(parent, destinataire);
-        }
-    }
+    private static final String GENERATOR_NAME = "autorisation_generator";
 
     @Id
+    @GeneratedValue(generator = GENERATOR_NAME)
+    @SequenceGenerator(name = GENERATOR_NAME, sequenceName = "autorisation_sequence")
+    private long id;
+
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parent")
     private Compte parent;
-    @Id
+
     @ManyToOne
+    @JoinColumn(name = "destinataire")
     private Compte destinataire;
     private double maximum;
 
@@ -74,5 +44,18 @@ public class Autorisation {
 
     public void setMaximum(double maximum) {
         this.maximum = maximum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Autorisation that = (Autorisation) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
