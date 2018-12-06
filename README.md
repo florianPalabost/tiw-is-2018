@@ -1,8 +1,33 @@
-# TPs TIW1 - Intergiciels et Services, année 2018-2019
+# TIW1 - Intergiciels et Services, année 2018-2019
+
+## Cours
+
+### Liens vers les CMs
+
+  * [CM1 : Révisions Java]()
+  * [CM2 : Inversion de Contrôle et conteneurs](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_conteneurs.pdf)
+  * [CM3 : Contexte et Annuaire](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_contexte.pdf)
+  * [CM4 : Object pool et intercepteurs]()
+  * [CM5 : Architectures Orientées Composants](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_composants.pdf) et [Spring](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_spring.pdf)
+  * [CM6 : TypeScript](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/revealJS/#TypeScript) et [Angular](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/revealJS/#Angular)
+  * [CM7 : Frameworks de composants dynamiques](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_OSGi.pdf)
+  * [CM8 : Objets Distribués](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_objets_distribues.pdf) et [Services Web](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_services_web.pdf)
+  * [CM9 : Composition de services et communication orientée-messages]()
+  * [CM10 : Microservices](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_microservices.pdf)
+  * [CM11 : Orchestration de conteneurs]()
+  * [CM12 : Cache]()
+  * [CM13 : Web performance]()
+  
+### Interventions extérieures
+
+  * [Architectures des SI]() (CGI)
+  * [Performance des SI]() (CGI)
+
+## TPs
 
 Ce dépôt constitue la base pour les TPs de l'UE.
 
-## Présentation
+### Présentation
 
 Les TPs s'appuient essentiellement sur une application de réservation de places de cinéma.
 Le métier codé dans cette application est décrit dans le fichier [metier](metier.md).
@@ -11,7 +36,7 @@ Le présent projet constitue la base qui servira de point de départ pour tous l
 
 Le module `metier-base` comprend un ensemble de d'interfaces et de classes Java qui spécifient et implémentent une partie de l'application utilisée pour illustrer les différents concept et technlogies vus dans l'UE.
 
-Liste des TPs:
+### Liste des TPs
 
 * [TP1: révision Java](tp1/README.md)
 * [TP2: containers](tp2/README.md)
@@ -25,7 +50,7 @@ Cette liste sera complétée au fur et à mesure de l'avancement dans l'UE.
 Lorsqu'ils sont disponibles, il est conseillé de lire les sujets de TP avant la première séance, même si certaines parties resteront obscures avant le premier cours.
 Si vous maîtrisez déjà certaines notions (de par votre expérience personnelle), il vous est possible de commencer le TP en avance.
 
-## Modalités de rendu
+### Modalités de rendu
 
 Les TPs sont à réaliser en binôme (ou éventuellement seul.e).
 Les TPs qui seront évalués sont à rendre via [la forge de l'université](https://forge.univ-lyon1.fr).
@@ -41,4 +66,3 @@ Tous les rendus devront suivre les consignes suivantes:
   La révision utilisée sera la dernière révision avant la date de rendu de la branche `TPX`, où `X` est le numéro de TP.
 
 > Le non respect de ces consignes de rendu entraînera systématiquement une pénalité dans la note du TP
-
