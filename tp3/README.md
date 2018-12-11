@@ -15,6 +15,14 @@ Dans ce TP, vous allez utiliser le framework Spring et certains des principaux [
 
 Créez un projet Forge et poussez-y la structure d'un projet Maven et Spring préconfiguré pour les sous-projets Spring demandés dans les questions suivantes. Pour obtenir ce projet, vous pouvez le créer vous-mêmes ou l'obtenir avec l'[outil de configuration automatique](https://start.spring.io/) fourni par Spring Boot.
 
+### Interaction avec la hiérarchie de projets maven
+
+Normalement, un projet maven spring boot hérite de du projet `spring-boot-starter-parent`. Comme le TP se trouve déjà dans une hiérarchie, plusieurs possibilités s'offrent à vous:
+
+- recopier une partie de la configuration du projet `base` (risque d'erreur et complexité de maintenance)
+- faire que le projet `base` hérite de `spring-boot-starter-parent` (on embarque alors de la configuration de projet liées à spring dans un projet non-spring)
+- reprendre la configuration fournie par `spring-boot-starter-parent` [comme indiqué ici](https://www.baeldung.com/spring-boot-dependency-management-custom-parent) (configuration pom plus lourde, attention à la version de spring qui est datée dans le billet de blog)
+
 ## Spring Framework
 
 Dans cette section, vous allez utiliser les différents modules de [Spring Framework](http://projects.spring.io/spring-framework/), dont vous trouverez une documentation [ici](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-modules).
@@ -23,7 +31,7 @@ Dans cette section, vous allez utiliser les différents modules de [Spring Frame
 
 Faites les manipulations suivantes pour que votre code puisse être utilisé par [Spring Core Container](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-core-container) :
 
-- Transformez vos `CinemaRessourceXxx`, `Salle`, `Film` et `Seance` en beans Spring pour permettre au conteneur de Spring DI de les gérer dans l’application
+- Transformez vos `CinemaRessourceXxx`, ainsi que vos différents DAOs en beans Spring pour permettre au conteneur de Spring DI de les gérer dans l’application
 - Remplacez l’annuaire JNDI par un Spring Context
 
 &Agrave; ce stade, vous devez avoir une application standalone fonctionnelle, que vous pouvez tester de la même façon que lors du TP précédent.
@@ -40,6 +48,18 @@ Vous exposerez votre application en deux parties :
 - d'exposer en lecture uniquement les films et les séances,
 - de réaliser les 4 opérations sur les réservations pour une séance. Ne vous préoccupez pas des problèmes d'authentification pour l'instant.
 
+Note : pour pouvoir utiliser des JSP pour faire le templating, vous pouvez vous aider :
+
+- du projet `exemple-spring-boot-avec-jsp` dans ce répertoire (interrogez http://localhost:8080/hello?name=Toto)
+- de [ce tutoriel](https://howtodoinjava.com/spring-boot/spring-boot-jsp-view-example/).
+
+### Spring Test
+
+Utilisez [Spring Test](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-testing) pour écrire des tests :
+
+1. Unitaires pour chacun des composants ; utilisez éventuellement 1 ou plusieurs mocks ad hoc
+2. D’intégration (1 minimum)
+
 ### Spring Data
 
 À l’aide de [Spring Data](http://projects.spring.io/spring-data), créez un DAO s’appuyant sur JPA pour implémenter la persistance des réservations.
@@ -54,14 +74,3 @@ Vous exposerez votre application en deux parties :
 ### Spring AOP
 
 Utilisez [Spring AOP](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-aop-instrumentation) pour créer un nouvel aspect chargé d'intercepter la création de séances et de tenir à jour un "tableau de bord", accessible aux gestionnaires du cinéma dans le back-office.
-
-### Spring Test
-
-Utilisez [Spring Test](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/overview.html#overview-testing) pour écrire des tests :
-
-1. Unitaires pour chacun des composants ; utilisez éventuellement 1 ou plusieurs mocks ad hoc
-2. D’intégration (1 minimum)
-
-### Rendu du TP
-
-Ce TP n'est pas à rendre, mais vous devez le terminer avant la fin de la semaine car vous en aurez besoin pour les TPs suivants.
