@@ -26,6 +26,9 @@ public class CinemaTest {
 
     @Ignore
     @Test
+    /**
+     * Teste si on a bien 4 séances / jour x 7 jours x 3 salles = 84 séances
+     */
     public void testChargementJackson() throws IOException {
         CinemaWrapper wrapper = mapper.readValue(AbstractCinema.class.getResource("/sample-data/mon-cinema.json"), CinemaWrapper.class);
         assertEquals(84, wrapper.cinema.seances.size());
