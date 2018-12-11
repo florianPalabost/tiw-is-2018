@@ -44,6 +44,7 @@ Le module `metier-base` comprend un ensemble de d'interfaces et de classes Java 
 * [TP4: Angular](tp4/README.md)
 * [TP5: OSGi](tp5/README.md)
 * [TP6: Clients SOAP](tp6/README.md)
+* [TP7: Service SOAP](tp7/README.md)
 
 Cette liste sera complétée au fur et à mesure de l'avancement dans l'UE.
 
