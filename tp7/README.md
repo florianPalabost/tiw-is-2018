@@ -9,7 +9,7 @@ Adapter ensuite la configuration dans le `pom.xml` afin d'intégrer Apache CXF, 
 
 Dans ce TP, on exposera de différentes manières les fonctionnalités de réservation sous forme de service SOAP.
 Le fichier [reservation.wsdl](src/main/resources/reservation.wsdl) contient les définitions du service correspondant.
-Il s'appuie sur le fichier [cinema.xsd](src/main/resources/cinema.xsd) qui contient les définitions des différents éléments XML échangés par le service.
+
 
 ## Implémentation via un générateur de code
 
