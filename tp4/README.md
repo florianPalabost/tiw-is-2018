@@ -8,18 +8,29 @@ Université Claude Bernard Lyon 1 – M2 TIW – Intergiciels et Services
 - Savoir générer, configurer et développer un projet et différents éléments (composants, services...)
 - Faire une première application côté client qui interroge un serveur REST
 
-## Préambule
+### Ressources
 
 Lien vers les cours :
 
 - [TypeScript](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/revealJS/#TypeScript)
 - [Angular](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/revealJS/#Angular)
 
+## Préambule
+
 Dans ce TP, vous allez utiliser [Angular](https://angular.io/) pour réaliser une application de réservation de places pour le cinéma. Vous utiliserez une version fonctionnelle de votre TP en Spring côté serveur, en veillant à ce qu'elle réponde bien aux méthodes GET, PUT, POST et DELETE, en fonction des ressources pour lesquelles elle est interogée.
 
-Attention : vous devez avoir configuré votre serveur pour qu'il accepte les requêtes en CORS, car l'application front ne sera pas servie par le même serveur.
+Attention : vous devez avoir configuré votre application côté serveur pour qu'elle accepte les requêtes en CORS, car l'application front ne sera pas servie par le même serveur.
 
-## Structure du projet
+### Modification de la structure du projet
+
+Il est recommandé de rajouter un niveau de structure dans l'arborescence des répertoires de votre projet et de :
+
+- créer un répertoire `serveur` à la racine de votre projet et déplacer l'application en Spring dedans
+- créer un répertoire `client` où vous placerez le code réalisé pendant ce TP
+
+Remarque : vous devrez aussi modifier vos scripts GitLab CI pour qu'ils s'exécutent dans le répertoire `serveur`
+
+## Initialisation
 
 Utilisez la CLI comme indiqué en cours pour générer le projet.
 
