@@ -1,5 +1,6 @@
 package fr.univlyon1.m2tiw.tiw1.spring;
 
+import fr.univlyon1.m2tiw.tiw1.metier.dao.ProgrammationDAO;
 import fr.univlyon1.m2tiw.tiw1.spring.dao.ReservationSpringDAO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,5 +25,6 @@ public class AppTest {
     @Test
     public void testAppOk() {
         assertNotNull(context.getBean(ReservationSpringDAO.class));
+        assertNotNull(context.getBean(ProgrammationDAO.class));
     }
 }

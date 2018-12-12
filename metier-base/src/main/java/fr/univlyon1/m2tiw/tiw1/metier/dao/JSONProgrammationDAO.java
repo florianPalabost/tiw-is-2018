@@ -38,19 +38,16 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
 
     private List<Film> films = null;
     private Map<String, Seance> seances = null;
-    //private SalleDAO salleDAO;
+    private SalleDAO salleDAO;
     private File seancesFile;
     private File filmsFile;
-    //private ReservationDAO reservationDAO;
-    private Annuaire annuaire;
+    private ReservationDAO reservationDAO;
 
-    public JSONProgrammationDAO(Annuaire annuaire) throws IOException, ParseException {
-        this.annuaire = annuaire;
-        String nomCinema = (String) annuaire.get(NOM_CINEMA);
+    public JSONProgrammationDAO(String nomCinema, SalleDAO salleDAO, ReservationDAO reservationDAO) throws IOException, ParseException {
         this.seancesFile = new File(nomCinema, SEANCES_JSON);
         this.filmsFile = new File(nomCinema, FILMS_JSON);
-        //this.salleDAO = salleDAO;
-        //this.reservationDAO = reservationDAO;
+        this.salleDAO = salleDAO;
+        this.reservationDAO = reservationDAO;
     }
 
     private void save() throws IOException {
@@ -90,11 +87,11 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
     }
 
     private ReservationDAO getReservationDAO() {
-        return (ReservationDAO) annuaire.get(RESERVATION_DAO);
+        return this.reservationDAO;
     }
 
     private SalleDAO getSalleDAO() {
-        return (SalleDAO) annuaire.get(SALLE_DAO);
+        return this.salleDAO;
     }
 
     @Override

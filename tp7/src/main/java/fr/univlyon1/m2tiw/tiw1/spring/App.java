@@ -1,5 +1,6 @@
 package fr.univlyon1.m2tiw.tiw1.spring;
 
+import fr.univlyon1.m2tiw.tiw1.metier.dao.*;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.io.IOException;
+import java.text.ParseException;
 
 @SpringBootApplication
 @EnableTransactionManagement
@@ -68,5 +71,15 @@ public class App {
         return jpaTransactionManager;
     }
 
+    @Bean
+    public SalleDAO salleDAO() {
+        return new JSONSalleDAO();
+    }
 
+    @Bean
+    public ProgrammationDAO programmationDAO(SalleDAO salleDAO, ReservationDAO reservationDAO)
+            throws IOException, ParseException {
+        ProgrammationDAO dao = new JSONProgrammationDAO("MonCinema", salleDAO, reservationDAO);
+        return dao;
+    }
 }
