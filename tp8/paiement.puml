@@ -1,0 +1,7 @@
+@startuml
+Client -> Cinema: reserver
+Cinema -> Client: reserverResponse
+Client -> Banque: prelevement
+Banque -> Cinema: prelevementNotification
+Cinema -> EmailService: sendmail
+@enduml
