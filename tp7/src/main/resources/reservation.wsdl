@@ -77,13 +77,13 @@
         <wsdl:part name="parameters" element="tns:seance-inconnue"/>
     </wsdl:message>
     <wsdl:message name="annuler">
-        <wsdl:part name="parameters" element="annuler-reservation"/>
+        <wsdl:part name="parameters" element="tns:annuler-reservation"/>
     </wsdl:message>
     <wsdl:message name="annulerResponse">
-        <wsdl:part name="parameters" element="reservation-annulee"/>
+        <wsdl:part name="parameters" element="tns:reservation-annulee"/>
     </wsdl:message>
     <wsdl:message name="reservationInconnue">
-        <wsdl:part name="parameters" element="reservation-inconnue"/>
+        <wsdl:part name="parameters" element="tns:reservation-inconnue"/>
     </wsdl:message>
     <wsdl:portType name="ReservationService">
         <wsdl:operation name="reserver">
@@ -93,8 +93,8 @@
             <wsdl:fault name="seanceInconnue" message="tns:seanceInconnue"/>
         </wsdl:operation>
         <wsdl:operation name="annuler">
-            <wsdl:input message="annuler" name="annuler"/>
-            <wsdl:output message="annulerResponse" name="annulerResponse"/>
+            <wsdl:input message="tns:annuler" name="annuler"/>
+            <wsdl:output message="tns:annulerResponse" name="annulerResponse"/>
             <wsdl:fault name="reservationInconnue" message="tns:reservationInconnue"/>
         </wsdl:operation>
     </wsdl:portType>
