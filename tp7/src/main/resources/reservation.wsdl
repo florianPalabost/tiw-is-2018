@@ -18,6 +18,7 @@
                         <xs:element name="prenom" type="xs:string"/>
                         <xs:element name="nom" type="xs:string"/>
                         <xs:element name="email" type="xs:string"/>
+                        <xs:element name="seance" type="xs:string"/>
                     </xsd:sequence>
                 </xs:complexType>
             </xs:element>
