@@ -10,18 +10,13 @@
     <name>TIW1 - Base</name>
     <url>http://maven.apache.org</url>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.5.RELEASE</version>
-    </parent>
-
     <modules>
         <module>metier-base</module>
         <module>tp1</module>
         <module>tp2</module>
         <module>banque</module>
         <module>tp6</module>
+        <module>tp7</module>
     </modules>
 
     <properties>
@@ -29,6 +24,7 @@
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
         <jackson.version>2.9.5</jackson.version>
         <cxf.version>3.1.14</cxf.version>
+        <springboot.version>2.0.7.RELEASE</springboot.version>
     </properties>
 
     <dependencyManagement>
