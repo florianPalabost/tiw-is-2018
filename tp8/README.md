@@ -13,6 +13,8 @@ Le diagramme ci-dessous indique les communications qui ont lieu lors d'une rése
 
 On considèrera que le compte de du cinema est le compte 234567890.
 
+Remarque: dans ce TP, cela devrait être un débit de carte bancaire et non un prélèvement qui serait utilisé. On conservera cependant la notion de prélèvement afin de minimiser les changements à apporter.
+
 ## Mise en oeuvre de RabbitMQ et premier client
 
 ### Serveur RabbitMQ
@@ -47,7 +49,30 @@ Adapter le code pour que la banque envoie sur la queue ` cinema` un message JSON
 
 Remarques/liens:
 
-- Artifact maven pour le client RabbitMQ: [amqp-client](https://search.maven.org/artifact/com.rabbitmq/amqp-client/5.5.1/jar)
+- Artifact maven pour le client RabbitMQ: [amqp-client](https://search.maven.org/artifact/com.rabbitmq/amqp-client/5.5.1/jar).
+- Il est possible d'utiliser l'interface Web de RabbitMQ pour vérifier que des messages sont biens envoyés dans une queue.
 
-TODO: file rabbit en dur au début, dynamique après
-TODO: distributeur de ticket, file rabbit déduite
+## Reception de message: traitement du paiement
+
+Modifier l'application cinema (tp 3/7) afin de surveiller la queue `cinema` et changer la valeur du champ `paye` pour la réservation dont l'identifiant correspond à la référence (`ref`) transmise dans le message.
+
+Pour cette partie, il est possible d'utiliser au choix directement le client AMQP comme précédement, ou bien utiliser l'intégration dans spring ([Spring AMQP](http://spring.io/projects/spring-amqp)).
+
+## Queues dynamiques: bornes de tickets
+
+Créer une nouvelle application (par exemple avec Spring Boot) qui va représenter une borne de tickets.
+Dans le cadre de ce TP on munira cette application d'une interface simple pour remplacer l'interface graphique de la borne: par exemple un contrôleur REST ou une interface texte sous forme d'un petit shell.
+
+Lorsqu'une réservation est effectuée par l'intermédiaire de la borne, c'est cette dernière qui va déclencher les appels aux services de réservation et de banque.
+
+Modifier le WSDL et le service de réservation afin de pouvoir préciser au choix, les nom, prénom et email ou l'identifiant d'une borne.
+
+Faire que la borne écoute une queue RabbitMQ qui dépend de son identifiant.
+Faire que le cinéma envoie une notification concernant la validation (paiement) d'une réservation à la borne qui en est originaire (quand c'est une borne qui a fait la réservation).
+Lorsqu'elle reçoit une telle notification, la borne affiche un message de log approprié (pour simuler l'impression des tickets).
+
+Le fonctionnement du système de bornes est résumé dans le diagramme suivant:
+
+![Diagramme bornes](./reservation2.png)
+
+Tester le bon fonctionnement du système, d'abord avec une, puis avec deux bornes, afin de vérifier que les messages ne sont pas mélangés.

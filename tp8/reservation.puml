@@ -4,5 +4,4 @@ Cinema --> Client: reserverResponse
 Client -> Banque: prelevement
 Banque --> Client: prelevementResponse
 Banque -> Cinema: prelevementNotification
-Cinema -> EmailService: sendmail
 @enduml
