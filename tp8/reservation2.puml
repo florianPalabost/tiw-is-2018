@@ -1,0 +1,8 @@
+@startuml
+Borne -> Cinema: reserver
+Cinema --> Borne: reserverResponse
+Borne -> Banque: prelevement
+Banque --> Borne: prelevementResponse
+Banque -> Cinema: prelevementNotification
+Cinema -> Borne: notification
+@enduml
