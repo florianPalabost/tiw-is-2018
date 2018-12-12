@@ -25,7 +25,7 @@ public class ReservationSpringDAO implements ReservationDAO {
 
     @Override
     public Collection<Reservation> getBySeance(String seanceId) {
-        return repository.getAllBySeanceIdAnd(seanceId);
+        return repository.getAllBySeanceId(seanceId);
     }
 
     @Override

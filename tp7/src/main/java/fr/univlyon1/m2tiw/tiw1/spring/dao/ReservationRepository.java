@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Collection;
 
 public interface ReservationRepository extends CrudRepository<Reservation,Long> {
-    Collection<Reservation> getAllBySeanceIdAnd(String seanceId);
+    Collection<Reservation> getAllBySeanceId(String seanceId);
 }

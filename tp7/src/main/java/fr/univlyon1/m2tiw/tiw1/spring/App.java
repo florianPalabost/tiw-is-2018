@@ -35,7 +35,7 @@ public class App {
                 .setScriptEncoding("UTF-8")
                 .ignoreFailedDrops(true)
                 .addScript("/data/schema.sql")
-                .addScript("/data/data.sql")
+                // .addScript("/data/data.sql")
                 .build();
     }
 
@@ -67,4 +67,6 @@ public class App {
         jpaTransactionManager.setDataSource(embeddedDB());
         return jpaTransactionManager;
     }
+
+
 }
