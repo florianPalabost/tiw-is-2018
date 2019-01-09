@@ -46,6 +46,7 @@ Le module `metier-base` comprend un ensemble de d'interfaces et de classes Java 
 * [TP6: Clients SOAP](tp6/README.md)
 * [TP7: Service SOAP](tp7/README.md)
 * [TP8: RabbitMQ](tp8/README.md)
+* [TP9: Microservices](tp9/README.md)
 
 Cette liste sera complétée au fur et à mesure de l'avancement dans l'UE.
 
