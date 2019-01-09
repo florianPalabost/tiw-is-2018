@@ -9,7 +9,7 @@ Université Claude Bernard Lyon 1 – M2 TIW – Intergiciels et Services
 
 ## Outils
 
-Dans ce TP, vous utiliserez l'infrastructure OpenStack et les VMs que vous avez mises au point dans le TP Docker de PAI. Les autres images dont vous partirez sont à aller chercher sur le [Docker hub](https://hub.docker.com/), de même que les docs correspondantes.
+Dans ce TP, vous utiliserez l'infrastructure OpenStack et les VMs dont l'IP est sur Tomuss. Les autres images dont vous partirez sont à aller chercher sur le [Docker hub](https://hub.docker.com/), de même que les docs correspondantes.
 
 Vous utiliserez [Apache Bench](http://httpd.apache.org/docs/2.2/programs/ab.html) pour tester votre application depuis une autre machine sur le réseau. Pour l'installer en Debian/Ubuntu : <span class="code">sudo apt-get install apache2-utils</span>. Pour tester : <span class="code">ab -n 10000 -c 10 http://adresse-à-tester</span>.
 
