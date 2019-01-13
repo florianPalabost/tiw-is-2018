@@ -14,7 +14,7 @@
   * [CM8 : Objets Distribués](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_objets_distribues.pdf) et [Services Web](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_services_web.pdf)
   * [CM9 : Composition de services et communication orientée-messages](https://perso.liris.cnrs.fr/ecoquery/enseignement/tiw1-is/CompositionMessaging.pdf)
   * [CM10 : Microservices](https://perso.liris.cnrs.fr/lionel.medini/enseignement/IS/CM_IS_microservices.pdf)
-  * [CM11 : Orchestration de conteneurs]() - À venir
+  * [CM11 : Orchestration de conteneurs](https://perso.liris.cnrs.fr/ecoquery/enseignement/tiw1-is/OrchestrationConteneursK8S.pdf)
   * [CM12 : Cache](https://perso.liris.cnrs.fr/ecoquery/enseignement/tiw1-is/CacheApplicatif.pdf)
   * [CM13 : Web performance]()  - À venir
   
