@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Thymeleaf + Spring Security</title>
+
+    <div th:replace="header :: header-css"/>
+
+</head>
+<body>
+
+<div th:replace="header :: header"/>
+
+<div class="container">
+<h1>Mon Cinéma</h1>
+    <div class="starter-template">
+        <h2>Spring Boot Web Thymeleaf + Spring Security</h2>
+        <ul>
+            <li>Visit <a th:href="@{/admin}">Admin page (Spring Security protected, Need Admin Role)</a></li>
+            <li>Visit <a th:href="@{/user}">User page (Spring Security protected, Need User Role)</a></li>
+            <li>Visit <a th:href="@{/about}">Normal page</a></li>
+        </ul>
+    </div>
+<div>
+    <h2>Pages disponibles</h2>
+    <ul>
+        <li><a href="/backend/cinema/films/addfilm">backend Ajout film</a></li>
+        <li><a href="/backend/cinema/seances/addseance">backend Ajout seance</a></li>
+        <li><a href="/backend/cinema/films/gestion">backend gestion films</a></li>
+    </ul>
+</div>
+</div>
+<!-- /.container -->
+
+<div th:replace="footer :: footer"/>
+
+</body>
+</html>

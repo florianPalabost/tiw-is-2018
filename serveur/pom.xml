@@ -13,8 +13,7 @@
     <modules>
         <module>metier-base</module>
         <module>tp1</module>
-        <module>banque</module>
-        <module>tp6</module>
+        <module>tp3</module>
     </modules>
 
     <properties>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modification d'un film</title>
+
+    <div th:replace="header :: header-css"/>
+
+</head>
+<body>
+
+<div th:replace="header :: header"/>
+
+<div class="container">
+    <h1>Modification du film : ${film.titre}</h1>
+    <form action="#" th:action="@{/backend/cinema/films/createfilm}" th:object="${film}" method="post">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="titre" class="col-form-label">Titre</label>
+                <input type="text" th:field="*{titre}" class="form-control" id="titre" placeholder="Titre">
+                <span th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="version" class="col-form-label">Version</label>
+                <input type="text" th:field="*{version}" class="form-control" id="version" placeholder="VF">
+                <span th:if="${#fields.hasErrors('version')}" th:errors="*{version}" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="fiche" class="col-form-label">Fiche</label>
+                <input type="text" th:field="*{fiche}" class="form-control" id="fiche" placeholder="http://example.fr">
+                <span th:if="${#fields.hasErrors('fiche')}" th:errors="*{fiche}" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <input type="submit" class="btn btn-primary" value="Ajouter le film">
+            </div>
+        </div>
+    </form>
+</div>
+<!-- /.container -->
+
+<div th:replace="footer :: footer"/>
+
+</body>
+</html>

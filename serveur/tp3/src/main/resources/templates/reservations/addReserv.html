@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajout d'une Réservation</title>
+
+    <div th:replace="header :: header-css"/>
+
+</head>
+<body>
+
+<div th:replace="header :: header"/>
+
+<div class="container">
+    <h1>Ajout d'une Réservation</h1>
+    <form action="#" th:action="@{/cinema/seances/saveReserv}" th:object="${reservation}" method="post">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="nom" class="col-form-label">Nom</label>
+                <input type="text" th:field="*{nom}" class="form-control" id="nom" placeholder="Nom">
+                <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="prenom" class="col-form-label">Prénom</label>
+                <input type="text" th:field="*{prenom}" class="form-control" id="prenom" placeholder="Prénom">
+                <span th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email" class="col-form-label">Email</label>
+                <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="toto@toto.fr">
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+            </div>
+            <input type="hidden" name="id" th:value="${seance.getId()}">
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <input type="submit" class="btn btn-primary" value="Sauvegarder la réservation">
+            </div>
+        </div>
+    </form>
+</div>
+<!-- /.container -->
+
+<div th:replace="footer :: footer"/>
+
+</body>
+</html>

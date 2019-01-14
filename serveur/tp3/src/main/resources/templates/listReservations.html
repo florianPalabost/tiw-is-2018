@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des réservations</title>
+
+    <div th:replace="header :: header-css"/>
+
+</head>
+<body>
+
+<div th:replace="header :: header"/>
+
+<div class="container">
+    <h1>Mon Cinéma</h1>
+    <div class="starter-template">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Nom </th>
+                <th> Prénom </th>
+                <th> Email </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${reservations.empty}">
+                <td colspan="3"> No reservations Available </td>
+            </tr>
+            <tr th:each="reserv : ${reservations}">
+                <td><span th:text="${reserv.nom}"> Nom </span></td>
+                <td><span th:text="${reserv.prenom}"> Prénom </span></td>
+                <td><span th:text="${reserv.email}"> Email </span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- /.container -->
+
+<div th:replace="footer :: footer"/>
+
+</body>
+</html>

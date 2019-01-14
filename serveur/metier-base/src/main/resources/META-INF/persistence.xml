@@ -2,7 +2,7 @@
 <persistence version="1.0"
              xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
-    <persistence-unit name="pu-test" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
         <!-- Unité de persistence configurée pour être utilisée avec une tp3 H2 et une implémentation via Hibernate.
              Nécessite d'ajouter dans le scope d'exécution (e.g. test ou runtime) les dépendances h2 et hibernate-entitymanager.
         -->
@@ -16,7 +16,7 @@
             <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
             <property name="hibernate.connection.url" value="jdbc:h2:mem:mytestdb"/>
             <!-- Utiliser le fichier agenda-schema.sql pour créer les tables -->
-            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.connection.username" value="sa"/>
         </properties>
     </persistence-unit>

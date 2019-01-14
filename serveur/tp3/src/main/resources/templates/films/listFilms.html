@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion des films</title>
+
+    <div th:replace="header :: header-css"/>
+
+</head>
+<body>
+
+<div th:replace="header :: header"/>
+
+<div class="container">
+    <h1>Gestion des films</h1>
+    <div class="starter-template">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Titre</th>
+                <th> Version </th>
+                <th> Fiche </th>
+                <th class="text-center"> Modifier </th>
+                <th class="text-center"> Supprimer </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${films.empty}">
+                <td colspan="3"> Aucun film disponible. </td>
+            </tr>
+            <tr th:each="film : ${films}">
+                <td><span th:text="${film.titre}"> Titre </span></td>
+                <td><span th:text="${film.version}"> Version </span></td>
+                <td><span th:text="${film.fiche}"> Fiche </span></td>
+                <td class="text-center"><a th:href="@{/backend/cinema/films/{key}/edit(key=${film.key})}"><i style="color: orange;" class="far fa-edit"></i></a></td>
+                <td class="text-center"><a href=""><i style="color: red;" class="far fa-trash-alt"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h2>Pages disponibles</h2>
+        <ul>
+            <li><a href="/cinema/addfilm">Ajout film</a></li>
+            <li><a href="/cinema/addseance">Ajout seance</a></li>
+        </ul>
+    </div>
+</div>
+<!-- /.container -->
+
+<div th:replace="footer :: footer"/>
+
+</body>
+</html>
