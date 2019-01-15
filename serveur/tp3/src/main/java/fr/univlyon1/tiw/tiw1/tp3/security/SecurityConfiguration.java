@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/films", "/about","/cinema/**").permitAll()
+                .antMatchers("/", "/films", "/about","/cinema/**","/console/**").permitAll()
                 .antMatchers("/backend/**").hasAnyRole("ADMIN")
                 //.antMatchers("/cinema/**").hasAnyRole("USER")
                 .anyRequest().authenticated()
@@ -35,6 +35,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+
+        // add this line to use H2 web console
+        http.headers().frameOptions().disable();
     }
     // 2 users roles ADMIN & USER
     @Autowired
