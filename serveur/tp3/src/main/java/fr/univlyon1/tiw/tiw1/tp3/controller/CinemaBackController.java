@@ -1,6 +1,7 @@
 package fr.univlyon1.tiw.tiw1.tp3.controller;
 
 import fr.univlyon1.tiw.tiw1.metier.beans.Film;
+import fr.univlyon1.tiw.tiw1.metier.beans.Reservation;
 import fr.univlyon1.tiw.tiw1.metier.beans.Salle;
 import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 import fr.univlyon1.tiw.tiw1.metier.jsondto.SeanceDTO;
@@ -157,4 +158,16 @@ public class CinemaBackController {
         // model.addAttribute("f", userRepository.findAll());
         return "index";
     }
+
+    @PostMapping("/cinema/films/{keyFilm}/seances/")
+    public  ResponseEntity<Void> recordReservation(@Valid Reservation reservation, @PathVariable String keyFilm, BindingResult result, Model model) throws IOException {
+        //Film f = cinemaService.findFilmByKey(keyFilm);
+
+        //check if the seance exist, for this reservation
+        Seance s = cinemaService.findSeanceById(reservation.getSeanceId());
+
+        cinemaService.saveReservation(reservation);
+        return null;
+    }
+
 }

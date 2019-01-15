@@ -86,6 +86,9 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
         LOGGER.info("SEANCES OF FILM :"+seancesOfFilm.toString());
         return seancesOfFilm;
     }
+    private void saveReservation(Reservation reservation){
+        reservationDAO.save(reservation);
+    }
     /**
      *
      * process .
@@ -124,7 +127,9 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
 
             case "getSeanceById":
                 return getSeanceById((String) parametres.get("id"));
-
+            case "saveReservation":
+                saveReservation((Reservation) parametres.get("reservation"));
+                return null;
             default:
                 return null;
         }

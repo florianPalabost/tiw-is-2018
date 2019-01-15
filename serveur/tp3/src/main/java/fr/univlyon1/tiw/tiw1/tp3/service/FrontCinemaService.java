@@ -143,8 +143,12 @@ public class FrontCinemaService implements ICinemaService{
         cinemaRessourceSeances.process("createSeance", params);
         return null;
     }
-    public ResponseEntity<Void> saveReservation(Reservation reservation) {
+    public ResponseEntity<Void> saveReservation(Reservation reservation) throws IOException {
         // reservationDAO.save(reservation);
+        Map<String,Object> params = new HashMap<>();
+        params.put("reservation",reservation);
+
+        cinemaRessourceSeances.process("saveReservation", params);
         return null;
     }
 }
