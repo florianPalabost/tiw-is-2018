@@ -1,8 +1,8 @@
 package fr.univlyon1.tiw.tiw1.tp3.service;
 
-import fr.univlyon1.m2tiw.tiw1.metier.beans.*;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.CinemaDAO;
-import fr.univlyon1.m2tiw.tiw1.metier.dao.impl.JSONCinemaDAO;
+import fr.univlyon1.tiw.tiw1.metier.beans.*;
+import fr.univlyon1.tiw.tiw1.metier.dao.CinemaDAO;
+import fr.univlyon1.tiw.tiw1.metier.dao.impl.JSONCinemaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

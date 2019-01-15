@@ -1,8 +1,8 @@
 package fr.univlyon1.tiw.tiw1.tp3.service;
 
-import fr.univlyon1.m2tiw.tiw1.metier.beans.Film;
-import fr.univlyon1.m2tiw.tiw1.metier.beans.Salle;
-import fr.univlyon1.m2tiw.tiw1.metier.beans.Seance;
+import fr.univlyon1.tiw.tiw1.metier.beans.Film;
+import fr.univlyon1.tiw.tiw1.metier.beans.Salle;
+import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 
 import java.io.IOException;
 import java.util.Collection;
