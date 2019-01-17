@@ -24,6 +24,12 @@ public class SeanceDTO {
         dto.prix = seance.getPrix();
         return dto;
     }
+    public SeanceDTO() {
+        this.film = null;
+        this.salle = null;
+        this.date = "";
+        this.prix = 0;
+    }
 /*
     public SeanceDTO() {
     }

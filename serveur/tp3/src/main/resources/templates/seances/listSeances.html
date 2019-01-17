@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion des séances</title>
+
+    <div th:replace="header :: header-css"/>
+
+</head>
+<body>
+
+<div th:replace="header :: header"/>
+
+<div class="container">
+    <h1>Gestion des séances du film <span th:text="${nomFilm}">nomFilm</span></h1>
+    <div class="row">
+        <a th:href="@{/backend/cinema/films/{key}/seances/addSeance(key=${nomFilm})}" class="btn btn-primary">Ajouter une séance</a>
+    </div>
+    <div class="starter-template">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Salle </th>
+                <th> Capacité </th>
+                <th> Horaire </th>
+                <th> Prix (€) </th>
+                <th class="text-center"> Modifier </th>
+                <th class="text-center"> Supprimer </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${seances.empty}">
+                <td colspan="3"> Aucune séance disponible. </td>
+            </tr>
+            <tr th:each="seance : ${seances}">
+                <td><span th:text="${seance.salle.nom}"> Nom Salle</span></td>
+                <td><span th:text="${seance.salle.capacite}"> Capacité salle </span></td>
+                <td><span th:text="${seance.date}"> horaire seance </span></td>
+                <td><span th:text="${seance.prix}"> Prix séance </span></td>
+                <td class="text-center"><a th:href="@{/backend/cinema/films/{key}/seances/{keySeance}/edit(key=${seance.film.key},keySeance=${seance.id})}"><i style="color: orange;" class="far fa-edit"></i></a></td>
+                <td class="text-center"><a href=""><i style="color: red;" class="far fa-trash-alt"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h2>Pages disponibles</h2>
+        <ul>
+            <li><a href="/cinema/addfilm">Ajout film</a></li>
+            <li><a href="/cinema/addseance">Ajout seance</a></li>
+        </ul>
+    </div>
+</div>
+<!-- /.container -->
+
+<div th:replace="footer :: footer"/>
+
+</body>
+</html>

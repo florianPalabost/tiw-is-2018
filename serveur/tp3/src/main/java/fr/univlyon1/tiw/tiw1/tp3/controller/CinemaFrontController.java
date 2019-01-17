@@ -46,7 +46,7 @@ public class CinemaFrontController {
     }
 
     @GetMapping("/seances/{id}/reservations")
-    public String listReservations(@PathVariable String id, Map<String, Object> model) throws IOException {
+    public String listReservations(@PathVariable String id, Map<String, Object> model) throws Exception {
         Seance s = cinemaService.findSeanceById(id);
         if(s != null) {
             model.put("reservations",s.getReservations());
@@ -56,7 +56,7 @@ public class CinemaFrontController {
     }
 
     @GetMapping(path="/seances/{id}")
-    public String showSeance(@PathVariable String id,Map<String, Object> model) throws IOException {
+    public String showSeance(@PathVariable String id,Map<String, Object> model) throws Exception {
         Seance seance = cinemaService.findSeanceById(id);
         if(seance != null) {
 //            LOGGER.info("SEANCE : "+seance);
@@ -67,7 +67,7 @@ public class CinemaFrontController {
     }
 
     @GetMapping("/seances/{id}/addReservation")
-    public String showAddReserv(@PathVariable String id, Map<String, Object> model) throws IOException {
+    public String showAddReserv(@PathVariable String id, Map<String, Object> model) throws Exception {
         Seance seance = cinemaService.findSeanceById(id);
         model.put("seance",seance);
         Reservation r = new Reservation();

@@ -59,7 +59,7 @@ public class RequetesRestController {
     }
 
     @GetMapping(path="/cinema/seances/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Seance retrieveSeance(@PathVariable String id) throws IOException {
+    public @ResponseBody Seance retrieveSeance(@PathVariable String id) throws Exception {
         Seance s = cinemaService.findSeanceById(id);
         if(s != null) {
             return s;

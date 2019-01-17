@@ -6,12 +6,12 @@ import fr.univlyon1.tiw.tiw1.utils.SeanceCompleteException;
 import java.util.*;
 
 public class Seance {
-    private final Film film;
-    private final Salle salle;
-    private final Date date;
-    private final float prix;
+    private Film film;
+    private Salle salle;
+    private Date date;
+    private float prix;
     private List<Reservation> reservations;
-    private final String id;
+    private String id;
     private ReservationDAO reservationDAO;
 
     /**
@@ -120,6 +120,21 @@ public class Seance {
         return id;
     }
 
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+
+    public void setSalle(Salle salle) {
+        this.salle = salle;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setPrix(float prix) {
+        this.prix = prix;
+    }
     @Override
     public String toString() {
         return "{" + "film:" + film

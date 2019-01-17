@@ -3,15 +3,21 @@ package fr.univlyon1.tiw.tiw1.tp3.service;
 import fr.univlyon1.tiw.tiw1.metier.beans.*;
 import fr.univlyon1.tiw.tiw1.metier.dao.CinemaDAO;
 import fr.univlyon1.tiw.tiw1.metier.dao.impl.JSONCinemaDAO;
+import fr.univlyon1.tiw.tiw1.metier.jsondto.SeanceDTO;
+import fr.univlyon1.tiw.tiw1.tp3.controller.CinemaBackController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Transactional
 @Service
@@ -27,6 +33,8 @@ public class FrontCinemaService implements ICinemaService{
     private CinemaDAO cinemaDAO = new JSONCinemaDAO();
     /*@Autowired
     private ReservationDAO reservationDAO;*/
+
+    private static final Logger LOGGER = Logger.getLogger(CinemaBackController.class.getName());
 
     public FrontCinemaService() throws IOException {
         this.nom = cinemaDAO.getNomCinema();
@@ -142,9 +150,29 @@ public class FrontCinemaService implements ICinemaService{
         return null;
     }
 
-    public ResponseEntity<Void> saveSeance(Seance seance) throws IOException {
+    public ResponseEntity<Void> saveSeance(SeanceDTO seance) throws IOException, ParseException {
         Map<String, Object> params = new HashMap<>();
-        params.put("seance",seance);
+        // on recupere les objets films et salles
+        Film f = cinemaRessourceFilms.getFilmByKey(seance.getFilm());
+        LOGGER.info("FILM::::::::"+f.toString());
+
+        params.put("nomSalle",seance.getSalle());
+        Salle salle = (Salle) cinemaRessourceSalles.process("getSalle", params);
+        LOGGER.info("SALLE:::::::"+salle.toString());
+        //
+//        DateTimeFormatter dateTimeFormatterf = DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS" , Locale.FR  );
+//        ZonedDateTime zdt = ZonedDateTime.parse( seance.getDate() , dateTimeFormatterf  );
+//        Instant instant =  Instant.from(zdt.toLocalDate().atStartOfDay(ZoneId.of("GMT")));
+//        Date d = Date.from(instant);
+        Date d = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(seance.getDate());
+        LOGGER.info("DATE:::::::::::"+d);
+
+//        Seance s = new Seance(f, salle, d, seance.getPrix());
+//        params.put("seance",s);
+        params.put("film", f);
+        params.put("salle", salle);
+        params.put("prix", seance.getPrix());
+        params.put("date", d);
         cinemaRessourceSeances.process("createSeance", params);
         return null;
     }

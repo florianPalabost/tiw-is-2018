@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class CinemaRessourceSeances extends ACinemaRessource implements ICinema {
     //createSeance(), removeSeance(), getNbSeance()
     private static final Logger LOGGER = Logger.getLogger(CinemaRessourceSeances.class.getName());
-    private Collection<Seance> seances;
+    private List<Seance> seances;
     private ProgrammationDAO progDAO = new JSONProgrammationDAO();
 
     @Autowired
@@ -54,10 +54,18 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
 
     private void createSeance(Salle salle, Film film, Date date, float prix) throws IOException {
         Seance seance = new Seance(film, salle, date, prix);
+        LOGGER.info("SEANCE CREEEE:::::::"+seance.toString());
         this.seances.add(seance);
         progDAO.save(seance);
         seance.setReservationDAO(reservationDAO);
     }
+    /*
+    private void createSeanceFromDTO(SeanceDTO seanceDTO) throws IOException {
+        Seance seance = new Seance(seanceDTO.getFilm(), seanceDTO.getSalle(), seanceDTOdate, prix);
+        this.seances.add(seance);
+        progDAO.save(seance);
+        seance.setReservationDAO(reservationDAO);
+    }*/
 
     public void removeSeance(Seance seance) throws IOException {
         seances.remove(seance);

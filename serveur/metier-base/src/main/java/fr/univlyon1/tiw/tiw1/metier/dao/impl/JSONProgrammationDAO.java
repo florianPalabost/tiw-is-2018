@@ -177,8 +177,8 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
         return films.stream().collect(Collectors.toMap(Film::getKey, item -> item));
     }
 
-    public Collection<Seance> getSeances() {
-        return seances.values();
+    public List<Seance> getSeances() {
+        return new ArrayList<>(seances.values());
     }
 
     public Map<String, Salle> getSalles() {

@@ -7,6 +7,7 @@ import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public interface ProgrammationDAO {
@@ -30,7 +31,7 @@ public interface ProgrammationDAO {
     
     Map<String, Film> getFilms();
     
-    Collection<Seance> getSeances();
+    List<Seance> getSeances();
     
     public Map<String, Salle> getSalles();
 }

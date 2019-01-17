@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -65,7 +66,7 @@ public class CinemaBackController {
     }
 
     @GetMapping(path="/cinema/seances/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Seance retrieveSeance(@PathVariable String id) throws IOException {
+    public @ResponseBody Seance retrieveSeance(@PathVariable String id) throws Exception {
         Seance s = cinemaService.findSeanceById(id);
         if(s != null) {
             return s;
@@ -133,34 +134,10 @@ public class CinemaBackController {
         return "redirect:listFilms";
     }
 
-    // ----- ADD Seance -----
-    @GetMapping("/cinema/seances/addseance")
-    public String showAddSeanceForm (Map<String, Object> model) throws IOException {
-        Collection<Film> films = cinemaService.findAllFilms();
-        Collection<Salle> salles = cinemaService.findAllSalles();
 
-        // pas tres opti car on envoie tous les films,salles ...
-        model.put("seance", new SeanceDTO());
-        model.put("salles", salles);
-        model.put("films",films);
-
-        return "seances/addSeance";
-    }
-
-    @PostMapping("/cinema/seances/createseance")
-    public String createSeance(@ModelAttribute("seance") Seance seance, BindingResult result, Model model) throws IOException {
-        if (result.hasErrors()) {
-            return "seances/addSeance";
-        }
-        LOGGER.info("new seance"+seance);
-        LOGGER.info("model seance: "+ model.toString());
-        // cinemaService.saveSeance(seance);
-        // model.addAttribute("f", userRepository.findAll());
-        return "index";
-    }
 
     @PostMapping("/cinema/films/{keyFilm}/seances/")
-    public  ResponseEntity<Void> recordReservation(@Valid Reservation reservation, @PathVariable String keyFilm, BindingResult result, Model model) throws IOException {
+    public  ResponseEntity<Void> recordReservation(@Valid Reservation reservation, @PathVariable String keyFilm, BindingResult result, Model model) throws Exception {
         //Film f = cinemaService.findFilmByKey(keyFilm);
 
         //check if the seance exist, for this reservation
@@ -170,4 +147,59 @@ public class CinemaBackController {
         return null;
     }
 
+    @GetMapping(path="/cinema/films/{key}/seances")
+    public String showSeancesOfFilm(@PathVariable String key, Model model) throws IOException {
+        Film f = cinemaService.findFilmByKey(key);
+        if(f != null) {
+            Collection<Seance> listSeances = cinemaService.findSeancesOfFilmByKey(key);
+            model.addAttribute("seances", listSeances);
+            model.addAttribute("nomFilm", f.getKey());
+        }
+        return "seances/listSeances";
+    }
+
+    @GetMapping(path="/cinema/films/{key}/seances/addSeance")
+    public String showAddSeanceForm(@PathVariable String key, Model model) throws IOException {
+        Film f = cinemaService.findFilmByKey(key);
+        Collection<Salle> salles = cinemaService.findAllSalles();
+        if(f != null) {
+            model.addAttribute("seance", new SeanceDTO());
+            model.addAttribute("film", f);
+            model.addAttribute("salles", salles);
+            return "seances/addSeance";
+        }
+        return "redirect:showSeancesOfFilm";
+    }
+
+
+    @PostMapping(path="/cinema/films/{key}/seances/createseance")
+    public String createSeance(@PathVariable String key, @Valid SeanceDTO seanceDTO, BindingResult result, Model model) throws IOException, ParseException {
+        if (result.hasErrors()) {
+            return "seances/addSeance";
+        }
+        Film f = cinemaService.findFilmByKey(key);
+        seanceDTO.setFilm(f.getKey());
+        LOGGER.info("RESULT::::::::"+result.toString());
+        if(f.getTitre() != "") {
+            LOGGER.info("new seance"+seanceDTO);
+            LOGGER.info("model seance: "+ model.toString());
+            cinemaService.saveSeance(seanceDTO);
+        }
+        return "redirect:/backend/cinema/films/"+f.getKey()+"/seances";
+    }
+/*
+    // ----- ADD Seance -----
+    @GetMapping("/cinema/seances/addseance")
+    public String showAddSeanceForm (Map<String, Object> model) throws IOException {
+        Collection<Film> films = cinemaService.findAllFilms();
+        Collection<Salle> salles = cinemaService.findAllSalles();
+
+        // pas tres opti car on envoie tous les films,salles ...
+      //  model.put("seance", new SeanceDTO());
+        model.put("salles", salles);
+        model.put("films",films);
+
+        return "seances/addSeance";
+    }
+*/
 }

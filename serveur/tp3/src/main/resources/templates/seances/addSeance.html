@@ -11,16 +11,13 @@
 <div th:replace="header :: header"/>
 
 <div class="container">
-    <h1>Ajout d'une séance</h1>
-    <form action="#" th:action="@{/cinema/seances/createseance}" th:object="${seance}" method="post">
+    <h1>Ajout d'une séance pour le film <span th:text="${film.key}">nomFilm</span></h1>
+    <form action="#" th:action="@{/backend/cinema/films/{key}/seances/createseance(key=${film.key})}" th:object="${seance}" method="post">
         <div class="row">
             <div class="form-group col-md-6">
-                <label for="film" class="col-form-label">Titre du film</label>
-                <select th:field="*{film}" id="film">
-                    <option th:each="f: ${films}" th:value="${f.key}" th:text="${f.titre}">
-                    </option>
-                </select>
-                <span th:if="${#fields.hasErrors('film')}" th:errors="*{film}" class="text-danger"></span>
+                <label class="col-form-label">Titre du film</label>
+                <p><span th:text="${film.key}">nomFilm</span></p>
+                <input type="hidden" th:field="${film}">
             </div>
             <div class="form-group col-md-6">
                 <label for="salle" class="col-form-label">Salle</label>
