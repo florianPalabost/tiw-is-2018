@@ -136,6 +136,7 @@ public class CinemaBackController {
 
 
 
+
     @PostMapping("/cinema/films/{keyFilm}/seances/")
     public  ResponseEntity<Void> recordReservation(@Valid Reservation reservation, @PathVariable String keyFilm, BindingResult result, Model model) throws Exception {
         //Film f = cinemaService.findFilmByKey(keyFilm);
@@ -171,7 +172,6 @@ public class CinemaBackController {
         return "redirect:showSeancesOfFilm";
     }
 
-
     @PostMapping(path="/cinema/films/{key}/seances/createseance")
     public String createSeance(@PathVariable String key, @Valid SeanceDTO seanceDTO, BindingResult result, Model model) throws IOException, ParseException {
         if (result.hasErrors()) {
@@ -187,19 +187,31 @@ public class CinemaBackController {
         }
         return "redirect:/backend/cinema/films/"+f.getKey()+"/seances";
     }
-/*
-    // ----- ADD Seance -----
-    @GetMapping("/cinema/seances/addseance")
-    public String showAddSeanceForm (Map<String, Object> model) throws IOException {
-        Collection<Film> films = cinemaService.findAllFilms();
-        Collection<Salle> salles = cinemaService.findAllSalles();
 
-        // pas tres opti car on envoie tous les films,salles ...
-      //  model.put("seance", new SeanceDTO());
-        model.put("salles", salles);
-        model.put("films",films);
-
-        return "seances/addSeance";
+    @GetMapping(path="/cinema/films/{keyF}/seances/{keyS}")
+    public String showSeance(@PathVariable String keyF,@PathVariable String keyS,Model model) throws Exception {
+        Film f = cinemaService.findFilmByKey(keyF);
+        if(!f.getTitre().equals("")) {
+            Seance s = cinemaService.findSeanceById(keyS);
+            if (s != null) {
+                model.addAttribute("seance", s);
+            }
+        }
+        return "seances/show";
     }
-*/
+/*
+    @GetMapping(path="/cinema/films/{keyF}/seances/{keyS}/reservations")
+    public String showReservationsOfSeance(@PathVariable String keyF, @PathVariable String keyS, Model model) throws Exception {
+        Film f = cinemaService.findFilmByKey(keyF);
+        if(f != null) {
+            Seance seance = cinemaService.findSeanceById(keyS);
+            if(seance != null) {
+                Collection<Reservation> reservations = cinemaService.findReservationsOfSeance(keyS);
+                model.addAttribute("reservations", reservations);
+                return "reservations/listReservations";
+            }
+        }
+        return null;
+    }
+    */
 }

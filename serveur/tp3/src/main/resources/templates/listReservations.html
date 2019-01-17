@@ -22,7 +22,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${reservations.empty}">
+            <tr th:if="${reservations==null}">
                 <td colspan="3"> No reservations Available </td>
             </tr>
             <tr th:each="reserv : ${reservations}">

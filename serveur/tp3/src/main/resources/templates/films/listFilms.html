@@ -16,6 +16,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th> N°</th>
                 <th> Titre</th>
                 <th> Version </th>
                 <th> Fiche </th>
@@ -24,11 +25,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${films.empty}">
+            <tr th:if="${films == null}">
                 <td colspan="3"> Aucun film disponible. </td>
             </tr>
-            <tr th:each="film : ${films}">
-                <td><span th:text="${film.titre}"> Titre </span></td>
+            <tr th:each="film,iterator : ${films}">
+                <td><span th:text="${iterator.index+1}"> N°</span></td>
+                <td><a th:href="@{/backend/cinema/films/{keyF}/seances(keyF=${film.key})}"><span th:text="${film.titre}"> Titre </span></a></td>
                 <td><span th:text="${film.version}"> Version </span></td>
                 <td><span th:text="${film.fiche}"> Fiche </span></td>
                 <td class="text-center"><a th:href="@{/backend/cinema/films/{key}/edit(key=${film.key})}"><i style="color: orange;" class="far fa-edit"></i></a></td>

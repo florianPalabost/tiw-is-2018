@@ -184,4 +184,11 @@ public class FrontCinemaService implements ICinemaService{
         cinemaRessourceSeances.process("saveReservation", params);
         return null;
     }
+
+    public Collection<Reservation> findReservationsOfSeance(String keyS) throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        //params.put
+        cinemaRessourceSeances.process("saveReservation", params);
+        return null;
+    }
 }

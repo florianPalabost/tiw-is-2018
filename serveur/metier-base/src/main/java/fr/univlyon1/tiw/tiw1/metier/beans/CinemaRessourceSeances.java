@@ -59,13 +59,6 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
         progDAO.save(seance);
         seance.setReservationDAO(reservationDAO);
     }
-    /*
-    private void createSeanceFromDTO(SeanceDTO seanceDTO) throws IOException {
-        Seance seance = new Seance(seanceDTO.getFilm(), seanceDTO.getSalle(), seanceDTOdate, prix);
-        this.seances.add(seance);
-        progDAO.save(seance);
-        seance.setReservationDAO(reservationDAO);
-    }*/
 
     public void removeSeance(Seance seance) throws IOException {
         seances.remove(seance);
@@ -96,6 +89,20 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
     }
     private void saveReservation(Reservation reservation){
         reservationDAO.save(reservation);
+    }
+
+    /**
+     * find the list of reservations for a seance by the id of this seance
+     * @param idSeance
+     * @return
+     */
+    private Collection<Reservation> getReservationsOfSeanceById(String idSeance) {
+        for (Seance s : seances) {
+            if(s.getId().equals(idSeance)){
+
+            }
+        }
+        return null;
     }
     /**
      *
