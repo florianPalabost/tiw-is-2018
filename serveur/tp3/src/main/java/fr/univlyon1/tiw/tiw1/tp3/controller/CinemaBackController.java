@@ -130,7 +130,10 @@ public class CinemaBackController {
             return "film/editFilm";
         }
         LOGGER.info("film update : "+film);
-        // cinemaService.saveFilm(film);
+        Film f = cinemaService.findFilmByKey(key);
+        if (f!= null){
+            //cinemaService.updateFilm(key,f);
+        }
         return "redirect:listFilms";
     }
 

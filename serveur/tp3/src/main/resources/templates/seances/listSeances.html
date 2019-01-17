@@ -22,6 +22,7 @@
                 <th> N° </th>
                 <th> Salle </th>
                 <th> Capacité </th>
+                <th> Nombre places disponible </th>
                 <th> Horaire </th>
                 <th> Prix (€) </th>
                 <th class="text-center"> Modifier </th>
@@ -36,6 +37,7 @@
                 <td><a th:href="@{/backend/cinema/films/{keyF}/seances/{keyS}(keyF=${nomFilm},keyS=${seance.id})}"><span th:text="${iterator.index+1}"> N°</span></a></td>
                 <td><span th:text="${seance.salle.nom}"> Nom Salle</span></td>
                 <td><span th:text="${seance.salle.capacite}"> Capacité salle </span></td>
+                <td><span th:text="${seance.salle.capacite - seance.reservations.size()}"> Nb places dispo </span></td>
                 <td><span th:text="${seance.date}"> horaire seance </span></td>
                 <td><span th:text="${seance.prix}"> Prix séance </span></td>
                 <td class="text-center"><a th:href="@{/backend/cinema/films/{key}/seances/{keySeance}/edit(key=${seance.film.key},keySeance=${seance.id})}"><i style="color: orange;" class="far fa-edit"></i></a></td>
