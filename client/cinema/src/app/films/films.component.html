@@ -1,10 +1,38 @@
-<mat-list>
-  <h3 mat-subheader>Films :</h3>
-  <mat-list-item *ngFor="let elementFilm of listeFilm">
-    {{elementFilm.titre}}
-    <br/>
-    <app-seances></app-seances>
-    <br/>
-    <app-reservation></app-reservation>
-  </mat-list-item>
-</mat-list>
+<mat-tab-group>
+  <mat-tab label="Liste des films">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let elementFilm of listeFilm">
+
+        <!-- Titre -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{elementFilm.titre}}</mat-panel-title>
+        </mat-expansion-panel-header>
+
+
+        <!-- Contenu -->
+
+      </mat-expansion-panel>
+
+
+    </mat-accordion>
+
+
+    <mat-list>
+      <h3 mat-subheader>Films :</h3>
+      <mat-list-item *ngFor="let elementFilm of listeFilm">
+        {{elementFilm.titre}}
+        <br/>
+        <app-seances></app-seances>
+        <br/>
+        <app-reservation></app-reservation>
+      </mat-list-item>
+    </mat-list>
+  </mat-tab>
+
+  <mat-tab [disabled]="!isLogged" label="Mes réservations">
+
+
+  </mat-tab>
+</mat-tab-group>
+
+
