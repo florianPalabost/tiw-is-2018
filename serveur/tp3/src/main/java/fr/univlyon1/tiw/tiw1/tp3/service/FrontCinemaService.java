@@ -82,10 +82,14 @@ public class FrontCinemaService implements ICinemaService{
      * @return the seance associate to this id
      * @throws IOException
      */
-    public Seance findSeanceById(String id) throws IOException {
+    public Seance findSeanceById(String id) throws Exception {
         Map<String, Object> params = new HashMap<>();
         params.put("id",id);
-        return (Seance) cinemaRessourceSeances.process("getSeanceById",params );
+        Seance seance = (Seance) cinemaRessourceSeances.process("getSeanceById",params );
+        if(seance == null)
+            throw new Exception("La seance "+ seance.getId()+ "n'existe pas !");
+        else
+            return seance;
     }
 
     /**
@@ -97,6 +101,7 @@ public class FrontCinemaService implements ICinemaService{
     public Collection<Seance> findSeancesOfFilmByKey(String key) throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("key",key);
+        // liste des seances pouvant etre nulle pour un film, on ne gere pas l'exception
         return (Collection<Seance>)cinemaRessourceSeances.process("getSeancesOfFilm",params);
     }
 

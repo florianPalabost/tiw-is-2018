@@ -16,15 +16,33 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    // TODO find a way to persist the users created at least
+    /**
+     *
+     * @return list of all users registered in the h2 database
+     * @throws IOException
+     */
     @GetMapping("/")
     public @ResponseBody Collection<User> retrieveAllUsers() throws IOException {
         return userService.findAllUsers();
     }
 
+    /**
+     * save the user in the h2 database
+     * @param user
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value="/",headers = {
             "content-type=application/json" }, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> persistUser(@RequestBody User user) throws IOException {
         userService.register(user);
+        return null;
+    }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<User> deleteUser(@PathVariable String email) throws IOException {
+        userService.deleteUser(email);
         return null;
     }
 }
