@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RequetesHTTPService} from "../requetes-http.service";
 
 @Component({
   selector: 'app-reservation',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationComponent implements OnInit {
 
-  constructor() { }
+  private email;
+  listeReservation = [];
+
+  constructor(private httpService : RequetesHTTPService ) { }
 
   ngOnInit() {
+    /*this.httpService.getReservation(this.email).subscribe(
+      (data) => {
+        if (data !== null) {
+          this.listeReservation = data;
+        } else {
+          console.log("Aucun film");
+        }
+      }
+  )*/
+
   }
 
 }

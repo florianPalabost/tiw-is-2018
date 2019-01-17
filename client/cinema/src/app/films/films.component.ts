@@ -28,9 +28,10 @@ export class FilmsComponent implements OnInit {
         }else {
           console.log("Aucun film");
         }
-
       }
     );
+
+    this.isLogged = 1
   }
 
   getSeances(idFilm) {
@@ -45,7 +46,5 @@ export class FilmsComponent implements OnInit {
       }
     )
   }
-
-
 
 }

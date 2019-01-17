@@ -20,4 +20,10 @@ export class RequetesHTTPService {
     return this.http.get(`${this.urlConf}cinema/films/${idFilm}/seances`);
   }
 
+  getReservation(email) {
+    // Ajouter au Backend
+    //return this.http.get(`${this.urlConf}cinema/reservations/${email}`);
+    return [];
+  }
+
 }

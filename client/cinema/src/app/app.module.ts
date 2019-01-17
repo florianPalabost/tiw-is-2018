@@ -8,11 +8,10 @@ import { FilmsComponent } from "./films/films.component";
 import { SeancesComponent } from "./films/seances/seances.component";
 import { ReservationSupprimerComponent } from "./films/reservation/reservation-supprimer/reservation-supprimer.component";
 import { ReservationModifierComponent } from "./films/reservation/reservation-modifier/reservation-modifier.component";
-import { ReservationAjouterComponent } from "./films/reservation/reservation-ajouter/reservation-ajouter.component";
 import { ReservationComponent } from "./films/reservation/reservation.component";
 import { RequetesHTTPService } from "./films/requetes-http.service";
 
-import { MatListModule, MatExpansionModule,MatButtonModule, MatNativeDateModule, MatIconModule, MatSidenavModule, MatToolbarModule, MatChipsModule, MatDividerModule } from '@angular/material';
+import { MatListModule, MatExpansionModule, MatButtonModule, MatNativeDateModule, MatIconModule, MatSidenavModule, MatToolbarModule, MatChipsModule, MatDividerModule } from '@angular/material';
 import { CommonModule } from "@angular/common";
 import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -24,7 +23,6 @@ import { MatTabsModule } from "@angular/material/tabs";
     FilmsComponent,
     SeancesComponent,
     ReservationComponent,
-    ReservationAjouterComponent,
     ReservationModifierComponent,
     ReservationSupprimerComponent
   ],

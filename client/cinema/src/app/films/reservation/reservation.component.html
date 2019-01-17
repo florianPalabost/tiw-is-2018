@@ -1,3 +1,19 @@
-<app-reservation-ajouter></app-reservation-ajouter>
-<app-reservation-modifier></app-reservation-modifier>
-<app-reservation-supprimer></app-reservation-supprimer>
+
+<ng-container *ngIf="listeReservation.length !== 0">
+  <mat-list>
+    <mat-list-item *ngFor="let elementReservation of listeReservation">
+      {{elementReservation.date | date : 'medium'}}
+      <app-reservation-modifier [idReservation]="elementReservation.id"></app-reservation-modifier>
+      <app-reservation-supprimer [idReservation]="elementReservation.id"></app-reservation-supprimer>
+
+    </mat-list-item>
+  </mat-list>
+</ng-container>
+
+<ng-container *ngIf="listeReservation.length === 0">
+  <span>AUCUNE RESERVATION</span>
+</ng-container>
+
+
+
+
