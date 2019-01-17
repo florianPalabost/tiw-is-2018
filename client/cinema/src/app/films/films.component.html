@@ -1,18 +1,19 @@
 <mat-tab-group>
   <mat-tab label="Liste des films">
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let elementFilm of listeFilm">
+      <mat-expansion-panel *ngFor="let elementFilm of listeFilm" (opened)="getSeances(elementFilm.key)">
 
-        <!-- Titre -->
+        <!-- Titre et Version-->
         <mat-expansion-panel-header>
           <mat-panel-title>{{elementFilm.titre}}</mat-panel-title>
+          <mat-panel-description>{{elementFilm.version}}</mat-panel-description>
         </mat-expansion-panel-header>
 
-
         <!-- Contenu -->
+        Fiche : {{elementFilm.fiche}}
+        <app-seances [listeSeance]="listeSeance"></app-seances>
 
       </mat-expansion-panel>
-
 
     </mat-accordion>
 

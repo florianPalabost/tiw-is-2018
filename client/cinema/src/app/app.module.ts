@@ -12,7 +12,7 @@ import { ReservationAjouterComponent } from "./films/reservation/reservation-ajo
 import { ReservationComponent } from "./films/reservation/reservation.component";
 import { RequetesHTTPService } from "./films/requetes-http.service";
 
-import { MatListModule, MatExpansionModule, MatButtonModule, MatNativeDateModule, MatIconModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
+import { MatListModule, MatExpansionModule,MatButtonModule, MatNativeDateModule, MatIconModule, MatSidenavModule, MatToolbarModule, MatChipsModule, MatDividerModule } from '@angular/material';
 import { CommonModule } from "@angular/common";
 import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -42,7 +42,9 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatSidenavModule,
     LayoutModule,
     BrowserAnimationsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatChipsModule,
+    MatDividerModule
   ],
   providers: [
     RequetesHTTPService

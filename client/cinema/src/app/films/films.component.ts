@@ -13,6 +13,7 @@ export class FilmsComponent implements OnInit {
   ]*/
 
   public listeFilm = null;
+  public listeSeance = null;
 
   // Pour savoir si l'uteisateur s'est connecté
   public isLogged = 0;
@@ -27,8 +28,24 @@ export class FilmsComponent implements OnInit {
         }else {
           console.log("Aucun film");
         }
+
       }
     );
   }
+
+  getSeances(idFilm) {
+    this.httpService.getSeance(idFilm).subscribe(
+      (data) => {
+        if (data !== null) {
+          this.listeSeance = data;
+          console.log(this.listeSeance);
+        }else {
+          console.log("Aucune seance");
+        }
+      }
+    )
+  }
+
+
 
 }
