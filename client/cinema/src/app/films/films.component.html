@@ -1,26 +1,28 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     CINEMA
-    <button mat-raised-button class="pull-right">S'inscrire</button>
+    <button mat-raised-button class="pull-right"><mat-icon>person</mat-icon>S'inscrire</button>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-tab-group>
   <mat-tab label="Liste des films">
-    <mat-accordion>
+    <mat-accordion class="headers-align">
       <mat-expansion-panel *ngFor="let elementFilm of listeFilm" (opened)="getSeances(elementFilm.key)">
 
         <!-- Titre et Version-->
         <mat-expansion-panel-header>
-          <mat-panel-title>{{elementFilm.titre}}</mat-panel-title>
-          <mat-panel-description>{{elementFilm.version}}</mat-panel-description>
+          <mat-panel-title><mat-icon>movie</mat-icon> &nbsp; {{elementFilm.titre}}</mat-panel-title>
+          <mat-panel-description><mat-icon>local_movies</mat-icon> &nbsp; {{elementFilm.version}}</mat-panel-description>
         </mat-expansion-panel-header>
 
         <!-- Contenu -->
-        Fiche : {{elementFilm.fiche}}
+        Fiche : <a href="{{elementFilm.fiche}}">{{elementFilm.fiche}}</a>
         <app-seances [listeSeance]="listeSeance"></app-seances>
 
+
       </mat-expansion-panel>
+
 
     </mat-accordion>
 
@@ -31,5 +33,3 @@
 
   </mat-tab>
 </mat-tab-group>
-
-
