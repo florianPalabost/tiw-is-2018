@@ -137,17 +137,21 @@ public class CinemaBackController {
         return "redirect:listFilms";
     }
 
-
-
-
-    @PostMapping("/cinema/films/{keyFilm}/seances/")
-    public  ResponseEntity<Void> recordReservation(@Valid Reservation reservation, @PathVariable String keyFilm, BindingResult result, Model model) throws Exception {
-        //Film f = cinemaService.findFilmByKey(keyFilm);
-
-        //check if the seance exist, for this reservation
-        Seance s = cinemaService.findSeanceById(reservation.getSeanceId());
-
-        cinemaService.saveReservation(reservation);
+    @PostMapping("/cinema/films/{keyFilm}/seances/{keyS}")
+    public  ResponseEntity<Reservation> recordReservation(@Valid Reservation reservation, @PathVariable String keyFilm,
+                                                   @PathVariable String keyS, BindingResult result, Model model)
+            throws Exception {
+        if (result.hasErrors()) {
+            throw new Exception("La reservation n'a pas le bon format, verifiez les champs du formulaire");
+        }
+        Film f = cinemaService.findFilmByKey(keyFilm);
+        if (f != null) {
+            // check if the seance exist
+            Seance s = cinemaService.findSeanceById(keyS);
+            if (s != null){
+                cinemaService.saveReservation(reservation);
+            }
+        }
         return null;
     }
 
@@ -202,19 +206,4 @@ public class CinemaBackController {
         }
         return "seances/show";
     }
-/*
-    @GetMapping(path="/cinema/films/{keyF}/seances/{keyS}/reservations")
-    public String showReservationsOfSeance(@PathVariable String keyF, @PathVariable String keyS, Model model) throws Exception {
-        Film f = cinemaService.findFilmByKey(keyF);
-        if(f != null) {
-            Seance seance = cinemaService.findSeanceById(keyS);
-            if(seance != null) {
-                Collection<Reservation> reservations = cinemaService.findReservationsOfSeance(keyS);
-                model.addAttribute("reservations", reservations);
-                return "reservations/listReservations";
-            }
-        }
-        return null;
-    }
-    */
 }
