@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 export class RequetesHTTPService {
 
   private urlConf = 'http://localhost:8080/';
+  private urlOmdb = 'http://www.omdbapi.com/';
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +25,12 @@ export class RequetesHTTPService {
     // Ajouter au Backend
     //return this.http.get(`${this.urlConf}cinema/reservations/${email}`);
     return [];
+  }
+
+  // Pour la partie Enrichissement : Récupération des informations des films depuis API OMDB
+  getOmdb(idFilmImdb) {
+    return this.http.get(`${this.urlOmdb}?i=${idFilmImdb}&apikey=8598fcba`);
+    //return this.http.get('http://www.omdbapi.com/?i=tt6628102&apikey=8598fcba');
   }
 
 }

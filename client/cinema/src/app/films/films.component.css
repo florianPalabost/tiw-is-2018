@@ -8,7 +8,22 @@
   flex-basis: 0;
 }
 
-.example-headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between;
-  align-items: center;
+mat-card-subtitle {
+  text-align: center;
+}
+
+img {
+  height: 52%;
+}
+
+span {
+  color: #c82333;
+  font-weight: bold;
+}
+
+p {
+  color: #155724;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
 }

@@ -6,6 +6,8 @@
 </mat-toolbar>
 
 <mat-tab-group>
+
+  <!-- Tab liste des films-->
   <mat-tab label="Liste des films">
     <mat-accordion class="headers-align">
       <mat-expansion-panel *ngFor="let elementFilm of listeFilm" (opened)="getSeances(elementFilm.key)">
@@ -17,19 +19,63 @@
         </mat-expansion-panel-header>
 
         <!-- Contenu -->
-        Fiche : <a href="{{elementFilm.fiche}}">{{elementFilm.fiche}}</a>
+        Fiche = <a href="{{elementFilm.fiche}}">{{elementFilm.fiche}}</a>
+
+        <!-- Contenu : Partie Enrichiseement -->
+        <section *ngIf="getOmdbData(elementFilm.key)">
+          <mat-grid-list [cols]="4">
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <img src="{{getOmdbData(elementFilm.key).Poster}}" alt="Poster">
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <mat-card class="card">
+                <mat-card-header>
+                  <mat-card-title><h3>Note</h3></mat-card-title>
+                  <mat-card-subtitle><mat-icon>thumbs_up_down</mat-icon> <br/></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>{{getOmdbData(elementFilm.key).imdbRating}}</p>
+                </mat-card-content>
+              </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <div>
+                <h2>Informations</h2>
+                <span>Nom Original :</span>  {{getOmdbData(elementFilm.key).Title}} <br/>
+                <span>Type         :</span>  {{getOmdbData(elementFilm.key).Genre}} <br/>
+                <span>Durée        :</span>  {{getOmdbData(elementFilm.key).Runtime}} <br/>
+                <span>Directeur    :</span>  {{getOmdbData(elementFilm.key).Director}} <br/>
+                <span>Acteurs      :</span>  {{getOmdbData(elementFilm.key).Actors}} <br/>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <div>
+                <h2>Résumé</h2>
+                <span>Résumé :</span>   {{getOmdbData(elementFilm.key).Plot}}
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </section>
+
+        <!-- Les séances -->
         <app-seances [listeSeance]="listeSeance"></app-seances>
 
-
       </mat-expansion-panel>
-
-
     </mat-accordion>
-
   </mat-tab>
 
+  <!-- Tab Mes réservations-->
   <mat-tab [disabled]="!isLogged" label="Mes réservations">
     <app-reservation></app-reservation>
-
   </mat-tab>
+
+  <!-- Tab A propos-->
+  <mat-tab label="A propos">
+    <div>
+      Alper EKMEKCI - 10908275 & Florian PALABOST - 11301169
+    </div>
+  </mat-tab>
+
 </mat-tab-group>
+
+

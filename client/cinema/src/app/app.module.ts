@@ -11,7 +11,7 @@ import { ReservationModifierComponent } from "./films/reservation/reservation-mo
 import { ReservationComponent } from "./films/reservation/reservation.component";
 import { RequetesHTTPService } from "./films/requetes-http.service";
 
-import { MatListModule, MatExpansionModule, MatButtonModule, MatNativeDateModule, MatIconModule, MatSidenavModule, MatToolbarModule, MatChipsModule, MatDividerModule } from '@angular/material';
+import { MatListModule, MatExpansionModule, MatButtonModule, MatNativeDateModule, MatIconModule, MatSidenavModule, MatToolbarModule, MatChipsModule, MatDividerModule, MatCardModule, MatGridListModule, MatTreeModule } from '@angular/material';
 import { CommonModule } from "@angular/common";
 import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -42,7 +42,10 @@ import { MatTabsModule } from "@angular/material/tabs";
     BrowserAnimationsModule,
     MatExpansionModule,
     MatChipsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule,
+    MatGridListModule,
+    MatTreeModule
   ],
   providers: [
     RequetesHTTPService
