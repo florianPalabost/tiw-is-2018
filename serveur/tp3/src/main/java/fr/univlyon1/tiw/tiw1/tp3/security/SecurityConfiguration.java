@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -22,7 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // custom 403 access denied handler
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        http.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class);
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/films", "/about","/cinema/**","/console/**","/users/**").permitAll()

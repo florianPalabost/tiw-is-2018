@@ -14,6 +14,8 @@
         <module>metier-base</module>
         <module>tp1</module>
         <module>tp3</module>
+        <module>tp6</module>
+        <module>banque</module>
     </modules>
 
     <properties>
