@@ -8,8 +8,11 @@ import fr.univlyon1.tiw.tiw1.tp3.service.FrontCinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.logging.Logger;
@@ -96,5 +99,21 @@ public class RequetesRestController {
 
         // On cherche les reservations de l'utilisateur correspondant à cet email
         return cinemaService.findReservationsOfUserByMail(email);
+    }
+
+    @PostMapping(value="/cinema/films/{keyFilm}/seances/{keyS}",headers = {
+            "content-type=application/json" }, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public  ResponseEntity<Reservation> recordReservation(@RequestBody Reservation reservation, @PathVariable String keyFilm,
+                                                          @PathVariable String keyS, Model model)
+            throws Exception {
+        Film f = cinemaService.findFilmByKey(keyFilm);
+        if (f != null) {
+            // check if the seance exist
+            Seance s = cinemaService.findSeanceById(keyS);
+            if (s != null){
+                cinemaService.saveReservation(reservation);
+            }
+        }
+        return null;
     }
 }

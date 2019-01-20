@@ -137,24 +137,6 @@ public class CinemaBackController {
         return "redirect:listFilms";
     }
 
-    @PostMapping("/cinema/films/{keyFilm}/seances/{keyS}")
-    public  ResponseEntity<Reservation> recordReservation(@Valid Reservation reservation, @PathVariable String keyFilm,
-                                                   @PathVariable String keyS, BindingResult result, Model model)
-            throws Exception {
-        if (result.hasErrors()) {
-            throw new Exception("La reservation n'a pas le bon format, verifiez les champs du formulaire");
-        }
-        Film f = cinemaService.findFilmByKey(keyFilm);
-        if (f != null) {
-            // check if the seance exist
-            Seance s = cinemaService.findSeanceById(keyS);
-            if (s != null){
-                cinemaService.saveReservation(reservation);
-            }
-        }
-        return null;
-    }
-
     @GetMapping(path="/cinema/films/{key}/seances")
     public String showSeancesOfFilm(@PathVariable String key, Model model) throws IOException {
         Film f = cinemaService.findFilmByKey(key);
