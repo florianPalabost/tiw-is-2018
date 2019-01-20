@@ -1,4 +1,5 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {RequetesHTTPService} from "../requetes-http.service";
 
 @Component({
   selector: 'app-seances',
@@ -8,8 +9,9 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 export class SeancesComponent implements OnInit, OnChanges {
 
   @Input() listeSeance:any;
+  @Output() addSeance = new EventEmitter();
 
-  constructor() { }
+  constructor(private httpService : RequetesHTTPService ) { }
 
   ngOnInit() {
   }
@@ -19,8 +21,11 @@ export class SeancesComponent implements OnInit, OnChanges {
     this.listeSeance = change.listeSeance.currentValue;
   }
 
-  onClickReserver(idSeance)  {
-    console.log(idSeance)
-  }
+  onClickReserver(eltSeance) {
+    if (eltSeance !== null) {
+      this.addSeance.emit(eltSeance)
 
+
+    }
+  }
 }

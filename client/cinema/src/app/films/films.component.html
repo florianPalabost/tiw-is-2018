@@ -1,9 +1,3 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    CINEMA
-    <button mat-raised-button class="pull-right"><mat-icon>person</mat-icon>S'inscrire</button>
-  </mat-toolbar-row>
-</mat-toolbar>
 
 <mat-tab-group>
 
@@ -58,7 +52,7 @@
         </section>
 
         <!-- Les séances -->
-        <app-seances [listeSeance]="listeSeance"></app-seances>
+        <app-seances [listeSeance]="listeSeance" (addSeance)="ajouterUneSeance($event)"></app-seances>
 
       </mat-expansion-panel>
     </mat-accordion>
@@ -77,5 +71,3 @@
   </mat-tab>
 
 </mat-tab-group>
-
-

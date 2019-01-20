@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +33,22 @@ export class RequetesHTTPService {
     //return this.http.get('http://www.omdbapi.com/?i=tt6628102&apikey=8598fcba');
   }
 
+  addSeance(utilisateur, keyFilm, keySeance){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    console.log('film key : '+keyFilm);
+    console.log('seance key :'+keySeance);
+    return this.http.post(`${this.urlConf}cinema/films/${keyFilm}/seances/${keySeance}`,
+      JSON.stringify(
+        {
+          prenom: utilisateur.prenom,
+          nom : utilisateur.nom,
+          email : utilisateur.email,
+          paye : false,
+          seanceId : keySeance
+        }) , httpOptions);
+  }
 }

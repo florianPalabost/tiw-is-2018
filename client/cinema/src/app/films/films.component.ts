@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RequetesHTTPService} from "./requetes-http.service";
+import {AuthentificationService} from "../authentification/authentification.service";
 
 @Component({
   selector: 'app-films',
@@ -17,9 +18,17 @@ export class FilmsComponent implements OnInit {
   // Pour savoir si l'uteisateur s'est connecté
   public isLogged = 0;
 
-  constructor(private httpService : RequetesHTTPService ) { }
+  constructor(private httpService : RequetesHTTPService, private authService : AuthentificationService) {
+
+    this.authService.connectionSubscription.subscribe(
+      () => {
+        this.isConnected()
+      }
+    )
+  }
 
   ngOnInit() {
+    console.log('init film');
     this.httpService.getFilm().subscribe(
       (data) => {
         if (data !== null){
@@ -31,11 +40,18 @@ export class FilmsComponent implements OnInit {
         }
       }
     );
+  }
 
-    this.isLogged = 1;
+  isConnected(){
+    if(window.sessionStorage.getItem('token')){
+      this.isLogged = 1
+    }else{
+      this.isLogged = 0
+    }
   }
 
   getSeances(idFilm) {
+    this.listeSeance = [];
     this.httpService.getSeance(idFilm).subscribe(
       (data) => {
         if (data !== null) {
@@ -46,6 +62,17 @@ export class FilmsComponent implements OnInit {
         }
       }
     )
+  }
+
+  // depuis seance component en output
+  ajouterUneSeance(eltSeance){
+    console.log(this.authService.getUtilisateur());
+    this.httpService.addSeance(this.authService.getUtilisateur(), eltSeance.film.key, eltSeance.id).subscribe(
+      (data) => {
+        // dans le cas ou la reservation est ok
+        this.getSeances(eltSeance.film.key);
+      }
+    );
   }
 
   // ---- Partie Enrichissement ----

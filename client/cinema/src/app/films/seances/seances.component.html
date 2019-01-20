@@ -6,11 +6,13 @@
     <mat-chip-list>
       <!-- Capacité et prix des seances -->
       <mat-chip><mat-icon>event_seat</mat-icon> &nbsp; Capacité : {{elementSeance.salle.capacite}} </mat-chip>
+      <mat-chip><mat-icon>event_seat</mat-icon> &nbsp; Nombre de place restant : {{elementSeance.salle.capacite - elementSeance.reservations.length}} </mat-chip>
       <mat-chip><mat-icon>local_offer</mat-icon> &nbsp; Prix : {{elementSeance.prix}} </mat-chip>
     </mat-chip-list>
 
-    <!-- Button de réservation -->
-    <button (click)="onClickReserver(elementSeance.id)" mat-stroked-button color = "primary">Réserver</button>
+    <!-- Button de réservation
+    <button (click)="onClickReserver(elementSeance.film.key, elementSeance.id)" mat-stroked-button color = "primary">Réserver</button>-->
+    <button (click)="onClickReserver(elementSeance)" mat-stroked-button color = "primary">Réserver</button>
     <mat-divider></mat-divider>
   </mat-list-item>
 

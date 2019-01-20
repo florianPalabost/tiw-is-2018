@@ -11,11 +11,28 @@ import { ReservationModifierComponent } from "./films/reservation/reservation-mo
 import { ReservationComponent } from "./films/reservation/reservation.component";
 import { RequetesHTTPService } from "./films/requetes-http.service";
 
-import { MatListModule, MatExpansionModule, MatButtonModule, MatNativeDateModule, MatIconModule, MatSidenavModule, MatToolbarModule, MatChipsModule, MatDividerModule, MatCardModule, MatGridListModule, MatTreeModule } from '@angular/material';
+import {
+  MatListModule,
+  MatExpansionModule,
+  MatButtonModule,
+  MatNativeDateModule,
+  MatIconModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatChipsModule,
+  MatDividerModule,
+  MatCardModule,
+  MatGridListModule,
+  MatTreeModule,
+  MatDialogModule, MatSnackBarModule
+} from '@angular/material';
 import { CommonModule } from "@angular/common";
 import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatTabsModule } from "@angular/material/tabs";
+import { AuthentificationComponent, DialogInscription, DialogLogin } from './authentification/authentification.component';
+import { AuthentificationService } from "./authentification/authentification.service";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,7 +41,10 @@ import { MatTabsModule } from "@angular/material/tabs";
     SeancesComponent,
     ReservationComponent,
     ReservationModifierComponent,
-    ReservationSupprimerComponent
+    ReservationSupprimerComponent,
+    AuthentificationComponent,
+    DialogLogin,
+    DialogInscription
   ],
   imports: [
     BrowserModule,
@@ -45,11 +65,18 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatDividerModule,
     MatCardModule,
     MatGridListModule,
-    MatTreeModule
+    MatTreeModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [
-    RequetesHTTPService
+    RequetesHTTPService,
+    AuthentificationService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogLogin,
+  DialogInscription]
 })
 export class AppModule { }
