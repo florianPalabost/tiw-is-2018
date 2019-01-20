@@ -4,7 +4,6 @@ import fr.univlyon1.tiw.tiw1.metier.beans.*;
 import fr.univlyon1.tiw.tiw1.metier.dao.CinemaDAO;
 import fr.univlyon1.tiw.tiw1.metier.dao.impl.JSONCinemaDAO;
 import fr.univlyon1.tiw.tiw1.metier.jsondto.SeanceDTO;
-import fr.univlyon1.tiw.tiw1.tp3.controller.CinemaBackController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -31,10 +30,8 @@ public class FrontCinemaService implements ICinemaService{
     private CinemaRessourceSeances cinemaRessourceSeances;
 
     private CinemaDAO cinemaDAO = new JSONCinemaDAO();
-    /*@Autowired
-    private ReservationDAO reservationDAO;*/
 
-    private static final Logger LOGGER = Logger.getLogger(CinemaBackController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FrontCinemaService.class.getName());
 
     public FrontCinemaService() throws IOException {
         this.nom = cinemaDAO.getNomCinema();
@@ -119,11 +116,10 @@ public class FrontCinemaService implements ICinemaService{
      * @return list of reservations of the user referenced by mail
      */
 
-    public Collection<Reservation> findReservationsOfUserByMail(String email) {
-        // Map<String,Object> params = new HashMap<>();
-        // params.put("email",email);
-        // return reservationDAO.findByEmail(email);
-        return null;
+    public Collection<Reservation> findReservationsOfUserByMail(String email) throws IOException {
+         Map<String,Object> params = new HashMap<>();
+         params.put("email",email);
+         return (Collection<Reservation>) cinemaRessourceSeances.process("getReservationsOfUserByMail", params);
     }
 
     public String getNom() {
@@ -159,16 +155,10 @@ public class FrontCinemaService implements ICinemaService{
         params.put("nomSalle",seance.getSalle());
         Salle salle = (Salle) cinemaRessourceSalles.process("getSalle", params);
         LOGGER.info("SALLE:::::::"+salle.toString());
-        //
-//        DateTimeFormatter dateTimeFormatterf = DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS" , Locale.FR  );
-//        ZonedDateTime zdt = ZonedDateTime.parse( seance.getDate() , dateTimeFormatterf  );
-//        Instant instant =  Instant.from(zdt.toLocalDate().atStartOfDay(ZoneId.of("GMT")));
-//        Date d = Date.from(instant);
+
         Date d = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(seance.getDate());
         LOGGER.info("DATE:::::::::::"+d);
 
-//        Seance s = new Seance(f, salle, d, seance.getPrix());
-//        params.put("seance",s);
         params.put("film", f);
         params.put("salle", salle);
         params.put("prix", seance.getPrix());
@@ -176,8 +166,7 @@ public class FrontCinemaService implements ICinemaService{
         cinemaRessourceSeances.process("createSeance", params);
         return null;
     }
-    public ResponseEntity<Void> saveReservation(Reservation reservation) throws IOException {
-        // reservationDAO.save(reservation);
+    public ResponseEntity<Reservation> saveReservation(Reservation reservation) throws IOException {
         Map<String,Object> params = new HashMap<>();
         params.put("reservation",reservation);
 

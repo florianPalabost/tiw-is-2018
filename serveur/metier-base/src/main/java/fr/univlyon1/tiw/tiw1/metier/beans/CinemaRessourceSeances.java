@@ -87,22 +87,37 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
         LOGGER.info("SEANCES OF FILM :"+seancesOfFilm.toString());
         return seancesOfFilm;
     }
+
+    /**
+     * call the dao to save the reservation
+     * @param reservation
+     */
     private void saveReservation(Reservation reservation){
         reservationDAO.save(reservation);
     }
 
     /**
-     * find the list of reservations for a seance by the id of this seance
-     * @param idSeance
-     * @return
+     * call the dao to delete the reservation
+     * @param reservation
      */
-    private Collection<Reservation> getReservationsOfSeanceById(String idSeance) {
-        for (Seance s : seances) {
-            if(s.getId().equals(idSeance)){
+    private void deleteReservation(Reservation reservation) {
+        reservationDAO.delete(reservation);
+    }
 
-            }
+    /**
+     * retrieve all the reservations of a user, found by email
+     * @param email
+     */
+    private Collection<Reservation> getReservationsOfUserByMail(String email) {
+        Collection<Reservation> reservationsUser = new ArrayList<>();
+        for (Seance s : seances) {
+           for(Reservation r : s.getReservations()){
+               if(r.getEmail().equals(email)){
+                   reservationsUser.add(r);
+               }
+           }
         }
-        return null;
+        return reservationsUser;
     }
     /**
      *
@@ -145,6 +160,11 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
             case "saveReservation":
                 saveReservation((Reservation) parametres.get("reservation"));
                 return null;
+            case "cancelReservation":
+                deleteReservation((Reservation) parametres.get("reservation"));
+                return null;
+            case "getReservationsOfUserByMail":
+                return getReservationsOfUserByMail((String) parametres.get("email"));
             default:
                 return null;
         }

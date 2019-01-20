@@ -82,7 +82,6 @@ public class CinemaFrontController {
         }
 
         cinemaService.saveReservation(reservation);
-        // model.addAttribute("f", userRepository.findAll());
         return "redirect:showSeance";
     }
     
