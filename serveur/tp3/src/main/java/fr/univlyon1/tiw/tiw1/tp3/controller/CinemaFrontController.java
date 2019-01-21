@@ -55,16 +55,6 @@ public class CinemaFrontController {
         return null;
     }
 
-    @GetMapping(path="/seances/{id}")
-    public String showSeance(@PathVariable String id,Map<String, Object> model) throws Exception {
-        Seance seance = cinemaService.findSeanceById(id);
-        if(seance != null) {
-//            LOGGER.info("SEANCE : "+seance);
-            model.put("seance",seance);
-            return "seances/show";
-        }
-        return null;
-    }
 
     @GetMapping("/seances/{id}/addReservation")
     public String showAddReserv(@PathVariable String id, Map<String, Object> model) throws Exception {

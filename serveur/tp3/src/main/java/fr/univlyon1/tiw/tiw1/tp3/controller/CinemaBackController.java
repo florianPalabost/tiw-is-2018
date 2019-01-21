@@ -1,7 +1,6 @@
 package fr.univlyon1.tiw.tiw1.tp3.controller;
 
 import fr.univlyon1.tiw.tiw1.metier.beans.Film;
-import fr.univlyon1.tiw.tiw1.metier.beans.Reservation;
 import fr.univlyon1.tiw.tiw1.metier.beans.Salle;
 import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 import fr.univlyon1.tiw.tiw1.metier.jsondto.SeanceDTO;
@@ -65,11 +64,13 @@ public class CinemaBackController {
         return cinemaService.findAllSeances();
     }
 
-    @GetMapping(path="/cinema/seances/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Seance retrieveSeance(@PathVariable String id) throws Exception {
-        Seance s = cinemaService.findSeanceById(id);
-        if(s != null) {
-            return s;
+    @GetMapping(path="/cinema/seances/{id}")
+    public String showSeance(@PathVariable String id,Map<String, Object> model) throws Exception {
+        Seance seance = cinemaService.findSeanceById(id);
+        if(seance != null) {
+//            LOGGER.info("SEANCE : "+seance);
+            model.put("seance",seance);
+            return "seances/show";
         }
         return null;
     }
@@ -187,5 +188,34 @@ public class CinemaBackController {
             }
         }
         return "seances/show";
+    }
+    @GetMapping(path="/cinema/films/{keyFilm}/seances/{keyS}/edit")
+    public String showEditSeanceForm(@PathVariable String keyFilm, @PathVariable String keyS, Model model) throws Exception {
+        Film f = cinemaService.findFilmByKey(keyFilm);
+        Collection<Salle> salles = cinemaService.findAllSalles();
+        if(!f.getTitre().equals("")) {
+            Seance s = cinemaService.findSeanceById(keyS);
+            if (s != null) {
+                model.addAttribute("film", f);
+                model.addAttribute("salles", salles);
+                model.addAttribute("seance", s);
+            }
+        }
+        return "seances/edit";
+    }
+    @PostMapping(path="/cinema/films/{key}/seances/updateseance")
+    public String updateSeance(@PathVariable String key, @Valid SeanceDTO seanceDTO, BindingResult result, Model model) throws IOException, ParseException {
+        if (result.hasErrors()) {
+            return "seances/edit";
+        }
+        Film f = cinemaService.findFilmByKey(key);
+        seanceDTO.setFilm(f.getKey());
+        LOGGER.info("RESULT MAJ::::::::"+result.toString());
+        if(f.getTitre() != "") {
+            LOGGER.info("new seance"+seanceDTO);
+            LOGGER.info("model seance: "+ model.toString());
+            cinemaService.updateSeance(seanceDTO);
+        }
+        return "redirect:/backend/cinema/films/"+f.getKey()+"/seances";
     }
 }

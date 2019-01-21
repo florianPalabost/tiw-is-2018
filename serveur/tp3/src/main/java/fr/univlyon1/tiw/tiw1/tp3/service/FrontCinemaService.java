@@ -180,4 +180,11 @@ public class FrontCinemaService implements ICinemaService{
         cinemaRessourceSeances.process("saveReservation", params);
         return null;
     }
+
+    public ResponseEntity<Seance> updateSeance(SeanceDTO seanceDTO) throws IOException {
+        Map<String,Object> params = new HashMap<>();
+        params.put("seance", seanceDTO);
+        cinemaRessourceSeances.process("updateSeance", params);
+        return null;
+    }
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modification d'une Séance</title>
+
+    <div th:replace="header :: header-css"/>
+
+</head>
+<body>
+
+<div th:replace="header :: header"/>
+
+<div class="container">
+    <h1>Modification de la séance de <span th:text="${seance.date}"></span></h1>
+    <form action="#" th:action="@{/backend/cinema/films/{keyF}/seances/{keyS}(keyF=${seance.film.key},keyS=${seance.id})}" th:object="${seance}" method="post">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="col-form-label">Titre du film</label>
+                <p><span th:text="${seance.film.key}">nomFilm</span></p>
+                <input type="hidden" th:field="${seance.film}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="salle" class="col-form-label">Salle</label>
+                <select th:field="${seance.salle}" id="salle">
+                    <option th:each="s: ${salles}" th:value="${s.nom}" th:text="${s.nom}" th:selected="${seance.salle.nom}">
+                    </option>
+                </select>
+                <span th:if="${#fields.hasErrors('salle')}" th:errors="*${seance.salle}" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dateSeance" class="col-form-label">Date</label>
+                <input type="text" th:field="${seance.date}" class="form-control" id="dateSeance" placeholder="2018-09-24" th:value="${seance.date}">
+                <span th:if="${#fields.hasErrors('date')}" th:errors="${seance.date}" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="prix" class="col-form-label">Prix</label>
+                <input type="number" th:field="${seance.prix}" class="form-control" id="prix" placeholder="10" value="-1.0" th:value="${seance.prix}">
+                <span th:if="${#fields.hasErrors('prix')}" th:errors="${seance.prix}" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <input type="submit" class="btn btn-primary" value="Modifier la séance">
+            </div>
+        </div>
+    </form>
+</div>
+<!-- /.container -->
+
+<div th:replace="footer :: footer"/>
+
+</body>
+</html>
