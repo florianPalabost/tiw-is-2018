@@ -31,4 +31,5 @@ public interface ReservationDAO extends CrudRepository<Reservation, Long> {
     // to update a reservation
     //@Query("from Reservation r where r.email = ?1")
     Collection<Reservation> findByEmail(String email);
+    Collection<Reservation> findBySeanceId(String id);
 }

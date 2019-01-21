@@ -78,6 +78,8 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
         for (Seance s : seances) {
             if(s.getFilm().getKey().equals(key)){
                 LOGGER.info(s.toString());
+                s.setReservations((List<Reservation>) reservationDAO.findBySeanceId(s.getId()));
+                LOGGER.info("RESERVATIONS:::::::"+s.getReservations().toString());
                 seancesOfFilm.add(s);
             }
         }

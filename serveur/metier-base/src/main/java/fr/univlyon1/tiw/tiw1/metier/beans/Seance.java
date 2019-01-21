@@ -163,4 +163,8 @@ public class Seance {
 
         return Objects.hash(id);
     }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
 }
