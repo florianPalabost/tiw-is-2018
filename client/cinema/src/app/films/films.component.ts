@@ -28,7 +28,7 @@ export class FilmsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init film');
+    //console.log('init film');
     this.httpService.getFilm().subscribe(
       (data) => {
         if (data !== null){

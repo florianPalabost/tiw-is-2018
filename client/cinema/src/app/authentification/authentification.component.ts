@@ -21,7 +21,7 @@ export class AuthentificationComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogLogin, {width: '250px'});
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      //console.log(result);
     });
   }
 

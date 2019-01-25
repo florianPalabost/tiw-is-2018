@@ -24,7 +24,7 @@ import {
   MatCardModule,
   MatGridListModule,
   MatTreeModule,
-  MatDialogModule, MatSnackBarModule
+  MatDialogModule, MatSnackBarModule, MatTableModule
 } from '@angular/material';
 import { CommonModule } from "@angular/common";
 import { LayoutModule } from '@angular/cdk/layout';
@@ -69,14 +69,16 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule
   ],
   providers: [
     RequetesHTTPService,
     AuthentificationService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogLogin,
-  DialogInscription]
+  entryComponents: [
+    DialogLogin,
+    DialogInscription]
 })
 export class AppModule { }
