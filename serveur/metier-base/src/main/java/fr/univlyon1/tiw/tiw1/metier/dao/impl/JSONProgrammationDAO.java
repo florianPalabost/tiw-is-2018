@@ -9,9 +9,9 @@ import fr.univlyon1.tiw.tiw1.metier.beans.Film;
 import fr.univlyon1.tiw.tiw1.metier.beans.Salle;
 import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 import fr.univlyon1.tiw.tiw1.metier.dao.ProgrammationDAO;
+import fr.univlyon1.tiw.tiw1.metier.jsondto.CinemaDTO;
 import fr.univlyon1.tiw.tiw1.metier.jsondto.FilmDTO;
 import fr.univlyon1.tiw.tiw1.metier.jsondto.SeanceDTO;
-import fr.univlyon1.tiw.tiw1.metier.jsondto.CinemaDTO;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
 @Component
 public class JSONProgrammationDAO implements ProgrammationDAO {
 
-    public static File SEANCES_JSON = new File("seances.json");
-    public static File FILMS_JSON = new File("films.json");
+    public File SEANCES_JSON ;
+    public File FILMS_JSON;
     private static ObjectMapper mapper = new ObjectMapper();
 
     static {
@@ -86,6 +86,9 @@ public class JSONProgrammationDAO implements ProgrammationDAO {
                     seances.put(s.getId(), s);
                 }
             }      
+        }
+        else {
+            File FILMS_JSON = new File("mon-cinema_films.json");
         }
     }
 

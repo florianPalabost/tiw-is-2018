@@ -87,33 +87,5 @@ public class RequetesRestController {
         return null;
     }
 
-    /**
-     *
-     * @param email
-     * @return list of reservations of the user
-     * @throws IOException
-     */
-    @GetMapping(path="/cinema/users/{email}/reservations",produces=MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Collection<Reservation> retrieveReservationsOfUserByMail(@PathVariable String email) throws IOException {
-        // Normalement verification de l'utilisateur mais on passe outre
 
-        // On cherche les reservations de l'utilisateur correspondant à cet email
-        return cinemaService.findReservationsOfUserByMail(email);
-    }
-
-    @PostMapping(value="/cinema/films/{keyFilm}/seances/{keyS}",headers = {
-            "content-type=application/json" }, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public  ResponseEntity<Reservation> recordReservation(@RequestBody Reservation reservation, @PathVariable String keyFilm,
-                                                          @PathVariable String keyS, Model model)
-            throws Exception {
-        Film f = cinemaService.findFilmByKey(keyFilm);
-        if (f != null) {
-            // check if the seance exist
-            Seance s = cinemaService.findSeanceById(keyS);
-            if (s != null){
-                cinemaService.saveReservation(reservation);
-            }
-        }
-        return null;
-    }
 }
