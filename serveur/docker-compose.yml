@@ -1,0 +1,38 @@
+version: '3.1'
+services:
+  tp3:
+    build: ./tp3
+    ports:
+      - "8080:8080"
+    volumes:
+      - backend
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  whoami:
+    image: jwilder/whoami
+    environment:
+      - VIRTUAL_HOST=whoami.local
+
+  mypostgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydb
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+networks: 
+  backend:
+
+volumes:
+  db-data:      
