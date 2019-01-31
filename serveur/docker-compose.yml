@@ -7,6 +7,20 @@ services:
     volumes:
       - backend
 
+  reservations:
+    build: ./reservation-service
+    ports:
+      - "8081:8081"
+    volumes:
+      - backend
+  
+  jwt:
+    build: ./jwt-auth-service
+    ports:
+      - "8082:8082"
+    volumes:
+      - backend
+      
   nginx-proxy:
     image: jwilder/nginx-proxy
     ports:
@@ -27,6 +41,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=mydb
+      - PGDATA=/var/lib/postgresql/data/pgdata
+
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
