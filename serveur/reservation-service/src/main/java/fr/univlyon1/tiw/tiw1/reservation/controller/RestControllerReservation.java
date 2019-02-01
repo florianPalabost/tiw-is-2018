@@ -1,9 +1,8 @@
 package fr.univlyon1.tiw.tiw1.reservation.controller;
 
 
-import fr.univlyon1.tiw.tiw1.metier.beans.Film;
-import fr.univlyon1.tiw.tiw1.metier.beans.Reservation;
 import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
+import fr.univlyon1.tiw.tiw1.reservation.metier.Reservation;
 import fr.univlyon1.tiw.tiw1.reservation.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,7 +1,7 @@
 package fr.univlyon1.tiw.tiw1.reservation.dao;
 
 
-import fr.univlyon1.tiw.tiw1.metier.beans.Reservation;
+import fr.univlyon1.tiw.tiw1.reservation.metier.Reservation;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
