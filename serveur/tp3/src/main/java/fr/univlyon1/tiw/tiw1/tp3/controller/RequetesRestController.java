@@ -1,18 +1,14 @@
 package fr.univlyon1.tiw.tiw1.tp3.controller;
 
 import fr.univlyon1.tiw.tiw1.metier.beans.Film;
-import fr.univlyon1.tiw.tiw1.metier.beans.Reservation;
 import fr.univlyon1.tiw.tiw1.metier.beans.Salle;
 import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 import fr.univlyon1.tiw.tiw1.tp3.service.FrontCinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.logging.Logger;

@@ -1,7 +1,6 @@
 package fr.univlyon1.tiw.tiw1.metier.beans;
 
 import fr.univlyon1.tiw.tiw1.metier.dao.ProgrammationDAO;
-import fr.univlyon1.tiw.tiw1.metier.dao.ReservationDAO;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +20,7 @@ public abstract class ACinemaRessource implements ICinema {
     private Map<String, Salle> salles;
     private Map<String, Film> films;
     private List<Seance> seances;
-    private ReservationDAO reservationDAO;
+//    private ReservationDAO reservationDAO;
     private ProgrammationDAO programmationDAO;
     private final String methode = "";
     private CinemaRessourceFilms cineRessFilms;

@@ -1,9 +1,7 @@
 package fr.univlyon1.tiw.tiw1.metier.beans;
 
 import fr.univlyon1.tiw.tiw1.metier.dao.ProgrammationDAO;
-import fr.univlyon1.tiw.tiw1.metier.dao.ReservationDAO;
 import fr.univlyon1.tiw.tiw1.metier.dao.impl.JSONProgrammationDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -25,8 +23,8 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
     private List<Seance> seances;
     private ProgrammationDAO progDAO = new JSONProgrammationDAO();
 
-    @Autowired
-    private ReservationDAO reservationDAO;
+//    @Autowired
+//    private ReservationDAO reservationDAO;
 
     /**
      *
@@ -48,7 +46,7 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
     public void setSeances(List<Seance> seances) {
         this.seances = seances;
         for (Seance s : seances) {
-            s.setReservationDAO(reservationDAO);
+//            s.setReservationDAO(reservationDAO);
         }
     }
 
@@ -57,7 +55,7 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
         LOGGER.info("SEANCE CREEEE:::::::"+seance.toString());
         this.seances.add(seance);
         progDAO.save(seance);
-        seance.setReservationDAO(reservationDAO);
+//        seance.setReservationDAO(reservationDAO);
     }
 
     public void removeSeance(Seance seance) throws IOException {
@@ -78,7 +76,9 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
         for (Seance s : seances) {
             if(s.getFilm().getKey().equals(key)){
                 LOGGER.info(s.toString());
-                s.setReservations((List<Reservation>) reservationDAO.findBySeanceId(s.getId()));
+                // call the reservation service and retrieve the reservations
+                // GET /seances/{idSeance}/reservations
+//                s.setReservations((List<Object>) reservationDAO.findBySeanceId(s.getId()));
                 LOGGER.info("RESERVATIONS:::::::"+s.getReservations().toString());
                 seancesOfFilm.add(s);
             }
@@ -90,37 +90,38 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
         return seancesOfFilm;
     }
 
-    /**
-     * call the dao to save the reservation
-     * @param reservation
-     */
-    private void saveReservation(Reservation reservation){
-        reservationDAO.save(reservation);
-    }
+//    /**
+//     * call the dao to save the reservation
+//     * @param reservation
+//     */
+//    private void saveReservation(Reservation reservation){
+//        reservationDAO.save(reservation);
+//    }
+//
+//    /**
+//     * call the dao to delete the reservation
+//     * @param reservation
+//     */
+//    private void deleteReservation(Reservation reservation) {
+//        reservationDAO.delete(reservation);
+//    }
+//
+//    /**
+//     * retrieve all the reservations of a user, found by email
+//     * @param email
+//     */
 
-    /**
-     * call the dao to delete the reservation
-     * @param reservation
-     */
-    private void deleteReservation(Reservation reservation) {
-        reservationDAO.delete(reservation);
-    }
-
-    /**
-     * retrieve all the reservations of a user, found by email
-     * @param email
-     */
-    private Collection<Reservation> getReservationsOfUserByMail(String email) {
-        Collection<Reservation> reservationsUser = new ArrayList<>();
-        for (Seance s : seances) {
-           for(Reservation r : s.getReservations()){
-               if(r.getEmail().equals(email)){
-                   reservationsUser.add(r);
-               }
-           }
-        }
-        return reservationsUser;
-    }
+//    private Collection<Reservation> getReservationsOfUserByMail(String email) {
+//        Collection<Reservation> reservationsUser = new ArrayList<>();
+//        for (Seance s : seances) {
+//           for(Reservation r : s.getReservations()){
+//               if(r.getEmail().equals(email)){
+//                   reservationsUser.add(r);
+//               }
+//           }
+//        }
+//        return reservationsUser;
+//    }
     /**
      *
      * process .
@@ -159,14 +160,14 @@ public class CinemaRessourceSeances extends ACinemaRessource implements ICinema 
 
             case "getSeanceById":
                 return getSeanceById((String) parametres.get("id"));
-            case "saveReservation":
-                saveReservation((Reservation) parametres.get("reservation"));
-                return null;
-            case "cancelReservation":
-                deleteReservation((Reservation) parametres.get("reservation"));
-                return null;
-            case "getReservationsOfUserByMail":
-                return getReservationsOfUserByMail((String) parametres.get("email"));
+//            case "saveReservation":
+//                saveReservation((Reservation) parametres.get("reservation"));
+//                return null;
+//            case "cancelReservation":
+//                deleteReservation((Reservation) parametres.get("reservation"));
+//                return null;
+//            case "getReservationsOfUserByMail":
+//                return getReservationsOfUserByMail((String) parametres.get("email"));
             default:
                 return null;
         }

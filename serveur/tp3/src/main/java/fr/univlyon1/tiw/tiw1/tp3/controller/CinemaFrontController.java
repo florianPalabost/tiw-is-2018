@@ -1,16 +1,12 @@
 package fr.univlyon1.tiw.tiw1.tp3.controller;
 
 import fr.univlyon1.tiw.tiw1.metier.beans.Film;
-import fr.univlyon1.tiw.tiw1.metier.beans.Reservation;
 import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 import fr.univlyon1.tiw.tiw1.tp3.service.FrontCinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
@@ -56,23 +52,23 @@ public class CinemaFrontController {
     }
 
 
-    @GetMapping("/seances/{id}/addReservation")
-    public String showAddReserv(@PathVariable String id, Map<String, Object> model) throws Exception {
-        Seance seance = cinemaService.findSeanceById(id);
-        model.put("seance",seance);
-        Reservation r = new Reservation();
-        model.put("reservation",r);
-        return "reservations/addReserv";
-    }
-
-    @PostMapping("/seances/saveReserv")
-    public String saveReserv(Reservation reservation, BindingResult result, Model model) throws IOException {
-        if (result.hasErrors()) {
-            return "reservations/addReserv";
-        }
-
-        cinemaService.saveReservation(reservation);
-        return "redirect:showSeance";
-    }
+//    @GetMapping("/seances/{id}/addReservation")
+//    public String showAddReserv(@PathVariable String id, Map<String, Object> model) throws Exception {
+//        Seance seance = cinemaService.findSeanceById(id);
+//        model.put("seance",seance);
+//        Reservation r = new Reservation();
+//        model.put("reservation",r);
+//        return "reservations/addReserv";
+//    }
+//
+//    @PostMapping("/seances/saveReserv")
+//    public String saveReserv(Reservation reservation, BindingResult result, Model model) throws IOException {
+//        if (result.hasErrors()) {
+//            return "reservations/addReserv";
+//        }
+//
+//        cinemaService.saveReservation(reservation);
+//        return "redirect:showSeance";
+//    }
     
 }

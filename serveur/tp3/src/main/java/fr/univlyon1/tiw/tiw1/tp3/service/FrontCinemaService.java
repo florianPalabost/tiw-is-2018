@@ -116,11 +116,11 @@ public class FrontCinemaService implements ICinemaService{
      * @return list of reservations of the user referenced by mail
      */
 
-    public Collection<Reservation> findReservationsOfUserByMail(String email) throws IOException {
-         Map<String,Object> params = new HashMap<>();
-         params.put("email",email);
-         return (Collection<Reservation>) cinemaRessourceSeances.process("getReservationsOfUserByMail", params);
-    }
+//    public Collection<Reservation> findReservationsOfUserByMail(String email) throws IOException {
+//         Map<String,Object> params = new HashMap<>();
+//         params.put("email",email);
+//         return (Collection<Reservation>) cinemaRessourceSeances.process("getReservationsOfUserByMail", params);
+//    }
 
     public String getNom() {
         return nom;
@@ -166,20 +166,20 @@ public class FrontCinemaService implements ICinemaService{
         cinemaRessourceSeances.process("createSeance", params);
         return null;
     }
-    public ResponseEntity<Reservation> saveReservation(Reservation reservation) throws IOException {
-        Map<String,Object> params = new HashMap<>();
-        params.put("reservation",reservation);
-
-        cinemaRessourceSeances.process("saveReservation", params);
-        return null;
-    }
-
-    public Collection<Reservation> findReservationsOfSeance(String keyS) throws IOException {
-        Map<String, Object> params = new HashMap<>();
-        //params.put
-        cinemaRessourceSeances.process("saveReservation", params);
-        return null;
-    }
+//    public ResponseEntity<Reservation> saveReservation(Reservation reservation) throws IOException {
+//        Map<String,Object> params = new HashMap<>();
+//        params.put("reservation",reservation);
+//
+//        cinemaRessourceSeances.process("saveReservation", params);
+//        return null;
+//    }
+//
+//    public Collection<Reservation> findReservationsOfSeance(String keyS) throws IOException {
+//        Map<String, Object> params = new HashMap<>();
+//        //params.put
+//        cinemaRessourceSeances.process("saveReservation", params);
+//        return null;
+//    }
 
     public ResponseEntity<Seance> updateSeance(SeanceDTO seanceDTO) throws IOException {
         Map<String,Object> params = new HashMap<>();

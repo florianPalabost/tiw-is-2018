@@ -1,6 +1,5 @@
 package fr.univlyon1.tiw.tiw1.metier.beans;
 
-import fr.univlyon1.tiw.tiw1.metier.dao.ReservationDAO;
 import fr.univlyon1.tiw.tiw1.utils.SeanceCompleteException;
 
 import java.util.*;
@@ -10,9 +9,9 @@ public class Seance {
     private Salle salle;
     private Date date;
     private float prix;
-    private List<Reservation> reservations;
+    private List<Object> reservations;
     private String id;
-    private ReservationDAO reservationDAO;
+//    private ReservationDAO reservationDAO;
 
     /**
      *
@@ -32,7 +31,7 @@ public class Seance {
         this.salle = salle;
         this.date = date;
         this.prix = prix;
-        this.reservations = new ArrayList<Reservation>();
+        this.reservations = new ArrayList<>();
         this.id = UUID.nameUUIDFromBytes(
                 (film.getTitre()
                         + film.getVersion()
@@ -66,13 +65,13 @@ public class Seance {
         return prix;
     }
 
-    public List<Reservation> getReservations() {
+    public List<Object> getReservations() {
         return reservations;
     }
 
-    public void setReservationDAO(ReservationDAO reservationDAO) {
-        this.reservationDAO = reservationDAO;
-    }
+//    public void setReservationDAO(ReservationDAO reservationDAO) {
+//        this.reservationDAO = reservationDAO;
+//    }
 
     /**
      *
@@ -87,34 +86,34 @@ public class Seance {
      * @throws SeanceCompleteException Exception de la seance complete.
      *
      */
-    public Reservation createReservation(String prenom, String nom,
-                                         String email) throws SeanceCompleteException {
-        if (this.salle.getCapacite() <= this.reservations.size()) {
-            throw new SeanceCompleteException();
-        }
-        Reservation resa = new Reservation(prenom, nom, email);
-        this.reservations.add(resa);
-        resa.setSeanceId(getId());
-        resa.setPaye(true);
-        if (reservationDAO != null) {
-            reservationDAO.save(resa);
-        }
-        return resa;
-    }
-
-    /**
-     *
-     * Annuler une reservation .
-     *
-     * @param reservation .
-     *
-     */
-    public void cancelReservation(Reservation reservation) {
-        this.reservations.remove(reservation);
-        if (reservationDAO != null) {
-            reservationDAO.delete(reservation);
-        }
-    }
+//    public Reservation createReservation(String prenom, String nom,
+//                                         String email) throws SeanceCompleteException {
+//        if (this.salle.getCapacite() <= this.reservations.size()) {
+//            throw new SeanceCompleteException();
+//        }
+//        Reservation resa = new Reservation(prenom, nom, email);
+//        this.reservations.add(resa);
+//        resa.setSeanceId(getId());
+//        resa.setPaye(true);
+//        if (reservationDAO != null) {
+//            reservationDAO.save(resa);
+//        }
+//        return resa;
+//    }
+//
+//    /**
+//     *
+//     * Annuler une reservation .
+//     *
+//     * @param reservation .
+//     *
+//     */
+//    public void cancelReservation(Reservation reservation) {
+//        this.reservations.remove(reservation);
+//        if (reservationDAO != null) {
+//            reservationDAO.delete(reservation);
+//        }
+//    }
 
     public String getId() {
         return id;
@@ -164,7 +163,7 @@ public class Seance {
         return Objects.hash(id);
     }
 
-    public void setReservations(List<Reservation> reservations) {
+    public void setReservations(List<Object> reservations) {
         this.reservations = reservations;
     }
 }
