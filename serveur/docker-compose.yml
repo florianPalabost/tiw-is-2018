@@ -1,11 +1,14 @@
 version: '3'
 services:
+  metier-base:
+    build: ./metier-base
+
   tp3:
     build: ./tp3
     ports:
       - "8080:8080"
-    volumes:
-      - backend
+    depends_on:
+      - metier-base
 
   mypostgres:
     restart: always
@@ -24,7 +27,7 @@ services:
   reservations:
     build: ./reservation-service
     ports:
-      - "8081:8081"
+      - "8091:8091"
     depends_on:
       - mypostgres
     links:
@@ -35,9 +38,7 @@ services:
   jwt:
     build: ./jwt-auth-service
     ports:
-      - "8082:8082"
-    networks:
-      - backend
+      - "8081:8081"
       
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -56,4 +57,5 @@ networks:
     driver: bridge
 
 volumes:
-  data: {}    
+  data: {}
+  metier:    
