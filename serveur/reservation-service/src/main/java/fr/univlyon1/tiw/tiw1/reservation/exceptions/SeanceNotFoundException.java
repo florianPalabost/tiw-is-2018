@@ -1,4 +1,4 @@
-package fr.univlyon1.tiw.tiw1.reservation.metier;
+package fr.univlyon1.tiw.tiw1.reservation.exceptions;
 
 public class SeanceNotFoundException extends Exception {
     public SeanceNotFoundException() {

@@ -22,5 +22,7 @@ public interface ReservationRepository extends CrudRepository<Reservation,Long> 
     Collection<Reservation> findByEmail(String email);
     Collection<Reservation> findBySeanceId(String id);
 
+    Collection<Reservation> findAll();
+
     Reservation getById(Long id);
 }

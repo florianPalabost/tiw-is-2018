@@ -25,6 +25,10 @@ public class RestControllerReservation {
         return reservationService.getSeances();
     }
 
+    @GetMapping(path="/reservations",produces= MediaType.APPLICATION_JSON_VALUE)
+    public Collection<Reservation> retrieveAllReservations() {
+        return reservationService.findAllReservations();
+    }
     /**
      *
      * @param email

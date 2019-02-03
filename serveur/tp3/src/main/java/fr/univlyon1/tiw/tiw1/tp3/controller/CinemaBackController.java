@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -217,5 +218,19 @@ public class CinemaBackController {
             cinemaService.updateSeance(seanceDTO);
         }
         return "redirect:/backend/cinema/films/"+f.getKey()+"/seances";
+    }
+
+    @GetMapping("/cinema/seances/{id}/reservations")
+    public String listReservations(@PathVariable String id, Map<String, Object> model) throws Exception {
+        Seance s = cinemaService.findSeanceById(id);
+        RestTemplate restTemplate = new RestTemplate();
+        String ressUrl = "http://localhost:8091/reservations";
+        Collection<Object> result = restTemplate.getForObject(ressUrl, Collection.class);
+        LOGGER.info("TEST RestTEMPLATE::::::::"+result.toString());
+        if(s != null) {
+            model.put("reservations",s.getReservations());
+            return "listReservations";
+        }
+        return null;
     }
 }

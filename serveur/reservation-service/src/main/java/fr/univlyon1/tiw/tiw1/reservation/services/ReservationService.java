@@ -26,4 +26,8 @@ public class ReservationService {
     public Collection<Seance> getSeances() {
         return null;
     }
+
+    public Collection<Reservation> findAllReservations() {
+        return reservationRepository.findAll();
+    }
 }

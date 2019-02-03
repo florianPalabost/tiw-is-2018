@@ -1,12 +1,10 @@
 package fr.univlyon1.tiw.tiw1.tp3.controller;
 
 import fr.univlyon1.tiw.tiw1.metier.beans.Film;
-import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 import fr.univlyon1.tiw.tiw1.tp3.service.FrontCinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
@@ -41,15 +39,7 @@ public class CinemaFrontController {
         return "indexCine";
     }
 
-    @GetMapping("/seances/{id}/reservations")
-    public String listReservations(@PathVariable String id, Map<String, Object> model) throws Exception {
-        Seance s = cinemaService.findSeanceById(id);
-        if(s != null) {
-            model.put("reservations",s.getReservations());
-            return "listReservations";
-        }
-        return null;
-    }
+
 
 
 //    @GetMapping("/seances/{id}/addReservation")
