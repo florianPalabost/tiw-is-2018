@@ -1,10 +1,10 @@
 version: '3'
 services:
   metier-base:
-    build: ./metier-base
+    build: ./serveur/metier-base
 
   tp3:
-    build: ./tp3
+    build: ./serveur/tp3
     ports:
       - "8080:8080"
     depends_on:
@@ -25,7 +25,7 @@ services:
       - backend
 
   reservations:
-    build: ./reservation-service
+    build: ./serveur/reservation-service
     ports:
       - "8091:8091"
     depends_on:
@@ -36,21 +36,22 @@ services:
       - backend
 
   jwt:
-    build: ./jwt-auth-service
+    build: ./serveur/jwt-auth-service
     ports:
       - "8081:8081"
       
-  nginx-proxy:
-    image: jwilder/nginx-proxy
+  frontend:
+    build: ./client/cinema
     ports:
-      - "80:80"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-
-  whoami:
-    image: jwilder/whoami
+      - "8085:8085"
     environment:
-      - VIRTUAL_HOST=whoami.local
+      - NGINX_HTTP_PORT_NUMBER=8085
+ # nginx-proxy:
+ #   image: jwilder/nginx-proxy
+ #   ports:
+ #     - "80:80"
+ #   volumes:
+ #     - /var/run/docker.sock:/tmp/docker.sock:ro
 
 networks: 
   backend:

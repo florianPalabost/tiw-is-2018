@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.Collection;
 
-
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class RestControllerReservation {
     // TODO Verify that works with the new architecture
@@ -24,7 +24,8 @@ public class RestControllerReservation {
     public Collection<Seance> getSeances() {
         return reservationService.getSeances();
     }
-
+    
+    // @RolesAllowed("ADMIN")
     @GetMapping(path="/reservations",produces= MediaType.APPLICATION_JSON_VALUE)
     public Collection<Reservation> retrieveAllReservations() {
         return reservationService.findAllReservations();
