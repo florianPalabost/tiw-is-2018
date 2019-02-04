@@ -1,40 +1,35 @@
-# The builder from node image
-FROM node:alpine as builder
+FROM node:8.11.2-alpine as node
+RUN mkdir -p /usr/src/app
 
-# build-time variables 
-# prod|sandbox its value will be come from outside 
-ARG env=prod
+WORKDIR /usr/src/app
 
 RUN apk update && apk add --no-cache make git
+COPY package.json package-lock.json  /usr/src/app/
+RUN npm install @angular/cli@6.0.8 -g
+
 
 # Move our files into directory name "app"
-WORKDIR /usr/src/front
-COPY package.json package-lock.json  /usr/src/front/
-RUN npm install @angular/cli@6.0.8 -g
-RUN cd /usr/src/front && npm install
-COPY .  /usr/src/front
+RUN npm install
+COPY . .
 
 # Expose the port the app runs in
 EXPOSE 4200
 
 # Build with $env variable from outside
-RUN cd /usr/src/front && npm run build
+RUN npm run build
 
 # Build a small nginx image with static website
-FROM nginx:alpine
-RUN rm -rf /usr/share/nginx/html/*
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /usr/src/front/dist /usr/share/nginx/html
-RUN set -x ; \
-  addgroup -g 82 -S www-data ; \
-adduser -u 82 -D -S -G www-data www-data && exit 0 ;
-RUN apk --no-cache add shadow && usermod -aG www-data nginx
-RUN touch /var/run/nginx.pid && \
-  chown -R www-data:www-data /var/run/nginx.pid && \
-  chown -R www-data:www-data /var/cache/nginx
 
-USER www-data
+# RUN set -x ; \
+#   addgroup -g 82 -S www-data ; \
+# adduser -u 82 -D -S -G www-data www-data && exit 0 ;
+# RUN apk --no-cache add shadow && usermod -aG www-data nginx
+# RUN touch /var/run/nginx.pid && \
+#   chown -R www-data:www-data /var/run/nginx.pid && \
+#   chown -R www-data:www-data /var/cache/nginx
 
-VOLUME /var/www
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# USER www-data
+
+# VOLUME /var/www
+# EXPOSE 80
+# CMD ["nginx", "-g", "daemon off;"]
