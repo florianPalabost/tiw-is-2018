@@ -33,6 +33,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { AuthentificationComponent, DialogInscription, DialogLogin } from './authentification/authentification.component';
 import { AuthentificationService } from "./authentification/authentification.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {PlatformModule} from "@angular/cdk/platform";
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    PlatformModule
   ],
   providers: [
     RequetesHTTPService,

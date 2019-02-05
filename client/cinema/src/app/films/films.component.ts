@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RequetesHTTPService} from "./requetes-http.service";
 import {AuthentificationService} from "../authentification/authentification.service";
-
+import {getSupportedInputTypes, Platform, supportsPassiveEventListeners, supportsScrollBehavior} from '@angular/cdk/platform';
 @Component({
   selector: 'app-films',
   templateUrl: './films.component.html',
@@ -18,7 +18,13 @@ export class FilmsComponent implements OnInit {
   // Pour savoir si l'uteisateur s'est connecté
   public isLogged = 0;
 
-  constructor(private httpService : RequetesHTTPService, private authService : AuthentificationService) {
+  // Pour les informations de la partie A Propos
+  supportedInputTypes = Array.from(getSupportedInputTypes()).join(', ');
+  supportsPassiveEventListeners = supportsPassiveEventListeners();
+  supportsScrollBehavior = supportsScrollBehavior();
+  tabLoadTimes: Date[] = [];
+
+  constructor(private httpService : RequetesHTTPService, private authService : AuthentificationService, public platform: Platform) {
 
     this.authService.connectionSubscription.subscribe(
       () => {
@@ -97,6 +103,13 @@ export class FilmsComponent implements OnInit {
         return omdbd.data;
       }
     }
+  }
+
+  getAccessTime(index: number) {
+    if (!this.tabLoadTimes[index]) {
+      this.tabLoadTimes[index] = new Date();
+    }
+    return this.tabLoadTimes[index];
   }
 
 }
