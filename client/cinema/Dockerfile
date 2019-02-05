@@ -13,7 +13,7 @@ RUN npm install
 COPY . .
 
 # Expose the port the app runs in
-EXPOSE 4200
+# EXPOSE 4200
 
 # Build with $env variable from outside
 RUN npm run build
@@ -33,3 +33,9 @@ RUN npm run build
 # VOLUME /var/www
 # EXPOSE 80
 # CMD ["nginx", "-g", "daemon off;"]
+FROM nginx:1.13.12-alpine
+# ENV http_proxy http://proxy.univ-lyon1.fr:3128/
+# ENV https_proxy http://proxy.univ-lyon1.fr:3128/
+COPY --from=node /usr/src/app/dist/cinema /usr/share/nginx/html
+
+COPY ./default.conf /etc/nginx/conf.d/default.conf
