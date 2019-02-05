@@ -25,10 +25,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/films", "/about","/cinema/**","/console/**","/users/**").permitAll()
-                .antMatchers("/backend/**").hasAnyRole("ADMIN")
+                .antMatchers("/","/reservations/**").permitAll()
+                // .antMatchers("/backend/**").hasAnyRole("ADMIN")
                 //.antMatchers("/cinema/**").hasAnyRole("USER")
-                .anyRequest().authenticated()
+                // .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .permitAll()
@@ -54,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
             .ignoring()
-            .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+            .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/reservations/**");
     }
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

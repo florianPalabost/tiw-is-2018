@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-@SpringBootApplication(scanBasePackages = "fr.univlyon1.tiw.tiw1.metier.dao")
+@SpringBootApplication
 public class ReservationApplication {
     private static final Logger LOG = LoggerFactory.getLogger(ReservationApplication.class);
 

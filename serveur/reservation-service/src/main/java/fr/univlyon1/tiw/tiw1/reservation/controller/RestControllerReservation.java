@@ -12,14 +12,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.logging.Logger;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8080/**")
 @RestController
 public class RestControllerReservation {
     // TODO Verify that works with the new architecture
     @Autowired
     ReservationService reservationService;
 
+    private static final Logger LOGGER = Logger.getLogger(RestControllerReservation.class.getName());
     @RequestMapping("/seances")
     public Collection<Seance> getSeances() {
         return reservationService.getSeances();
@@ -28,6 +30,7 @@ public class RestControllerReservation {
     // @RolesAllowed("ADMIN")
     @GetMapping(path="/reservations",produces= MediaType.APPLICATION_JSON_VALUE)
     public Collection<Reservation> retrieveAllReservations() {
+        LOGGER.info("reservations requetes cors");
         return reservationService.findAllReservations();
     }
     /**
