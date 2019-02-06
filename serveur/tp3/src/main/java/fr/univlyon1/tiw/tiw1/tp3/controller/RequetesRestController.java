@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost","http://127.0.0.1:4200","http://127.0.0.1"})
 @RestController //pour rest req
 //@RequestMapping("/backend")
 public class RequetesRestController {

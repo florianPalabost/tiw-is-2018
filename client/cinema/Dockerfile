@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 RUN apk update && apk add --no-cache make git
 COPY package.json package-lock.json  /usr/src/app/
-RUN npm install @angular/cli@6.0.8 -g
+RUN npm install @angular/cli@7.0.7 -g
 
 
 # Move our files into directory name "app"

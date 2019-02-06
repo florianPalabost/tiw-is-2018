@@ -3,6 +3,22 @@
   flex-basis: 0;
 }
 
+/*.mat-expansion-panel-header{
+  background: antiquewhite;
+}
+
+.mat-expansion-panel-header.mat-expanded:hover {
+  background: rosybrown;
+}
+
+.mat-expansion-panel {
+  background: #ffe8a1;
+}
+
+.mat-expansion-panel:hover {
+  background: peachpuff;
+}*/
+
 mat-card-subtitle {
   text-align: center;
 }

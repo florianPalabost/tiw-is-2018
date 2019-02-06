@@ -1,19 +1,25 @@
-
-<ng-container *ngIf="listeReservation.length !== 0">
-  <mat-list>
-    <mat-list-item *ngFor="let elementReservation of listeReservation">
-      {{elementReservation.date | date : 'medium'}}
-      <app-reservation-modifier [idReservation]="elementReservation.id"></app-reservation-modifier>
-      <app-reservation-supprimer [idReservation]="elementReservation.id"></app-reservation-supprimer>
-
-    </mat-list-item>
-  </mat-list>
+<ng-container *ngIf="listeReservation !== null">
+  <table>
+    <tr>
+      <th>No</th>
+      <th>Titre</th>
+      <th>Version</th>
+      <th>Date</th>
+      <th>Modifier</th>
+      <th>Annuler</th>
+    </tr>
+    <tr *ngFor="let elementfilmReserve of listeFilm; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{elementfilmReserve .film.titre}}</td>
+      <td>{{elementfilmReserve.film.version}}</td>
+      <td>{{elementfilmReserve .date | date : 'medium'}}</td>
+      <td><app-reservation-modifier [idReservation]="elementfilmReserve.id"></app-reservation-modifier></td>
+      <td><app-reservation-supprimer [idReservation]="elementfilmReserve .id"></app-reservation-supprimer></td>
+    </tr>
+  </table>
 </ng-container>
 
-<ng-container *ngIf="listeReservation.length === 0">
+<ng-container *ngIf="listeReservation === null">
   <span>AUCUNE RESERVATION</span>
 </ng-container>
-
-
-
 

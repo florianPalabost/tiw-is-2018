@@ -2,11 +2,11 @@
   <h2 mat-subheader>Seances :</h2>
   <mat-list-item *ngFor="let elementSeance of listeSeance">
     <!-- Date des seances -->
-    <mat-icon>access_time</mat-icon> &nbsp;  {{elementSeance.date | date : 'medium'}}
+    <mat-icon>access_time</mat-icon> &nbsp;  <p>{{elementSeance.date | date : 'medium'}}</p>
     <mat-chip-list>
       <!-- Capacité et prix des seances -->
-      <mat-chip><mat-icon>event_seat</mat-icon> &nbsp; Capacité : {{elementSeance.salle.capacite}} </mat-chip>
-      <mat-chip><mat-icon>event_seat</mat-icon> &nbsp; Nombre de place restant : {{elementSeance.salle.capacite - elementSeance.reservations.length}} </mat-chip>
+      <mat-chip color="primary" selected><mat-icon>event_seat</mat-icon> &nbsp; Capacité : {{elementSeance.salle.capacite}} </mat-chip>
+      <mat-chip color="accent" selected><mat-icon>event_seat</mat-icon> &nbsp; Nombre de place restant : {{elementSeance.salle.capacite - elementSeance.reservations.length}} </mat-chip>
       <mat-chip><mat-icon>local_offer</mat-icon> &nbsp; Prix : {{elementSeance.prix}} </mat-chip>
     </mat-chip-list>
 

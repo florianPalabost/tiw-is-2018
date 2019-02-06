@@ -24,7 +24,7 @@ import {
   MatCardModule,
   MatGridListModule,
   MatTreeModule,
-  MatDialogModule, MatSnackBarModule
+  MatDialogModule, MatSnackBarModule, MatTableModule
 } from '@angular/material';
 import { CommonModule } from "@angular/common";
 import { LayoutModule } from '@angular/cdk/layout';
@@ -33,6 +33,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { AuthentificationComponent, DialogInscription, DialogLogin } from './authentification/authentification.component';
 import { AuthentificationService } from "./authentification/authentification.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {PlatformModule} from "@angular/cdk/platform";
 
 @NgModule({
   declarations: [
@@ -69,14 +70,17 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    PlatformModule
   ],
   providers: [
     RequetesHTTPService,
     AuthentificationService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogLogin,
-  DialogInscription]
+  entryComponents: [
+    DialogLogin,
+    DialogInscription]
 })
 export class AppModule { }
