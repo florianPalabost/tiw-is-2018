@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {RequetesHTTPService} from "../requetes-http.service";
 
 @Component({
@@ -11,6 +11,10 @@ export class ReservationComponent implements OnInit {
   private email = "test@test.com";
   listeReservation = null;
   listeFilm = [];
+
+  @Input() listeReservations:any;
+  @Output() reloadReser = new EventEmitter();
+  @Output() deleteReser = new EventEmitter();
 
   constructor(private httpService : RequetesHTTPService ) { }
 

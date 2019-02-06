@@ -1,0 +1,18 @@
+<mat-list>
+  <h1 mat-subheader>Seances :</h1>
+  <mat-list-item *ngFor="let elementSeance of listeSeances">
+    <!-- Date des seances -->
+    <mat-icon>access_time</mat-icon> &nbsp;  <p style="color: #721c24; font-size: 14px; letter-spacing: 3px; font-weight: bold;">{{elementSeance.date | date : 'medium'}}</p>
+    <mat-chip-list>
+      <!-- Capacité et prix des seances -->
+      <mat-chip color="primary" selected><mat-icon>event_seat</mat-icon> &nbsp; Capacité : {{elementSeance.salle.capacite}} </mat-chip>
+      <mat-chip color="accent" selected><mat-icon>event_seat</mat-icon> &nbsp; Nombre de place restant : {{elementSeance.salle.capacite - elementSeance.reservations.length}} </mat-chip>
+      <mat-chip><mat-icon>local_offer</mat-icon> &nbsp; Prix : {{elementSeance.prix}} </mat-chip>
+    </mat-chip-list>
+
+    <!-- Button de réservation -->
+    <button (click)="onClickReserver(elementSeance)" mat-stroked-button color = "primary">Editer</button>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+
+</mat-list>

@@ -15,7 +15,7 @@ export class ReservationSupprimerComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges(change?: SimpleChanges) {
-    console.log(change.idReservation.currentValue);
+    //console.log(change.idReservation.currentValue);
   }
 
 }

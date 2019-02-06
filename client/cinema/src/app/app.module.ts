@@ -7,7 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { FilmsComponent } from "./films/films.component";
 import { SeancesComponent } from "./films/seances/seances.component";
 import { ReservationSupprimerComponent } from "./films/reservation/reservation-supprimer/reservation-supprimer.component";
-import { ReservationModifierComponent } from "./films/reservation/reservation-modifier/reservation-modifier.component";
+import { DialogModifySeance, ReservationModifierComponent } from './films/reservation/reservation-modifier/reservation-modifier.component';
 import { ReservationComponent } from "./films/reservation/reservation.component";
 import { RequetesHTTPService } from "./films/requetes-http.service";
 
@@ -24,7 +24,9 @@ import {
   MatCardModule,
   MatGridListModule,
   MatTreeModule,
-  MatDialogModule, MatSnackBarModule, MatTableModule
+  MatDialogModule,
+  MatSnackBarModule,
+  MatTableModule
 } from '@angular/material';
 import { CommonModule } from "@angular/common";
 import { LayoutModule } from '@angular/cdk/layout';
@@ -33,7 +35,6 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { AuthentificationComponent, DialogInscription, DialogLogin } from './authentification/authentification.component';
 import { AuthentificationService } from "./authentification/authentification.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import {PlatformModule} from "@angular/cdk/platform";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {PlatformModule} from "@angular/cdk/platform";
     ReservationSupprimerComponent,
     AuthentificationComponent,
     DialogLogin,
-    DialogInscription
+    DialogInscription,
+    DialogModifySeance
   ],
   imports: [
     BrowserModule,
@@ -71,8 +73,7 @@ import {PlatformModule} from "@angular/cdk/platform";
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatTableModule,
-    PlatformModule
+    MatTableModule
   ],
   providers: [
     RequetesHTTPService,
@@ -81,6 +82,8 @@ import {PlatformModule} from "@angular/cdk/platform";
   bootstrap: [AppComponent],
   entryComponents: [
     DialogLogin,
-    DialogInscription]
+    DialogInscription,
+    DialogModifySeance
+  ]
 })
 export class AppModule { }
