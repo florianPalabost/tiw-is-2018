@@ -6,6 +6,7 @@ import fr.univlyon1.tiw.tiw1.reservation.metier.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Collection;
 
 @Service
@@ -29,5 +30,16 @@ public class ReservationService {
 
     public Collection<Reservation> findAllReservations() {
         return reservationRepository.findAll();
+    }
+
+    public void recordReservation(Reservation reservation) {
+        reservationRepository.save(reservation);
+    }
+
+    public void deleteReservation(Long id){
+        Reservation reservation = reservationRepository.getById(id);
+        if(reservation != null) {
+            reservationRepository.delete(reservation);
+        }
     }
 }

@@ -10,12 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-@CrossOrigin(origins = {"http://localhost:4200","http://localhost","http://127.0.0.1:4200","http://127.0.0.1"})
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost","http://127.0.0.1:4200","http://127.0.0.1","http://127.0.0.1:8080"})
 @RestController
 public class RestControllerReservation {
     // TODO Verify that works with the new architecture
@@ -54,10 +55,14 @@ public class RestControllerReservation {
     public ResponseEntity<Reservation> recordReservation(@RequestBody Reservation reservation, @PathVariable String keyFilm,
                                                          @PathVariable String keyS, Model model)
             throws Exception {
-        RestTemplate restTemplate = new RestTemplate();
+        reservationService.recordReservation(reservation);          
+        /* RestTemplate restTemplate = new RestTemplate();
         String url = "http://127.0.0.1:8080/cinema/films";
+        LOGGER.info("pong dbt CORS res -> Seance");
         ResponseEntity<Object> response = restTemplate.getForEntity(url + "/"+keyFilm+"/seances/"+keyS, Object.class);
-        LOGGER.info("CORS::::"+response.toString());
+        LOGGER.info("CORS::::"+response.toString()); */ 
+
+
         /*
         Film f = cinemaService.findFilmByKey(keyFilm);
         if (f != null) {
@@ -68,7 +73,14 @@ public class RestControllerReservation {
             }
         }
         */
-        return (ResponseEntity<Reservation>) response.getBody();
+        // return (ResponseEntity<Reservation>) response.getBody();
+        return new ResponseEntity<Reservation>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/reservations/{idR}")
+    public ResponseEntity<Reservation> deleteReservation(@PathVariable Long idR, Model model) {
+        reservationService.deleteReservation(idR);
+        return new ResponseEntity<Reservation>(HttpStatus.OK);
     }
 
 }

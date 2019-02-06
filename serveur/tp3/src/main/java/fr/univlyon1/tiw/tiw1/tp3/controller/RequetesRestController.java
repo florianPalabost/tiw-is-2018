@@ -6,6 +6,7 @@ import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 import fr.univlyon1.tiw.tiw1.tp3.service.FrontCinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-@CrossOrigin(origins = {"http://localhost:4200","http://localhost","http://127.0.0.1:4200","http://127.0.0.1"})
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost","http://127.0.0.1:4200","http://127.0.0.1","http://127.0.0.1:8091"})
 @RestController //pour rest req
 //@RequestMapping("/backend")
 public class RequetesRestController {
@@ -79,6 +80,18 @@ public class RequetesRestController {
         Film f = cinemaService.findFilmByKey(key);
         if(f != null) {
             return cinemaService.findSeancesOfFilmByKey(key);
+        }
+        return null;
+    }
+
+    @GetMapping(path="/cinema/films/{keyF}/seances/{keyS}")
+    public Seance showSeance(@PathVariable String keyF,@PathVariable String keyS,Model model) throws Exception {
+        Film f = cinemaService.findFilmByKey(keyF);
+        if(!f.getTitre().equals("")) {
+            Seance s = cinemaService.findSeanceById(keyS);
+            if (s != null) {
+               return s;
+            }
         }
         return null;
     }
