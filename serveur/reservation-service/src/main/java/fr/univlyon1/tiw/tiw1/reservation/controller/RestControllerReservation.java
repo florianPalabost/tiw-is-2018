@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -39,11 +40,11 @@ public class RestControllerReservation {
      * @return list of reservations of the user
      * @throws IOException
      */
-    @GetMapping(path="/users/{email}/reservations",produces= MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path="/cinema/users/{email}/reservations",produces= MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     Collection<Reservation> retrieveReservationsOfUserByMail(@PathVariable String email) throws IOException {
         // Normalement verification de l'utilisateur mais on passe outre
-
+        LOGGER.info("pong user");
         // On cherche les reservations de l'utilisateur correspondant à cet email
         return reservationService.findReservationsOfUserByMail(email);
     }
@@ -53,6 +54,10 @@ public class RestControllerReservation {
     public ResponseEntity<Reservation> recordReservation(@RequestBody Reservation reservation, @PathVariable String keyFilm,
                                                          @PathVariable String keyS, Model model)
             throws Exception {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://127.0.0.1:8080/cinema/films";
+        ResponseEntity<Object> response = restTemplate.getForEntity(url + "/"+keyFilm+"/seances/"+keyS, Object.class);
+        LOGGER.info("CORS::::"+response.toString());
         /*
         Film f = cinemaService.findFilmByKey(keyFilm);
         if (f != null) {
@@ -63,7 +68,7 @@ public class RestControllerReservation {
             }
         }
         */
-        return null;
+        return (ResponseEntity<Reservation>) response.getBody();
     }
 
 }

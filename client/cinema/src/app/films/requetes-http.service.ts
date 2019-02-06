@@ -8,6 +8,7 @@ import {Observable, Subject} from "rxjs";
 export class RequetesHTTPService {
 
   private urlConf = 'http://localhost:8080/';
+  private urlConf1 = 'http://localhost:8091/';
   private urlOmdb = 'http://www.omdbapi.com/';
 
   constructor(private http: HttpClient) { }
@@ -27,7 +28,7 @@ export class RequetesHTTPService {
   }
 
   getReservation(email) {
-    return this.http.get(`${this.urlConf}cinema/users/${email}/reservations`);
+    return this.http.get(`${this.urlConf1}cinema/users/${email}/reservations`);
     //http://localhost:8080/cinema/users/test@test.com/reservations
   }
 
@@ -55,7 +56,7 @@ export class RequetesHTTPService {
     };
     console.log('film key : '+keyFilm);
     console.log('seance key :'+keySeance);
-    return this.http.post(`${this.urlConf}cinema/films/${keyFilm}/seances/${keySeance}`,
+    return this.http.post(`${this.urlConf1}cinema/films/${keyFilm}/seances/${keySeance}`,
       JSON.stringify(
         {
           prenom: utilisateur.prenom,
