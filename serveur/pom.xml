@@ -16,6 +16,7 @@
         <module>tp3</module>
         <module>reservation-service</module>
         <module>jwt-auth-service</module>
+        <module>banque</module>
     </modules>
 
     <properties>
