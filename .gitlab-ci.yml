@@ -54,12 +54,12 @@ compile:
   script: "mvn clean install -DskipTests"
   
 cp:
-    stage cp
-    script: "cp metier-base/MonCinema/*.json ../../tp3/target/"
+  stage: cp
+  script: "cp metier-base/MonCinema/*.json ../../tp3/target/"
 
 compose:
-    stage: compose
-    script: "docker-compose build --no-cache"
+  stage: compose
+  script: "docker-compose build --no-cache"
 # unittests:
 #   stage: test
 #   script: "mvn test"
