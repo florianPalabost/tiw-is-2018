@@ -1,5 +1,4 @@
-/serveur/target/
-/client/cinema/node_modules
+/*/target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
