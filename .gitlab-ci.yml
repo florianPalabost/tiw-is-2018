@@ -26,7 +26,6 @@ services:
 
 before_script:
   - . config/maven/setup-proxy-settings.sh
-  - docker version
   - docker-compose version
 
 build:
