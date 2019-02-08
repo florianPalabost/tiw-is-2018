@@ -26,13 +26,12 @@ services:
 
 before_script:
   - . config/maven/setup-proxy-settings.sh
-  - docker version
   - docker-compose version
 
 build:
   stage: build
   script:
-    - "EXPORT DOCKER_HOST: tcp://docker:2375/"
+    - "export DOCKER_HOST= tcp://docker:2375/"
     - docker-compose down
     - docker-compose build
 
