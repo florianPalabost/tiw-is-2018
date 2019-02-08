@@ -32,6 +32,7 @@ before_script:
 build:
   stage: build
   script:
+    - EXPORT DOCKER_HOST: tcp://docker:2375/
     - docker-compose down
     - docker-compose build
 
