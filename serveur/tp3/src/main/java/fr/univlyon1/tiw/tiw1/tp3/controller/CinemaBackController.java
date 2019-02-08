@@ -222,15 +222,15 @@ public class CinemaBackController {
 
     @GetMapping("/cinema/seances/{id}/reservations")
     public String listReservations(@PathVariable String id, Map<String, Object> model) throws Exception {
-        Seance s = cinemaService.findSeanceById(id);
+        // Seance s = cinemaService.findSeanceById(id);
         RestTemplate restTemplate = new RestTemplate();
-        String ressUrl = "http://localhost:8091/reservations";
+        String ressUrl = "http://reservations:8091/reservations";
         Collection<Object> result = restTemplate.getForObject(ressUrl, Collection.class);
         LOGGER.info("TEST RestTEMPLATE::::::::"+result.toString());
-        if(s != null) {
-            model.put("reservations",s.getReservations());
-            return "listReservations";
-        }
+//        if(s != null) {
+//            model.put("reservations",s.getReservations());
+//            return "listReservations";
+//        }
         return null;
     }
 }
