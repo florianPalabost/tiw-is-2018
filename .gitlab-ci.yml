@@ -1,4 +1,6 @@
-image: maven:3-jdk-8
+image:
+  name: docker/compose:1.23.2 # update tag to whatever version you want to use.
+  entrypoint: ["/bin/sh", "-c"]
 
 # Cache downloaded dependencies and plugins between builds.
 # Not strictly necessary, but speeds up the builds.
@@ -13,14 +15,30 @@ variables:
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
   
 # Executed before each job
+
+
+
+# Official docker compose image.
+
+
+services:
+  - docker:dind
+
 before_script:
   - . config/maven/setup-proxy-settings.sh
+  - docker version
+  - docker-compose version
 
+build:
+  stage: build
+  script:
+    - docker-compose down
+    - docker-compose build
 
 stages:
   - build
-  - test
-  - analyse
+  - cp
+  - compose
 
 # Juste pour montrer un exemple de debug
 dire_bonjour:
@@ -32,14 +50,22 @@ dire_bonjour:
 
 compile:
   stage: build
+  script: "cd serveur"
   script: "mvn clean install -DskipTests"
+  
+cp:
+    stage cp
+    script: "cp metier-base/MonCinema/*.json ../../tp3/target/"
 
-unittests:
-  stage: test
-  script: "mvn test"
+compose:
+    stage: compose
+    script: "docker-compose build --no-cache"
+# unittests:
+#   stage: test
+#   script: "mvn test"
 
-analyse:
-  variables:
-    SONAR_PROJ_KEY: "$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
-  stage: analyse
-  script: "mvn checkstyle:checkstyle"
+# analyse:
+#   variables:
+#     SONAR_PROJ_KEY: "$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
+ #  stage: analyse
+ #  script: "mvn checkstyle:checkstyle"
