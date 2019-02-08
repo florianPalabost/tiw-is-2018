@@ -1,5 +1,5 @@
 image:
-  name: docker/compose:1.23.2 # update tag to whatever version you want to use.
+  name: docker # update tag to whatever version you want to use.
   entrypoint: ["/bin/sh", "-c"]
 
 # Cache downloaded dependencies and plugins between builds.
@@ -21,50 +21,15 @@ variables:
 # Official docker compose image.
 
 
+before_script:
+  - . config/maven/setup-proxy-settings.sh
+
+
 services:
   - docker:dind
 
-before_script:
-  - . config/maven/setup-proxy-settings.sh
-  - docker-compose version
-
 build:
-  stage: build
   script:
-    - docker-compose down
-    - docker-compose build
-
-stages:
-  - build
-  - cp
-  - compose
-
-# Juste pour montrer un exemple de debug
-dire_bonjour:
-  variables:
-    CI_DEBUG_TRACE: "true"
-  stage: build
-  script:
-    - echo bonjour
-
-compile:
-  stage: build
-  script: "cd serveur"
-  script: "mvn clean install -DskipTests"
-  
-cp:
-  stage: cp
-  script: "cp metier-base/MonCinema/*.json ../../tp3/target/"
-
-compose:
-  stage: compose
-  script: "docker-compose build --no-cache"
-# unittests:
-#   stage: test
-#   script: "mvn test"
-
-# analyse:
-#   variables:
-#     SONAR_PROJ_KEY: "$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
- #  stage: analyse
- #  script: "mvn checkstyle:checkstyle"
+    - apk add --no-cache py-pip
+    - pip install docker-compose
+    - docker-compose up -d
