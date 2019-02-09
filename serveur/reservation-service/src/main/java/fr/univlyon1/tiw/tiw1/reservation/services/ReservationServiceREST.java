@@ -6,11 +6,10 @@ import fr.univlyon1.tiw.tiw1.reservation.metier.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.Collection;
 
 @Service
-public class ReservationService {
+public class ReservationServiceREST {
    /* @Autowired
     private ProgrammationDAO programmationDAO;
     */

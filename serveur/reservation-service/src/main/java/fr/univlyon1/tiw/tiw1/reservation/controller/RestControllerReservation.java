@@ -1,16 +1,14 @@
 package fr.univlyon1.tiw.tiw1.reservation.controller;
 
 
-import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 import fr.univlyon1.tiw.tiw1.reservation.metier.Reservation;
-import fr.univlyon1.tiw.tiw1.reservation.services.ReservationService;
+import fr.univlyon1.tiw.tiw1.reservation.services.ReservationServiceREST;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -19,16 +17,16 @@ import java.util.logging.Logger;
 @CrossOrigin(origins = {"http://localhost:4200","http://localhost","http://127.0.0.1:4200","http://127.0.0.1","http://127.0.0.1:8080"})
 @RestController
 public class RestControllerReservation {
-    // TODO Verify that works with the new architecture
+//    // TODO Verify that works with the new architecture
     @Autowired
-    ReservationService reservationService;
-
-    private static final Logger LOGGER = Logger.getLogger(RestControllerReservation.class.getName());
-    @RequestMapping("/seances")
-    public Collection<Seance> getSeances() {
-        return reservationService.getSeances();
-    }
-    
+    ReservationServiceREST reservationService;
+//
+        private static final Logger LOGGER = Logger.getLogger(RestControllerReservation.class.getName());
+//    @RequestMapping("/seances")
+//    public Collection<Seance> getSeances() {
+//        return reservationService.getSeances();
+//    }
+//
     // @RolesAllowed("ADMIN")
     @GetMapping(path="/reservations",produces= MediaType.APPLICATION_JSON_VALUE)
     public Collection<Reservation> retrieveAllReservations() {
@@ -55,12 +53,12 @@ public class RestControllerReservation {
     public ResponseEntity<Reservation> recordReservation(@RequestBody Reservation reservation, @PathVariable String keyFilm,
                                                          @PathVariable String keyS, Model model)
             throws Exception {
-        reservationService.recordReservation(reservation);          
+        reservationService.recordReservation(reservation);
         /* RestTemplate restTemplate = new RestTemplate();
         String url = "http://127.0.0.1:8080/cinema/films";
         LOGGER.info("pong dbt CORS res -> Seance");
         ResponseEntity<Object> response = restTemplate.getForEntity(url + "/"+keyFilm+"/seances/"+keyS, Object.class);
-        LOGGER.info("CORS::::"+response.toString()); */ 
+        LOGGER.info("CORS::::"+response.toString()); */
 
 
         /*
@@ -77,10 +75,46 @@ public class RestControllerReservation {
         return new ResponseEntity<Reservation>(HttpStatus.OK);
     }
 
+    @PostMapping(value="/cinema/seances/{keyS}",headers = {
+            "content-type=application/json" }, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Reservation> recordReservation1(@RequestBody Reservation reservation, @PathVariable String keyS, Model model)
+            throws Exception {
+        reservationService.recordReservation(reservation);
+        /* RestTemplate restTemplate = new RestTemplate();
+        String url = "http://127.0.0.1:8080/cinema/films";
+        LOGGER.info("pong dbt CORS res -> Seance");
+        ResponseEntity<Object> response = restTemplate.getForEntity(url + "/"+keyFilm+"/seances/"+keyS, Object.class);
+        LOGGER.info("CORS::::"+response.toString()); */
+
+
+        /*
+        Film f = cinemaService.findFilmByKey(keyFilm);
+        if (f != null) {
+            // check if the seance exist
+            Seance s = cinemaService.findSeanceById(keyS);
+            if (s != null){
+                cinemaService.saveReservation(reservation);
+            }
+        }
+        */
+        // return (ResponseEntity<Reservation>) response.getBody();
+        return new ResponseEntity<Reservation>(HttpStatus.OK);
+    }
+
+
     @DeleteMapping("/reservations/{idR}")
     public ResponseEntity<Reservation> deleteReservation(@PathVariable Long idR, Model model) {
         reservationService.deleteReservation(idR);
         return new ResponseEntity<Reservation>(HttpStatus.OK);
+    }
+
+    @GetMapping(path="/seances/{keyS}/reservations",produces= MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    Collection<Reservation> retrieveReservationsBySeanceId(@PathVariable String keyS) throws IOException {
+        // Normalement verification de l'utilisateur mais on passe outre
+        // On cherche les reservations de l'utilisateur correspondant à cet email
+       // return reservationService.findReservationsBySeanceId(keyS);
+        return null;
     }
 
 }

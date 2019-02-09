@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+    <handler-chain>
+        <handler>
+            <handler-name>SoapMessageHandler</handler-name>
+            <handler-class>fr.univlyon1.m2tiw.tiw1.spring.service.SoapMessageHandler</handler-class>
+        </handler>
+        <handler>
+            <handler-name>LogicalMessageHandler</handler-name>
+            <handler-class>fr.univlyon1.m2tiw.tiw1.spring.service.LogicalMessageHandler</handler-class>
+        </handler>
+    </handler-chain>
+</handler-chains>

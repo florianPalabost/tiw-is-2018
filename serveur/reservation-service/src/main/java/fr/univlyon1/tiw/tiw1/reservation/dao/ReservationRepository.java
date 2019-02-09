@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Repository
 public interface ReservationRepository extends CrudRepository<Reservation,Long> {
@@ -23,6 +24,9 @@ public interface ReservationRepository extends CrudRepository<Reservation,Long> 
     Collection<Reservation> findBySeanceId(String id);
 
     Collection<Reservation> findAll();
+
+    @Override
+    Optional<Reservation> findById(Long aLong);
 
     Reservation getById(Long id);
 }

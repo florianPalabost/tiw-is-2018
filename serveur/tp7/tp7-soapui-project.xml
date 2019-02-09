@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="5f211c88-8f28-4ceb-bc66-9566645e567d" activeEnvironment="Default" name="tp7" soapui-version="5.4.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="e531da84-7731-4531-b8ee-1bc83e6cf53d" wsaVersion="NONE" name="ReservationServiceSoapBinding" type="wsdl" bindingName="{http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation}ReservationServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/services/reservation?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/services/reservation?wsdl"><con:part><con:url>http://localhost:8080/services/reservation?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="ReservationService" targetNamespace="http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="reserver">
+        <xs:complexType>
+          <xsd:sequence>
+            <xs:element name="prenom" type="xs:string"/>
+            <xs:element name="nom" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="seance" type="xs:string"/>
+          </xsd:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="reservation-effectuee">
+        <xs:complexType>
+          <xsd:sequence>
+            <xs:element name="id" type="xs:string"/>
+          </xsd:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="seance-complete">
+        <xs:complexType>
+          <xsd:sequence>
+            <xs:element name="message" type="xs:string"/>
+          </xsd:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="seance-inconnue">
+        <xs:complexType>
+          <xsd:sequence>
+            <xs:element name="message" type="xs:string"/>
+          </xsd:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="annuler-reservation">
+        <xs:complexType>
+          <xsd:sequence>
+            <xs:element name="id" type="xs:string"/>
+          </xsd:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="reservation-annulee">
+        <xs:complexType>
+          <xsd:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="reservation-inconnue">
+        <xs:complexType>
+          <xsd:sequence>
+            <xs:element name="message" type="xs:string"/>
+          </xsd:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="seanceInconnue">
+    <wsdl:part element="tns:seance-inconnue" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="annuler">
+    <wsdl:part element="tns:annuler-reservation" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reservationInconnue">
+    <wsdl:part element="tns:reservation-inconnue" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="seanceComplete">
+    <wsdl:part element="tns:seance-complete" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reserverResponse">
+    <wsdl:part element="tns:reservation-effectuee" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reserver">
+    <wsdl:part element="tns:reserver" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="annulerResponse">
+    <wsdl:part element="tns:reservation-annulee" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ReservationService">
+    <wsdl:operation name="reserver">
+      <wsdl:input message="tns:reserver" name="reserver"></wsdl:input>
+      <wsdl:output message="tns:reserverResponse" name="reserverResponse"></wsdl:output>
+      <wsdl:fault message="tns:seanceInconnue" name="seanceInconnue"></wsdl:fault>
+      <wsdl:fault message="tns:seanceComplete" name="seanceComplete"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="annuler">
+      <wsdl:input message="tns:annuler" name="annuler"></wsdl:input>
+      <wsdl:output message="tns:annulerResponse" name="annulerResponse"></wsdl:output>
+      <wsdl:fault message="tns:reservationInconnue" name="reservationInconnue"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReservationServiceSoapBinding" type="tns:ReservationService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="reserver">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="reserver">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reserverResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="seanceInconnue">
+        <soap:fault name="seanceInconnue" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="seanceComplete">
+        <soap:fault name="seanceComplete" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="annuler">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="annuler">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="annulerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="reservationInconnue">
+        <soap:fault name="reservationInconnue" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ReservationServiceService">
+    <wsdl:port binding="tns:ReservationServiceSoapBinding" name="ReservationServicePort">
+      <soap:address location="http://localhost:8080/services/reservation"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="ResrvationService">
+    <wsdl:port binding="tns:ReservationServiceSoapBinding" name="ReservationServicePort">
+      <soap:address location="http://localhost:8080/services/reservation"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/services/reservation</con:endpoint></con:endpoints><con:operation id="4ebb82e1-e9a2-4573-b1f8-32c37403459d" isOneWay="false" action="" name="annuler" bindingOperationName="annuler" type="Request-Response" outputName="annulerResponse" inputName="annuler" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f306dbeb-feb9-46eb-a01c-80e9e3cb7203" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/services/reservation</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:res="http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <res:annuler-reservation>
+         <res:id>?</res:id>
+      </res:annuler-reservation>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation/ReservationService/annuler"/></con:call></con:operation><con:operation id="09960223-3ea8-42e9-b94a-3b24244558cc" isOneWay="false" action="" name="reserver" bindingOperationName="reserver" type="Request-Response" outputName="reserverResponse" inputName="reserver" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5949cd82-9eda-4c2a-8300-e3998097b057" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/services/reservation</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:res="http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <res:reserver>
+         <res:prenom>?</res:prenom>
+         <res:nom>?</res:nom>
+         <res:email>?</res:email>
+         <res:seance>?</res:seance>
+      </res:reserver>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation/ReservationService/reserver"/></con:call></con:operation></con:interface><con:testSuite id="2e208e5d-480a-432b-8e8e-574ae4d8971d" name="TestSuite 1"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="2dfc7adc-ef39-4bc1-ac78-618e19fccf83" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 1" searchProperties="true"><con:settings/><con:testStep type="request" name="reserver" id="e6bdb314-86d2-4491-857a-8141a753ce62"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReservationServiceSoapBinding</con:interface><con:operation>reserver</con:operation><con:request name="reserver" id="5b97b363-da55-4b04-b46b-58243af52550"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/services/reservation</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:res="http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <res:reserver>
+         <res:prenom>toto</res:prenom>
+         <res:nom>titi</res:nom>
+         <res:email>toto.titi@nowhere.net</res:email>
+         <res:seance>7926cce5-6539-30e0-9628-8ce5ed1d8211</res:seance>
+      </res:reserver>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="729fe12e-90da-4911-97de-f1d77632b65e"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="Property Transfer" id="52f26f86-91cb-4c79-bc37-d79ee11f1dab"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>res-id</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>reserver</con:sourceStep><con:sourcePath>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation';
+//ns1:id</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>annuler</con:targetStep><con:targetPath>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation';
+//ns1:id
+</con:targetPath><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="request" name="annuler" id="a8c3b0da-9029-41e8-9d2b-b0b7dcc116ab"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReservationServiceSoapBinding</con:interface><con:operation>annuler</con:operation><con:request name="annuler" id="9a345723-8717-4bc8-b392-81590c4806d0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/services/reservation</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:res="http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <res:annuler-reservation>
+         <res:id>3</res:id>
+      </res:annuler-reservation>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="56837e83-6e81-4b65-b244-485f6706985c"/><con:assertion type="SOAP Fault Assertion" id="74cd5f98-0491-4d63-8372-cea748a496f6" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

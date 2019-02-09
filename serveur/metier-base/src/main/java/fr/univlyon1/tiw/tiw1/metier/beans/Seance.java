@@ -95,9 +95,16 @@ public class Seance {
 //        this.reservations.add(resa);
 //        resa.setSeanceId(getId());
 //        resa.setPaye(true);
-//        if (reservationDAO != null) {
+//
+//
+//        RestTemplate restTemplate = new RestTemplate();
+//        String ressUrl = "http://reservations:8091/cinema/seances/"+resa.getSeanceId();
+//        restTemplate.postForEntity(ressUrl, resa, Reservation.class);
+//       //  LOGGER.info("TEST RestTEMPLATE::::::::"+result.toString());
+//
+//      /*  if (reservationDAO != null) {
 //            reservationDAO.save(resa);
-//        }
+//        }*/
 //        return resa;
 //    }
 //
@@ -108,11 +115,14 @@ public class Seance {
 //     * @param reservation .
 //     *
 //     */
-//    public void cancelReservation(Reservation reservation) {
+//    public void cancelReservation(fr.univlyon1.tiw.tiw1.reservation.metier.Reservation reservation) {
 //        this.reservations.remove(reservation);
-//        if (reservationDAO != null) {
-//            reservationDAO.delete(reservation);
-//        }
+////        if (reservationDAO != null) {
+////            reservationDAO.delete(reservation);
+////        }
+//        RestTemplate restTemplate = new RestTemplate();
+//        String ressUrl = "http://reservations:8091//reservations/"+ reservation.getId();
+//        restTemplate.delete(ressUrl);
 //    }
 
     public String getId() {
