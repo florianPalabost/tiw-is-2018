@@ -1,6 +1,5 @@
 package fr.univlyon1.tiw.tiw1.reservation.services;
 
-import fr.univlyon1.tiw.tiw1.metier.beans.Seance;
 import fr.univlyon1.tiw.tiw1.metier.dao.ProgrammationDAO;
 import fr.univlyon1.tiw.tiw1.reservation.dao.ReservationRepository;
 import fr.univlyon1.tiw.tiw1.reservation.exceptions.ReservationNotFoundException;
@@ -10,9 +9,9 @@ import fr.univlyon1.tiw.tiw1.utils.SeanceCompleteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -30,14 +29,24 @@ public class ServiceReservationComponent {
     @Transactional
     public Reservation reserver(String prenom, String nom, String email, String seanceId)
             throws SeanceCompleteException, SeanceNotFoundException, IOException {
-        Seance seance = programmationDAO.getSeanceById(seanceId);
-        if (seance == null) {
+        // Seance seance = programmationDAO.getSeanceById(seanceId);
+
+        String url = "http://admin:8080/cinema/seances/"+seanceId;
+        RestTemplate restTemplate = new RestTemplate();
+        Object result = restTemplate.getForObject(url, Object.class);
+        LOGGER.info("SEANCE RC:::::::"+result.toString());
+        if (result == null) {
             throw new SeanceNotFoundException("La séance " + seanceId + " n'existe pas.");
         } else {
-            HashMap<String, Object> parametres = new HashMap<String, Object>();
+            // devrait pas se faire la
+            Reservation reservation = new Reservation(prenom, nom, email);
+            reservation.setSeanceId(seanceId);
+
+            reservationDAO.save(reservation);
+            // HashMap<String, Object> parametres = new HashMap<String, Object>();
             // parametres.put("ReservationDto", new ReservationDto(seanceId, prenom, nom, email));
             // return Long.parseLong((String) cinemaRessourceReservations.process("creerReservation", parametres));
-            return null;
+            return reservation;
         }
     }
 

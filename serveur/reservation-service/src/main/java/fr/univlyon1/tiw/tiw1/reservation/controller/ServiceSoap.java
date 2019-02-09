@@ -1,7 +1,6 @@
 package fr.univlyon1.tiw.tiw1.reservation.controller;
 
-import fr.univ_lyon1.tiw.tiw1.cinema.reservation.AnnulerReservation;
-import fr.univ_lyon1.tiw.tiw1.cinema.reservation.ReservationInconnue_Exception;
+import fr.univ_lyon1.tiw.tiw1.cinema.reservation.*;
 import fr.univlyon1.tiw.tiw1.reservation.metier.Reservation;
 import fr.univlyon1.tiw.tiw1.reservation.services.ServiceReservation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -97,17 +99,40 @@ public class ServiceSoap {
 
     @RequestMapping(value="/reserver",method = RequestMethod.POST, headers = "Accept=application/xml")
     @ResponseBody
-    public ResponseEntity<Reservation> recordReservation(@RequestBody String source) throws ReservationInconnue_Exception, IOException, SAXException, ParserConfigurationException {
+    public ResponseEntity<Reservation> recordReservation(@RequestBody String source) throws ReservationInconnue_Exception, IOException, SAXException, ParserConfigurationException, SeanceComplete_Exception, SeanceInconnue_Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
         builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new InputSource(new StringReader(source)));
+
         LOGGER.info(":::::::::ADD RESERVATION::::::");
-        LOGGER.info("ID RESERVATION ::::"+doc.getElementsByTagName("soapenv:Body").item(0).getChildNodes().item(1).getChildNodes().item(1).getFirstChild().getTextContent());
+        LOGGER.info("Prenom RESERVATION ::::"+doc.getElementsByTagName("soapenv:Body")
+                .item(0).getChildNodes()// res:reserver
+                .item(1).getChildNodes()
+                .item(1).getFirstChild().getTextContent());
+        LOGGER.info("nom RESERVATION ::::"+doc.getElementsByTagName("res:nom").item(0).getFirstChild().getTextContent());
+        LOGGER.info("email RESERVATION ::::"+doc.getElementsByTagName("res:email").item(0).getFirstChild().getTextContent());
+        LOGGER.info("seanceid RESERVATION ::::"+doc.getElementsByTagName("res:seance").item(0).getFirstChild().getTextContent());
+                //.item(2).getFirstChild().getTextContent());
         //LOGGER.info(reservation.toString());
+//        Reserver reserver = new Reserver();
+//         reserver.setPrenom(doc.getElementsByTagName("soapenv:Body")
+//                 .item(0).getChildNodes()// res:reserver
+//                 .item(1).getChildNodes()
+//                 .item(1).getFirstChild().getTextContent());
+//        reserver.setNom(doc.getElementsByTagName("res:nom").item(0).getFirstChild().getTextContent());
+//        reserver.setEmail(doc.getElementsByTagName("res:email").item(0).getFirstChild().getTextContent());
+//        reserver.setSeance(doc.getElementsByTagName("res:seance").item(0).getFirstChild().getTextContent());
         // AnnulerReservation annulerReservation = new AnnulerReservation();
         // annulerReservation.setId(doc.getElementsByTagName("soapenv:Body").item(0).getChildNodes().item(1).getChildNodes().item(1).getFirstChild().getTextContent());
-
+        serviceReservation.reserver(doc.getElementsByTagName("soapenv:Body")
+                .item(0).getChildNodes()// res:reserver
+                .item(1).getChildNodes()
+                .item(1).getFirstChild().getTextContent(),
+                doc.getElementsByTagName("res:nom").item(0).getFirstChild().getTextContent(),
+                doc.getElementsByTagName("res:email").item(0).getFirstChild().getTextContent(),
+                doc.getElementsByTagName("res:seance").item(0).getFirstChild().getTextContent()
+                );
 
         // serviceReservation.annuler(annulerReservation);
         return new ResponseEntity<>(HttpStatus.OK);

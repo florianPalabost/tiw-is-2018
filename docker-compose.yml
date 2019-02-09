@@ -64,8 +64,12 @@ services:
     container_name: banque
     build: ./serveur/banque
     ports:
-        - "8082:8082"
-    
+      - "8082:8082"
+    depends_on:
+      - mypostgres
+    links:
+      - "mypostgres:mypostgres"
+      
 volumes:
   data: {}
   metier:    
