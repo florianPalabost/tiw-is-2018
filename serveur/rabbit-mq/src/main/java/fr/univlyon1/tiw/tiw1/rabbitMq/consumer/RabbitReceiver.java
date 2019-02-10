@@ -16,7 +16,9 @@ public class RabbitReceiver {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @RabbitListener(queues = "cinema")
+    private static final Logger LOGGER = Logger.getLogger(RabbitReceiver.class.getName());
+    
+    @RabbitListener(queues = "cinema-11301169")
     public void receiveBorne(String in) throws IOException {
         JsonNode jsonNode = objectMapper.readTree(in);
 
@@ -24,9 +26,9 @@ public class RabbitReceiver {
             JsonNode prelevementNode = jsonNode.get("prelevement");
 
             if(prelevementNode.get("statut").asBoolean()) {
-                System.out.println(prelevementNode.get("compte").asText());
-                System.out.println(prelevementNode.get("montant").asText());
-                System.out.println(prelevementNode.get("ref").asText());
+                LOGGER.info(prelevementNode.get("compte").asText());
+                LOGGER.info(prelevementNode.get("montant").asText());
+                LOGGER.info(prelevementNode.get("ref").asText());
 
                 HashMap<String, Object> parametres = new HashMap<>();
                 parametres.put("reservationId", prelevementNode.get("ref").asText());
@@ -36,11 +38,11 @@ public class RabbitReceiver {
                 context.getBean(RabbitSender.class).sendToBorne(json);
             } else {
                 String json = "{ \"paye\": { \"statut\": false } }";
-                System.out.println("Cinema : Le paiement n'a pas abouti selon Banque");
+                LOGGER.info("Cinema : Le paiement n'a pas abouti selon Banque");
             }
         } catch (Exception e) {
             String json = "{ \"paye\": { \"statut\": false } }";
-            System.out.println("Cinema : Le format du message n'est pas prise enn charge");
+            LOGGER.info("Cinema : Le format du message n'est pas prise enn charge");
         }
     }
 }

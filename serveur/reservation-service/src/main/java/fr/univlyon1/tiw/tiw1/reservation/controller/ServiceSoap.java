@@ -37,8 +37,6 @@ public class ServiceSoap {
     @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/xml")
     @ResponseBody
     public void controleSoap(@RequestBody String source) {
-        /*System.out.println(source);
-        System.exit(0);*/
         LOGGER.info("::::::::::::CONTROLEUR SOAP:::::::::::");
         //Parser that produces DOM object trees from XML content
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -90,7 +88,7 @@ public class ServiceSoap {
         Document doc = builder.parse(new InputSource(new StringReader(source)));
         LOGGER.info(":::::::::CANCEL RESERVATION::::::");
         LOGGER.info("ID RESERVATION ::::"+doc.getElementsByTagName("soapenv:Body").item(0).getChildNodes().item(1).getChildNodes().item(1).getFirstChild().getTextContent());
-        //LOGGER.info(reservation.toString());
+		
         AnnulerReservation annulerReservation = new AnnulerReservation();
         annulerReservation.setId(doc.getElementsByTagName("soapenv:Body").item(0).getChildNodes().item(1).getChildNodes().item(1).getFirstChild().getTextContent());
         serviceReservation.annuler(annulerReservation);
@@ -113,18 +111,8 @@ public class ServiceSoap {
         LOGGER.info("nom RESERVATION ::::"+doc.getElementsByTagName("res:nom").item(0).getFirstChild().getTextContent());
         LOGGER.info("email RESERVATION ::::"+doc.getElementsByTagName("res:email").item(0).getFirstChild().getTextContent());
         LOGGER.info("seanceid RESERVATION ::::"+doc.getElementsByTagName("res:seance").item(0).getFirstChild().getTextContent());
-                //.item(2).getFirstChild().getTextContent());
-        //LOGGER.info(reservation.toString());
-//        Reserver reserver = new Reserver();
-//         reserver.setPrenom(doc.getElementsByTagName("soapenv:Body")
-//                 .item(0).getChildNodes()// res:reserver
-//                 .item(1).getChildNodes()
-//                 .item(1).getFirstChild().getTextContent());
-//        reserver.setNom(doc.getElementsByTagName("res:nom").item(0).getFirstChild().getTextContent());
-//        reserver.setEmail(doc.getElementsByTagName("res:email").item(0).getFirstChild().getTextContent());
-//        reserver.setSeance(doc.getElementsByTagName("res:seance").item(0).getFirstChild().getTextContent());
-        // AnnulerReservation annulerReservation = new AnnulerReservation();
-        // annulerReservation.setId(doc.getElementsByTagName("soapenv:Body").item(0).getChildNodes().item(1).getChildNodes().item(1).getFirstChild().getTextContent());
+       
+	   
         serviceReservation.reserver(doc.getElementsByTagName("soapenv:Body")
                 .item(0).getChildNodes()// res:reserver
                 .item(1).getChildNodes()
@@ -134,7 +122,6 @@ public class ServiceSoap {
                 doc.getElementsByTagName("res:seance").item(0).getFirstChild().getTextContent()
                 );
 
-        // serviceReservation.annuler(annulerReservation);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

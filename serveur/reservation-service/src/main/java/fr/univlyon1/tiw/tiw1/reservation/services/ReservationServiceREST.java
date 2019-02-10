@@ -41,4 +41,11 @@ public class ReservationServiceREST {
             reservationRepository.delete(reservation);
         }
     }
+
+    public void updateReservationById(String idR) {
+        Reservation reservation = reservationRepository.getById(Long.valueOf(idR));
+        if(reservation != null) {
+            reservationRepository.updateReservation(Long.valueOf(idR));
+        }
+    }
 }

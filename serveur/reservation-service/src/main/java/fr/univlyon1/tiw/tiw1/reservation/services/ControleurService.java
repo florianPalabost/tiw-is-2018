@@ -30,17 +30,17 @@ public class ControleurService implements Provider<Source> {
             e.printStackTrace();
         }
 
-        LOG.info("je suis dans invoke");
+        LOG.info("invoke");
         Node node = dom.getNode();
         Node root = node.getFirstChild();
         LOG.info("root node:::"+root.getNodeName());
 
         if (root.getNodeName().equals("res:annuler-reservation")) {
-            LOG.info("je suis dans annuler reservation");
+            LOG.info("annuler reservation");
             LOG.info(root.getFirstChild().getNodeValue());
 
         } else if (root.getNodeName().equals("res:reserver")) {
-            LOG.info("je suis dans reserver");
+            LOG.info("reserver");
             LOG.info(root.getFirstChild().getNodeValue());
             LOG.info("\n** ChildNodes **\n" + root.getChildNodes() + "\n** ChildNodes **\n");
             LOG.info(root.getFirstChild().getNextSibling().getNodeValue());

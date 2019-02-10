@@ -7,6 +7,7 @@ public class RabbitSender {
     @Autowired
     private RabbitTemplate template;
 
+    private static final Logger LOGGER = Logger.getLogger(RabbitSender.class.getName());
     public void sendToBorne(String message) {
         this.template.convertAndSend("borne", message);
     }

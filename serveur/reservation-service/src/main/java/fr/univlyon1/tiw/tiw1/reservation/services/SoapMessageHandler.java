@@ -49,7 +49,6 @@ public class SoapMessageHandler implements SOAPHandler<SOAPMessageContext> {
             Element n = (Element) h.getObject();
             if (n.getLocalName().equals("TestHeader")) {
                 context.put(n.getLocalName(), n.getTextContent());
-//                System.out.println(n.getTextContent());
             }
         }
         return true;

@@ -117,4 +117,13 @@ public class RestControllerReservation {
         return null;
     }
 
+    @PutMapping(value="/reservations/{idR}",headers = {
+            "content-type=application/json" }, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Reservation> updateReservation(@PathVariable String idR) {
+        LOGGER.info("Update Reservation id :"+idR);
+        reservationService.updateReservationById(idR);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

@@ -17,6 +17,7 @@
         <module>reservation-service</module>
         <module>jwt-auth-service</module>
         <module>banque</module>
+        <module>rabbit-mq</module>
     </modules>
 
     <properties>

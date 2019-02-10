@@ -2,7 +2,10 @@ package fr.univlyon1.tiw.tiw1.reservation.dao;
 
 
 import fr.univlyon1.tiw.tiw1.reservation.metier.Reservation;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -29,4 +32,10 @@ public interface ReservationRepository extends CrudRepository<Reservation,Long> 
     Optional<Reservation> findById(Long aLong);
 
     Reservation getById(Long id);
+
+    @Modifying
+    @Query(value = "UPDATE reservation r set paye = true where r.id = :idR",
+            nativeQuery = true)
+    void updateReservation(@Param("idR") long idR);
+
 }
