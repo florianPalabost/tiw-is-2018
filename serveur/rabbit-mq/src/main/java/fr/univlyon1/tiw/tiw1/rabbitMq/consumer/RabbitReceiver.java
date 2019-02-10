@@ -40,7 +40,7 @@ public class RabbitReceiver {
                 String url = "http://reservations:8091/reservations/"+prelevementNode.get("ref").asText();
                 LOGGER.info("URL in RECEIVE::"+url);
                 RestTemplate restTemplate = new RestTemplate();
-                Object result = restTemplate.getForObject(url, Object.class);
+                restTemplate.put(url, Object.class);
 
                     // context.getBean().process("setPaye", parametres);
 

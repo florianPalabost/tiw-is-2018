@@ -122,6 +122,7 @@ public class ServiceSoap {
                 doc.getElementsByTagName("res:seance").item(0).getFirstChild().getTextContent()
                 );
 
+        // appeler Banque
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
