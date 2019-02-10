@@ -32,7 +32,7 @@ before_script:
 build:
   stage: build
   script:
-    - EXPORT DOCKER_HOST: tcp://docker:2375/
+    - "EXPORT DOCKER_HOST: tcp://docker:2375/"
     - docker-compose down
     - docker-compose build
 
@@ -61,6 +61,7 @@ cp:
 compose:
   stage: compose
   script: "docker-compose build --no-cache"
+  
 # unittests:
 #   stage: test
 #   script: "mvn test"
