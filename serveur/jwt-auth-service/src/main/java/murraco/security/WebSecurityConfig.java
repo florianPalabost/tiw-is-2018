@@ -24,6 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
+    http.httpBasic();
+    http.headers().frameOptions().disable();
     // Disable CSRF (cross site request forgery)
     http.csrf().disable();
 
@@ -45,8 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
     // Optional, if you want to test the API from a browser
-    // http.httpBasic();
-    http.headers().frameOptions().disable();
+
   }
 
   @Override

@@ -21,8 +21,6 @@ public class ServiceReservationComponent {
     private ReservationRepository reservationDAO;
     @Autowired
     private ProgrammationDAO programmationDAO;
-//    @Autowired
-//    private CinemaRessourceReservations cinemaRessourceReservations;
 
     private static final Logger LOGGER = Logger.getLogger(ServiceReservationComponent.class.getName());
 
@@ -33,8 +31,8 @@ public class ServiceReservationComponent {
 
         String url = "http://admin:8080/cinema/seances/"+seanceId;
         RestTemplate restTemplate = new RestTemplate();
+        // Normalement ca devrait etre des objets Seances mais bon ...
         Object result = restTemplate.getForObject(url, Object.class);
-        LOGGER.info("SEANCE RC:::::::"+result.toString());
         if (result == null) {
             throw new SeanceNotFoundException("La séance " + seanceId + " n'existe pas.");
         } else {
@@ -43,9 +41,6 @@ public class ServiceReservationComponent {
             reservation.setSeanceId(seanceId);
 
             reservationDAO.save(reservation);
-            // HashMap<String, Object> parametres = new HashMap<String, Object>();
-            // parametres.put("ReservationDto", new ReservationDto(seanceId, prenom, nom, email));
-            // return Long.parseLong((String) cinemaRessourceReservations.process("creerReservation", parametres));
             return reservation;
         }
     }
@@ -59,9 +54,6 @@ public class ServiceReservationComponent {
             throw new ReservationNotFoundException("La réservation " + id + " est inconnue");
         } else {
             reservationDAO.delete(reservation.get());
-            // HashMap<String, Object> parametres = new HashMap<String, Object>();
-            // parametres.put("reservationId", id);
-            // cinemaRessourceReservations.process("annulerReservation", parametres);
         }
     }
 }

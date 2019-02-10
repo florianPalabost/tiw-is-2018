@@ -1,5 +1,7 @@
 package fr.univlyon1.tiw.tiw1.reservation.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Node;
 
@@ -9,6 +11,8 @@ import javax.xml.ws.Provider;
 
 @Component
 public class ControleurService implements Provider<Source> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ControleurService.class);
     @Override
     public Source invoke(Source source) {
         DOMResult dom = new DOMResult();
@@ -20,25 +24,26 @@ public class ControleurService implements Provider<Source> {
             e.printStackTrace();
         }
         try {
-            System.out.println(source);
+            LOG.info("SOURCE::::"+source);
             trans.transform(source, dom);
         } catch (TransformerException e) {
             e.printStackTrace();
         }
 
-        System.out.println("je suis dans invoke");
+        LOG.info("je suis dans invoke");
         Node node = dom.getNode();
         Node root = node.getFirstChild();
-        System.out.println(root.getNodeName());
+        LOG.info("root node:::"+root.getNodeName());
 
         if (root.getNodeName().equals("res:annuler-reservation")) {
-            System.out.println("je suis dans annuler reservation");
-            System.out.println(root.getFirstChild().getNodeValue());
+            LOG.info("je suis dans annuler reservation");
+            LOG.info(root.getFirstChild().getNodeValue());
+
         } else if (root.getNodeName().equals("res:reserver")) {
-            System.out.println("je suis dans reserver");
-            System.out.println(root.getFirstChild().getNodeValue());
-            System.out.println("\n** ChildNodes **\n" + root.getChildNodes() + "\n** ChildNodes **\n");
-            System.out.println(root.getFirstChild().getNextSibling().getNodeValue());
+            LOG.info("je suis dans reserver");
+            LOG.info(root.getFirstChild().getNodeValue());
+            LOG.info("\n** ChildNodes **\n" + root.getChildNodes() + "\n** ChildNodes **\n");
+            LOG.info(root.getFirstChild().getNextSibling().getNodeValue());
             // todo : appeller la bonne méthode de ServiceReservationComponent
         }
 
