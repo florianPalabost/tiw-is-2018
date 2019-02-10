@@ -14,8 +14,16 @@ public class LogicalMessageHandler implements LogicalHandler<LogicalMessageConte
     @Override
     public boolean handleMessage(LogicalMessageContext context) {
         LogicalMessage message = context.getMessage();
+
+        String apiKeyValue = (String) context.get("api-key");
         try {
-            System.out.println("Logical Handler : " + message.getPayload().toString());
+            LOG.info("Logical Handler : " + message.getPayload().toString());
+
+            if (apiKeyValue != null) {
+                LOG.info("Accès via la clé d'API " + apiKeyValue);
+            } else {
+                LOG.info("Pas de clé d'API trouvé");
+            }
         } catch (Exception e) {
             LOG.warn(e.getMessage());
         }

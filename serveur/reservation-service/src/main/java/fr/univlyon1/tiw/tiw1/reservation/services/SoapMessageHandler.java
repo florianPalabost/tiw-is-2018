@@ -17,6 +17,7 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class SoapMessageHandler implements SOAPHandler<SOAPMessageContext> {
@@ -29,6 +30,9 @@ public class SoapMessageHandler implements SOAPHandler<SOAPMessageContext> {
 
     @Override
     public boolean handleMessage(SOAPMessageContext context) {
+        if ((Boolean) context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY)) {
+            return true;
+        }
         SOAPMessage soapMsg = context.getMessage();
         SOAPEnvelope soapEnv = null;
         try {
@@ -51,12 +55,19 @@ public class SoapMessageHandler implements SOAPHandler<SOAPMessageContext> {
                 context.put(n.getLocalName(), n.getTextContent());
             }
         }
+        LOG.info("HANDLEMESSAGE M1:::"+message.get(Header.HEADER_LIST).toString());
+        LOG.info("HANDLEMESSAGE M2:::"+context.get(MessageContext.HTTP_REQUEST_HEADERS).toString());
+        String contentApiKey = ((Map<String, Object>) context.get(MessageContext.HTTP_REQUEST_HEADERS)).get("api-key").toString();
+
+        if (contentApiKey != null) {
+            context.put("api-key", contentApiKey);
+        }
         return true;
     }
 
     @Override
     public boolean handleFault(SOAPMessageContext context) {
-        return false;
+        return true;
     }
 
     @Override
