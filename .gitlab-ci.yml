@@ -1,27 +1,3 @@
-image:
-  entrypoint: ["/bin/sh", "-c"]
-
-# Cache downloaded dependencies and plugins between builds.
-# Not strictly necessary, but speeds up the builds.
-cache:
-  key: "$CI_JOB_NAME"
-  paths:
-    # Must be within the repository under test hence we can't use the
-    # default ~/.m2
-    - .m2/repository
-variables:
-  # Use the cached directory above.
-  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
-  
-# Executed before each job
-
-
-
-# Official docker compose image.
-
-
-
-
 before_script:
   - . config/maven/setup-proxy-settings.sh
 
@@ -29,7 +5,7 @@ build:
   stage: build
   variables:
   # Use the cached directory above.
-  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+    MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
   script:
     - cd serveur
     - mvn clean install -DskipTests
