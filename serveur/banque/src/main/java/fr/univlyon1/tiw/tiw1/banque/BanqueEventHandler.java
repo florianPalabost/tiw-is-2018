@@ -12,12 +12,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.xml.namespace.QName;
-import javax.xml.rpc.handler.Handler;
-import javax.xml.rpc.handler.HandlerInfo;
-import javax.xml.rpc.handler.MessageContext;
-import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.handler.Handler;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -83,15 +79,7 @@ public class BanqueEventHandler implements Handler {
         return  false;
     }
 
-    @Override
-    public boolean handleRequest(MessageContext messageContext) {
-        return false;
-    }
 
-    @Override
-    public boolean handleResponse(MessageContext messageContext) {
-        return false;
-    }
 
     @Override
     public boolean handleFault(MessageContext context) {
@@ -99,22 +87,7 @@ public class BanqueEventHandler implements Handler {
     }
 
     @Override
-    public void init(HandlerInfo handlerInfo) {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public QName[] getHeaders() {
-        return new QName[0];
-    }
-
-    @Override
-    public void close(MessageContext context) {
+    public void close(javax.xml.ws.handler.MessageContext context) {
 
     }
 }
