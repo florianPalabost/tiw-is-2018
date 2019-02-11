@@ -26,23 +26,27 @@ services:
 
 before_script:
   - . config/maven/setup-proxy-settings.sh
-  - docker version
 
 build:
   stage: build
   script:
     - "cd serveur"
     - "mvn clean install -DskipTests"
+
+stages:
+  - build
+  - cp
+  - buildimage
+
+buildimage:
+  stage: build
+  script:
     - docker build -t "serveur/metier-base/Dockerfile"
     - docker build -t "serveur/tp3/Dockerfile"
     - docker build -t "serveur/reservation-service/Dockerfile"
     - docker build -t "serveur/jwt-auth-service/Dockerfile"
     - docker build -t "serveur/banque/Dockerfile"
     - docker build -t "serveur/rabbit-mq/Dockerfile"
-
-stages:
-  - build
-  - cp
 
 # Juste pour montrer un exemple de debug
 dire_bonjour:
