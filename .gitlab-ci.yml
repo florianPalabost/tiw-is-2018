@@ -23,19 +23,12 @@ build:
   script:
     - cd serveur
     - mvn clean install -DskipTests
+    - cp metier-base/MonCinema/*.json tp3/target/
     - cd ..
 
 stages:
   - build
-  - cp
   - docker
-
-cp:
-  stage: cp
-  script:
-    - cd serveur
-    - cp metier-base/MonCinema/*.json tp3/target/
-    - cd ..
 
 docker:
   stage: docker
