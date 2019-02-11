@@ -40,15 +40,14 @@ docker:
   script:
     - apk add --update py-pip && pip install docker-compose
     - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
-    - docker-compose build
+    - docker build -t "serveur/metier-base/"
+    - docker build -t "serveur/tp3/"
+    - docker build -t "serveur/reservation-service/"
+    - docker build -t "serveur/jwt-auth-service/"
+    - docker build -t "serveur/banque/"
+    - docker build -t "serveur/rabbit-mq/"
     - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018"
- #   - docker build -t "serveur/metier-base/"
- #   - docker build -t "serveur/tp3/"
- #   - docker build -t "serveur/reservation-service/"
- #   - docker build -t "serveur/jwt-auth-service/"
-  #  - docker build -t "serveur/banque/"
-  #  - docker build -t "serveur/rabbit-mq/"
-
+     # - docker-compose build
 # Juste pour montrer un exemple de debug
 dire_bonjour:
   variables:
