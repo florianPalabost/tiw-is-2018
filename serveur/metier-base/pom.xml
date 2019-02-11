@@ -60,10 +60,5 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.8</version>
         </dependency>
-        <dependency>
-            <groupId>fr.univlyon1.tiw.tiw1</groupId>
-            <artifactId>base</artifactId>
-            <version>2018</version>
-        </dependency>
     </dependencies>
 </project>

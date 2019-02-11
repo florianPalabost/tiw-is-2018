@@ -12,6 +12,10 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.xml.namespace.QName;
+import javax.xml.rpc.handler.Handler;
+import javax.xml.rpc.handler.HandlerInfo;
+import javax.xml.rpc.handler.MessageContext;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.MessageContext;
 import java.util.List;
@@ -68,6 +72,8 @@ public class BanqueEventHandler implements Handler {
             if (compteVal != null) {
                 LOGGER.info("Send Msg: ");
                 // sendMessage(compteVal.);
+
+
             } else {
                 LOGGER.info("Pas de clé d'API trouvé");
             }
@@ -78,8 +84,33 @@ public class BanqueEventHandler implements Handler {
     }
 
     @Override
+    public boolean handleRequest(MessageContext messageContext) {
+        return false;
+    }
+
+    @Override
+    public boolean handleResponse(MessageContext messageContext) {
+        return false;
+    }
+
+    @Override
     public boolean handleFault(MessageContext context) {
         return false;
+    }
+
+    @Override
+    public void init(HandlerInfo handlerInfo) {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public QName[] getHeaders() {
+        return new QName[0];
     }
 
     @Override
