@@ -35,7 +35,7 @@ docker:
   services:
     - docker:dind
   before_script:
-    - export http_proxy = 'htp://proxy.univ-lyon1.fr:3128'
+    - export http_proxy = 'http://proxy.univ-lyon1.fr:3128'
     - export DOCKER_HOST='tcp://localhost:2375'
   script:
     - apk add --update py-pip && pip install docker-compose
