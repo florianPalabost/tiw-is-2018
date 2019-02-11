@@ -27,19 +27,22 @@ services:
 before_script:
   - . config/maven/setup-proxy-settings.sh
   - docker version
-  - docker-compose version
 
 build:
   stage: build
   script:
-    - "EXPORT DOCKER_HOST: tcp://docker:2375/"
-    - docker-compose down
-    - docker-compose build
+    - "cd serveur"
+    - "mvn clean install -DskipTests"
+    - docker build -t "serveur/metier-base/Dockerfile"
+    - docker build -t "serveur/tp3/Dockerfile"
+    - docker build -t "serveur/reservation-service/Dockerfile"
+    - docker build -t "serveur/jwt-auth-service/Dockerfile"
+    - docker build -t "serveur/banque/Dockerfile"
+    - docker build -t "serveur/rabbit-mq/Dockerfile"
 
 stages:
   - build
   - cp
-  - compose
 
 # Juste pour montrer un exemple de debug
 dire_bonjour:
@@ -49,18 +52,21 @@ dire_bonjour:
   script:
     - echo bonjour
 
-compile:
-  stage: build
-  script: "cd serveur"
-  script: "mvn clean install -DskipTests"
+# compile:
+#   stage: build
+  # script: "cd serveur"
+ #  script: "mvn clean install -DskipTests"
   
 cp:
   stage: cp
-  script: "cp metier-base/MonCinema/*.json ../../tp3/target/"
+  script:
+    - "cd serveur"
+    - "cp metier-base/MonCinema/*.json ../../tp3/target/"
+    - "cd .."
 
-compose:
-  stage: compose
-  script: "docker-compose build --no-cache"
+#  compose:
+ #  stage: compose
+#   script: "docker-compose build --no-cache"
   
 # unittests:
 #   stage: test
