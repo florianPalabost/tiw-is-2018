@@ -1,5 +1,4 @@
 image:
-  name: docker/compose:1.23.2 # update tag to whatever version you want to use.
   entrypoint: ["/bin/sh", "-c"]
 
 # Cache downloaded dependencies and plugins between builds.
@@ -21,32 +20,49 @@ variables:
 # Official docker compose image.
 
 
-services:
-  - docker:dind
+
 
 before_script:
   - . config/maven/setup-proxy-settings.sh
 
 build:
   stage: build
+  variables:
+  # Use the cached directory above.
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
   script:
-    - "cd serveur"
-    - "mvn clean install -DskipTests"
+    - cd serveur
+    - mvn clean install -DskipTests
+    - cd ..
 
 stages:
   - build
   - cp
-  - buildimage
+  - docker
 
-buildimage:
-  stage: build
+cp:
+  stage: cp
   script:
-    - docker build -t "serveur/metier-base/Dockerfile"
-    - docker build -t "serveur/tp3/Dockerfile"
-    - docker build -t "serveur/reservation-service/Dockerfile"
-    - docker build -t "serveur/jwt-auth-service/Dockerfile"
-    - docker build -t "serveur/banque/Dockerfile"
-    - docker build -t "serveur/rabbit-mq/Dockerfile"
+    - cd serveur
+    - cp metier-base/MonCinema/*.json ../../tp3/target/
+    - cd ..
+
+docker:
+  stage: docker
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - apk add --update py-pip && pip install docker-compose
+    - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
+    - docker-compose build
+    - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018"
+ #   - docker build -t "serveur/metier-base/"
+ #   - docker build -t "serveur/tp3/"
+ #   - docker build -t "serveur/reservation-service/"
+ #   - docker build -t "serveur/jwt-auth-service/"
+  #  - docker build -t "serveur/banque/"
+  #  - docker build -t "serveur/rabbit-mq/"
 
 # Juste pour montrer un exemple de debug
 dire_bonjour:
@@ -61,12 +77,7 @@ dire_bonjour:
   # script: "cd serveur"
  #  script: "mvn clean install -DskipTests"
   
-cp:
-  stage: cp
-  script:
-    - "cd serveur"
-    - "cp metier-base/MonCinema/*.json ../../tp3/target/"
-    - "cd .."
+
 
 #  compose:
  #  stage: compose
