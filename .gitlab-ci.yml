@@ -14,7 +14,6 @@ before_script:
   - . config/maven/setup-proxy-settings.sh
 
 
-
 build:
   stage: build
   variables:
@@ -35,6 +34,8 @@ docker:
   image: docker:latest
   services:
     - docker:dind
+  before_script:
+    - export DOCKER_HOST='tcp://localhost:2375'
   script:
     - apk add --update py-pip && pip install docker-compose
     - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
