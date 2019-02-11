@@ -34,7 +34,7 @@ cp:
   stage: cp
   script:
     - cd serveur
-    - cp metier-base/MonCinema/*.json ../../tp3/target/
+    - cp metier-base/MonCinema/*.json tp3/target/
     - cd ..
 
 docker:
