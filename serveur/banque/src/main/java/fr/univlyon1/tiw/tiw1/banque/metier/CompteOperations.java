@@ -50,7 +50,7 @@ public class CompteOperations {
             try {
                 compteParent.debit(valeur);
                 compteDestinataire.credit(valeur);
-
+                LOGGER.info("On peut prelever");
                 prelevementProducer(idCompte,destinataire,valeur,ref,true);
             } catch (OperationImpossibleException e) {
                 prelevementProducer(idCompte,destinataire,valeur,ref,false);

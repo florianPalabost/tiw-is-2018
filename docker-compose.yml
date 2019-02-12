@@ -60,14 +60,15 @@ services:
       - "15672:15672"
       - "5672:5672"
       
-  rabbitmq_client:
-    build: ./serveur/rabbit-mq
-    container_name: client_rabbitmq
+    # test rabbit mq pour le debut du tp8 -> transformer en borne de tickets
+  borne_tickets:
+    build: ./serveur/borne-tickets
+    container_name: borne_tickets
     depends_on:
-      - "rabbitmq"
+    - "rabbitmq"
     links:
-      - "rabbitmq:rabbitmq"
-      
+    - "rabbitmq:rabbitmq"
+    
   banque:
     container_name: banque
     build: ./serveur/banque
