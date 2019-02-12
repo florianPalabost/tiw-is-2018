@@ -42,12 +42,14 @@ docker:
     - export DOCKER_HOST='tcp://localhost:2375'
   script:
     - apk add --update py-pip && pip install docker-compose
+    - cd serveur/metier-base
     - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
-    - docker build -f "serveur/metier-base/Dockerfile" --build-arg http_proxy="http://proxy.univ-lyon1.fr:3128" 
+    - docker build --build-arg http_proxy="http://proxy.univ-lyon1.fr:3128" -t "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/metier-base:latest"  
     - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/metier-base:latest"
 
+    - cd ../tp3
     - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
-    - docker build --build-arg http_proxy="http://proxy.univ-lyon1.fr:3128" -f "serveur/tp3/Dockerfile"
+    - docker build --build-arg http_proxy="http://proxy.univ-lyon1.fr:3128"  -t "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/tp3:latest"
     - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/tp3:latest"
 
     - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
