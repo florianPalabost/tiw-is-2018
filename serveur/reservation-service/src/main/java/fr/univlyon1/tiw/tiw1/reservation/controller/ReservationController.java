@@ -126,6 +126,9 @@ public class ReservationController {
                 );
 
         // appeler Banque
+        LOGGER.info("La reservation a ete sauvegardee !");
+
+        // Send mSg
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -44,6 +44,7 @@ public class ServiceReservationComponent {
             reservation.setSeanceId(seanceId);
 
             reservationDAO.save(reservation);
+            LOGGER.info("reserver : Reservation COmponent done");
             return reservation;
         }
     }

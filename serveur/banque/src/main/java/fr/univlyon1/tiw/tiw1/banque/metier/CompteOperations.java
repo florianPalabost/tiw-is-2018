@@ -81,8 +81,8 @@ public class CompteOperations {
 
     public void prelevementProducer(long idCompte, long destinataire, double valeur, String ref, boolean success) throws IOException, TimeoutException, CompteInconnuException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        factory.setPort(8081);
+        factory.setHost("rabbitmq");
+        factory.setPort(5672);
         LOGGER.info("prelevement Producer start");
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {

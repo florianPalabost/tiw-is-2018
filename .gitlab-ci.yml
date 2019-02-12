@@ -32,6 +32,10 @@ stages:
 docker:
   stage: docker
   image: docker:latest
+  variables:
+    ALL_PROXY: ""
+    all_proxy: ""
+    IMAGE_TAG: forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/tiw-is-2018:latest
   services:
     - docker:dind
   before_script:
@@ -39,13 +43,29 @@ docker:
   script:
     - apk add --update py-pip && pip install docker-compose
     - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
-    - docker build -t "serveur/metier-base/"
-    - docker build -t "serveur/tp3/"
-    - docker build -t "serveur/reservation-service/"
-    - docker build -t "serveur/jwt-auth-service/"
-    - docker build -t "serveur/banque/"
-    - docker build -t "serveur/rabbit-mq/"
-    - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018"
+    - docker build-arg http_proxy="http://proxy.univ-lyon1.fr:3128" -t "serveur/metier-base/"
+    - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/metier-base:latest"
+
+    - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
+    - docker build-arg http_proxy="http://proxy.univ-lyon1.fr:3128" -t "serveur/tp3/"
+    - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/tp3:latest"
+
+    - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
+    - docker build-arg http_proxy="http://proxy.univ-lyon1.fr:3128" -t "serveur/reservation-service/"
+    - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/reservation-service:latest"
+   
+    - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
+    - docker build-arg http_proxy="http://proxy.univ-lyon1.fr:3128" -t "serveur/jwt-auth-service/"
+    - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/jwt-auth-service:latest"
+
+    - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
+    - docker build-arg http_proxy="http://proxy.univ-lyon1.fr:3128" -t "serveur/banque/"
+    - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/banque:latest"
+   
+    - docker login -u gitlab+deploy-token-11 -p "22XLXw-JnHsUYyzgACBM" "forge.univ-lyon1.fr:4567"
+    - docker build-arg http_proxy="http://proxy.univ-lyon1.fr:3128" -t "serveur/rabbit-mq/"
+    - docker push "forge.univ-lyon1.fr:4567/p1301169/tiw1-is-2018/rabbit-mq:latest"
+
      # - docker-compose build
 # Juste pour montrer un exemple de debug
 dire_bonjour:
