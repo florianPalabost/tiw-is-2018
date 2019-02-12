@@ -3,7 +3,6 @@ package fr.univlyon1.tiw.tiw1.banque;
 import fr.univlyon1.tiw.tiw1.banque.service.CompteService;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;
-import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,10 +20,5 @@ public class WebServiceConfiguration {
         EndpointImpl endpoint = new EndpointImpl(bus, compteService);
         endpoint.publish("/compte");
         return endpoint;
-    }
-
-    @Bean
-    public Queue candidateQueue() {
-        return new Queue("cinema-11301169");
     }
 }

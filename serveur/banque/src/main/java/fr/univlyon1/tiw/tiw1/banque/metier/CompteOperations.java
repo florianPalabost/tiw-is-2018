@@ -3,13 +3,11 @@ package fr.univlyon1.tiw.tiw1.banque.metier;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import fr.univlyon1.tiw.tiw1.banque.BanqueEventHandler;
 import fr.univlyon1.tiw.tiw1.banque.data.AutorisationRepository;
 import fr.univlyon1.tiw.tiw1.banque.data.CompteInconnuException;
 import fr.univlyon1.tiw.tiw1.banque.data.CompteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,11 +25,7 @@ public class CompteOperations {
     @Autowired
     private AutorisationRepository autorisationRepository;
 
-    @Autowired
-    private BanqueEventHandler banqueEventHandler;
-
-    @Autowired
-    private Queue queue;
+    private final static String QUEUE_NAME = "cinema-11301169";
 
     @Transactional
     public void prelevement(long idCompte, long destinataire, double valeur) throws CompteInconnuException, OperationImpossibleException {
@@ -86,7 +80,7 @@ public class CompteOperations {
         LOGGER.info("prelevement Producer start");
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {
-            channel.queueDeclare(queue.getName(), false, false, false, null);
+            channel.queueDeclare(QUEUE_NAME, true, false, false, null);
             String message = "[ " +
                     "{\n" +
                     "\t\"source\":" + idCompte + ",\n" +
@@ -96,11 +90,11 @@ public class CompteOperations {
                     "\t\"success\": \""+ success +"\"\n" +
                     "}\n" +
                     "]\n";
-            Compte compte = compteRepository.findByIdOrFail(idCompte);
-            LOGGER.info("Before banque handle compte save");
-            banqueEventHandler.handleCompteSave(compte);
-             channel.basicPublish("", queue.getName(), null, message.getBytes("UTF-8"));
-           LOGGER.info(" --> Sent '" + compte.toString() + "'");
+            // Compte compte = compteRepository.findByIdOrFail(idCompte);
+            LOGGER.info("Before banque publish compte info");
+            // banqueEventHandler.handleCompteSave(compte);
+             channel.basicPublish("", QUEUE_NAME, null, message.getBytes("UTF-8"));
+           LOGGER.info(" --> Sent '" +message + "'");
         }
     }
 }
