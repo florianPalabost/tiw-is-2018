@@ -39,7 +39,7 @@ docker:
   services:
     - docker:dind
   before_script:
-    - export DOCKER_HOST='tcp://localhost:2375'
+   # - export DOCKER_HOST='tcp://localhost:2375'
   script:
     - apk add --update py-pip && pip install docker-compose
     - cd serveur/metier-base
