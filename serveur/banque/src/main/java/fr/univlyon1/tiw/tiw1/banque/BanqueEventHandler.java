@@ -35,7 +35,7 @@ public class BanqueEventHandler implements Handler {
     }
 
     private void sendMessage(Compte compte) {
-        LOGGER.info("BANQUE SEND MSG ");
+        LOGGER.info("BANQUE SEND MSG FROM SEND MESSAGE");
         rabbitTemplate.convertAndSend(
                 candidateQueue.getName(), serializeToJson(compte));
     }
@@ -66,12 +66,12 @@ public class BanqueEventHandler implements Handler {
             LOGGER.info("Logical Handler : " + message.toString());
 
             if (compteVal != null) {
-                LOGGER.info("Send Msg: ");
-                // sendMessage(compteVal.);
-
+                LOGGER.info("Send Msg from handle message: ");
+                 sendMessage( (Compte) context.get("compte"));
+                LOGGER.info("End Msg from handle message: ");
 
             } else {
-                LOGGER.info("Pas de clé d'API trouvé");
+                LOGGER.info("Pb handle Msg");
             }
         } catch (Exception e) {
             LOGGER.info(e.getMessage());

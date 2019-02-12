@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="9b33d8d9-07a4-4794-9bd6-cdb644d0a16f" activeEnvironment="Default" name="banque" resourceRoot="${projectDir}" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="13ba1ce0-4f3c-422d-a7b4-1f5403991d22" wsaVersion="NONE" name="CompteServiceServiceSoapBinding" type="wsdl" bindingName="{http://www.univ-lyon1.fr/tiw/tiw1/banque/compte}CompteServiceServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/services/compte?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/services/compte?wsdl"><con:part><con:url>http://localhost:8080/services/compte?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="CompteServiceService" targetNamespace="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="autoriser" type="tns:autoriser"/>
+      <xs:element name="autoriserResponse" type="tns:autoriserResponse"/>
+      <xs:element name="creerCompte" type="tns:creerCompte"/>
+      <xs:element name="creerCompteResponse" type="tns:creerCompteResponse"/>
+      <xs:element name="infosCompte" type="tns:infosCompte"/>
+      <xs:element name="infosCompteResponse" type="tns:infosCompteResponse"/>
+      <xs:element name="prelevement" type="tns:prelevement"/>
+      <xs:element name="prelevementResponse" type="tns:prelevementResponse"/>
+      <xs:complexType name="autoriser">
+        <xs:sequence>
+          <xs:element name="source" type="xs:long"/>
+          <xs:element name="destinataire" type="xs:long"/>
+          <xs:element name="montant-max" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="autoriserResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="infosCompte">
+        <xs:sequence>
+          <xs:element name="num-compte" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="infosCompteResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="compte" type="tns:compteDTO"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="compteDTO">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="autorisation" type="tns:autorisationDTO"/>
+          <xs:element name="id" type="xs:long"/>
+          <xs:element name="solde" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="autorisationDTO">
+        <xs:sequence>
+          <xs:element name="destinataire" type="xs:long"/>
+          <xs:element name="montant" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="creerCompte">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="creerCompteResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="compte" type="tns:compteDTO"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="prelevement">
+        <xs:sequence>
+          <xs:element name="source" type="xs:long"/>
+          <xs:element name="destinataire" type="xs:long"/>
+          <xs:element name="montant" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="prelevementResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="CompteInconnuException" type="tns:CompteInconnuException"/>
+      <xs:complexType name="CompteInconnuException">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="OperationImpossibleException" type="tns:OperationImpossibleException"/>
+      <xs:complexType name="OperationImpossibleException">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="autoriserResponse">
+    <wsdl:part element="tns:autoriserResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CompteInconnuException">
+    <wsdl:part element="tns:CompteInconnuException" name="CompteInconnuException"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="prelevement">
+    <wsdl:part element="tns:prelevement" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="OperationImpossibleException">
+    <wsdl:part element="tns:OperationImpossibleException" name="OperationImpossibleException"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="prelevementResponse">
+    <wsdl:part element="tns:prelevementResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="autoriser">
+    <wsdl:part element="tns:autoriser" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="infosCompte">
+    <wsdl:part element="tns:infosCompte" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="creerCompte">
+    <wsdl:part element="tns:creerCompte" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="infosCompteResponse">
+    <wsdl:part element="tns:infosCompteResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="creerCompteResponse">
+    <wsdl:part element="tns:creerCompteResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CompteService">
+    <wsdl:operation name="autoriser">
+      <wsdl:input message="tns:autoriser" name="autoriser"></wsdl:input>
+      <wsdl:output message="tns:autoriserResponse" name="autoriserResponse"></wsdl:output>
+      <wsdl:fault message="tns:CompteInconnuException" name="CompteInconnuException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="infosCompte">
+      <wsdl:input message="tns:infosCompte" name="infosCompte"></wsdl:input>
+      <wsdl:output message="tns:infosCompteResponse" name="infosCompteResponse"></wsdl:output>
+      <wsdl:fault message="tns:CompteInconnuException" name="CompteInconnuException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="creerCompte">
+      <wsdl:input message="tns:creerCompte" name="creerCompte"></wsdl:input>
+      <wsdl:output message="tns:creerCompteResponse" name="creerCompteResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="prelevement">
+      <wsdl:input message="tns:prelevement" name="prelevement"></wsdl:input>
+      <wsdl:output message="tns:prelevementResponse" name="prelevementResponse"></wsdl:output>
+      <wsdl:fault message="tns:OperationImpossibleException" name="OperationImpossibleException"></wsdl:fault>
+      <wsdl:fault message="tns:CompteInconnuException" name="CompteInconnuException"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CompteServiceServiceSoapBinding" type="tns:CompteService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="autoriser">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="autoriser">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="autoriserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CompteInconnuException">
+        <soap:fault name="CompteInconnuException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="infosCompte">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="infosCompte">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="infosCompteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CompteInconnuException">
+        <soap:fault name="CompteInconnuException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="creerCompte">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="creerCompte">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="creerCompteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="prelevement">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="prelevement">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="prelevementResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="OperationImpossibleException">
+        <soap:fault name="OperationImpossibleException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="CompteInconnuException">
+        <soap:fault name="CompteInconnuException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CompteServiceService">
+    <wsdl:port binding="tns:CompteServiceServiceSoapBinding" name="CompteServicePort">
+      <soap:address location="http://localhost:8080/services/compte"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/services/compte</con:endpoint></con:endpoints><con:operation id="f580daf5-4bd2-402a-80a9-c727932ddb8a" isOneWay="false" action="" name="autoriser" bindingOperationName="autoriser" type="Request-Response" outputName="autoriserResponse" inputName="autoriser" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6a436a82-ba94-4a5d-bb82-e15f5d7fba47" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/services/compte</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <com:autoriser>\r
+         <source>?</source>\r
+         <destinataire>?</destinataire>\r
+         <montant-max>?</montant-max>\r
+      </com:autoriser>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte/CompteService/autoriser"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="34717175-a06e-4aad-9f2f-5c64fca5efb0" isOneWay="false" action="" name="creerCompte" bindingOperationName="creerCompte" type="Request-Response" outputName="creerCompteResponse" inputName="creerCompte" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="1c6a223e-3869-46c1-bdce-e9b898f408ce" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/services/compte</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <com:creerCompte/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte/CompteService/creerCompte"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="504c8e4a-ea48-4d33-891d-515e83f3dc4a" isOneWay="false" action="" name="infosCompte" bindingOperationName="infosCompte" type="Request-Response" outputName="infosCompteResponse" inputName="infosCompte" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="02e2fb05-39d5-418c-acc0-f076067695cd" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/services/compte</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <com:infosCompte>\r
+         <num-compte>123456789</num-compte>\r
+      </com:infosCompte>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte/CompteService/infosCompte"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="c1c62405-d37e-4a40-ad9d-d81c07682340" isOneWay="false" action="" name="prelevement" bindingOperationName="prelevement" type="Request-Response" outputName="prelevementResponse" inputName="prelevement" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="333eea1e-6dd9-40aa-8931-2396979321b2" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/services/compte</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <com:prelevement>\r
+         <source>123456789</source>\r
+         <destinataire>234567890</destinataire>\r
+         <montant>10.0</montant>\r
+      </com:prelevement>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte/CompteService/prelevement"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="918d5e0c-d9bf-4d02-a936-a241eebb4b86" name="TestSuite 1"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="10341a24-1c68-4b89-8990-49b2cb6baf35" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Account value" searchProperties="true"><con:settings/><con:testStep type="request" name="Verification solde" id="fd562eea-3871-41fc-8b22-7f0aef610d28"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CompteServiceServiceSoapBinding</con:interface><con:operation>infosCompte</con:operation><con:request name="Verification solde" id="777a98bc-09de-4a1f-8baf-0869ad29f106"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/services/compte</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte">
+   <soapenv:Header/>
+   <soapenv:Body>
+	 <com:infosCompte>
+         <num-compte>0</num-compte>
+      </com:infosCompte>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="4692281a-7e9d-482f-8b2f-281ec31bc975"/><con:assertion type="SOAP Fault Assertion" id="1529b58a-4f2b-4b8d-9f65-7b549b4fb34d"/><con:assertion type="GroovyScriptAssertion" id="ea90ab9f-7c6a-46ca-97f4-38c6a763a307" name="Script Assertion"><con:configuration/></con:assertion><con:assertion type="XPath Match" id="4611f3a0-a4fd-44f8-b8fb-1afd58696c85" name="XPath Match" disabled="true"><con:configuration><path>//solde</path><content>1.0E10</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Creation compte" id="8a4e5cb5-55c3-4b23-9957-bf3ee7c3b6f3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CompteServiceServiceSoapBinding</con:interface><con:operation>creerCompte</con:operation><con:request name="Creation compte" id="0ee9f534-f6ff-4ac8-b910-26ff88eae28e"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/services/compte</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:creerCompte/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="97d23aef-d4dd-4e3a-981d-c06953f77ce4"/><con:assertion type="SOAP Fault Assertion" id="c44dd6e0-50b6-40aa-ab3c-fc3512d11126"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="id compte" id="bb6578d8-a62a-44cb-bde7-feded6cea43a"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>id</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Creation compte</con:sourceStep><con:sourcePath>//id</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>autorisation compte</con:targetStep><con:targetPath>//destinataire</con:targetPath><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="request" name="autorisation compte" id="27929d7d-7e5c-4106-9a9e-301a93afb326"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CompteServiceServiceSoapBinding</con:interface><con:operation>autoriser</con:operation><con:request name="autorisation compte" id="8c9339b9-06ce-4186-8565-b0f51cbafc0b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8090/services/compte</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:autoriser>
+         <source>0</source>
+         <destinataire/>
+         <montant-max>500</montant-max>
+      </com:autoriser>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="ac593204-09de-4e94-8310-6a0aedaa0925"/><con:assertion type="SOAP Fault Assertion" id="306dc97c-5c99-44ff-8ac1-e74b331f3718"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="Property Transfer" id="dfe4c357-c842-4830-9129-4c79221b6a4e"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>id</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Creation compte</con:sourceStep><con:sourcePath>//id</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>prelevement</con:targetStep><con:targetPath>//destinataire</con:targetPath><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="request" name="prelevement" id="d4f5efb4-03cd-4824-ac88-c304038fd755"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CompteServiceServiceSoapBinding</con:interface><con:operation>prelevement</con:operation><con:request name="prelevement" id="bbf1a57d-c629-40e6-90e8-a9dae715798e"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/services/compte</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:prelevementRef>
+         <source>0</source>
+         <destinataire>345678853</destinataire>
+         <montant>99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999</montant>
+         <ref>1</ref>
+      </com:prelevementRef>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="8bfbc834-0107-43df-813f-8dd9cb81eaf9"/><con:assertion type="SOAP Fault Assertion" id="c9ddb05f-8bba-4f41-ad3f-37cebd3703e0"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="Property Transfer 1" id="3b61bcff-d312-475c-9f39-65aad144cb18"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>id</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Creation compte</con:sourceStep><con:sourcePath>//id</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>Verification nouveau solde</con:targetStep><con:targetPath>//num-compte</con:targetPath><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="request" name="Verification nouveau solde" id="5097f980-0fb2-471f-a164-93146789fc0f"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CompteServiceServiceSoapBinding</con:interface><con:operation>infosCompte</con:operation><con:request name="Verification nouveau solde" id="633d99db-222f-4b3d-abf4-1d71d1d79835"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/services/compte</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:infosCompte>
+         <num-compte>345678857</num-compte>
+      </com:infosCompte>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="c71cc004-3a7e-4a9c-a032-7be9c8b4fb47"/><con:assertion type="SOAP Fault Assertion" id="c381de48-2a95-4ee7-b991-dcdee7ecc5ad"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="5739e393-c4a0-4a5e-a66e-edb686b31f0c" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Account not exist" searchProperties="true"><con:settings/><con:testStep type="request" name="Verification existance" id="b4dbcf23-2a3e-4c4c-902f-4741427aac8e"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CompteServiceServiceSoapBinding</con:interface><con:operation>infosCompte</con:operation><con:request name="Verification existance" id="15fc89ed-0eea-4b8f-a056-94fbd153119f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting><con:setting id="discardResponse">false</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/services/compte</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.univ-lyon1.fr/tiw/tiw1/banque/compte">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:infosCompte>
+         <num-compte>08</num-compte>
+      </com:infosCompte>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="9729e7ca-8aee-4340-bdcc-3acddee65470"/><con:assertion type="SOAP Fault Assertion" id="73b4a6cf-12f3-4ae6-ae0a-6bf3bedfc0c3"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

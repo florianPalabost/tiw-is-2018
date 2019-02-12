@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -55,5 +58,59 @@ public class ServiceReservationComponent {
         } else {
             reservationDAO.delete(reservation.get());
         }
+    }
+    @Transactional
+    public void updateReservationPaye(Long rId, boolean isPaye) {
+        LOGGER.info("Le paiement a ete effectuee .... MAJ reservation n°"+rId);
+        Reservation reservation = reservationDAO.getById(rId);
+
+        if(reservation != null) {
+            LOGGER.info("Reservation n°"+rId+" trouvée : MAJ boolean paye");
+            reservation.setPaye(isPaye);
+            reservationDAO.save(reservation);
+        }
+        else {
+            LOGGER.warning("Aucune reservation d'identifiant : "+rId);
+        }
+
+    }
+    @Transactional
+    public List<Reservation> retrieveReservationsBySeanceId(String id) {
+        Collection<Reservation> reservationCollection = reservationDAO.getAllBySeanceId(id);
+        List<Reservation> reservationList = new ArrayList<>(reservationCollection);
+        List<Reservation> listReservationsBySeance = new ArrayList<>();
+        for(Reservation r : reservationList){
+            if(r.getSeanceId().equals(id))
+            {
+                listReservationsBySeance.add(r);
+            }
+        }
+        LOGGER.info("retrieveReservationBySeanceId::::"+listReservationsBySeance.toString());
+        return listReservationsBySeance;
+    }
+
+    public Reservation retrieveReservationByRId(Long id) {
+        return  reservationDAO.getById(id);
+    }
+
+    @Transactional
+    public void updateReservation(String email, String nom, String prenom, Long idR, String seanceId) {
+        Reservation reservation = reservationDAO.getById(idR);
+        if(reservation != null) {
+            // test si la seance est existante inutile etant donnée que la reservation existe deja
+            // a moins que la mise a jour concerne l id de la seance ...
+
+            reservation.setNom(nom);
+            reservation.setPrenom(prenom);
+            reservation.setEmail(email);
+            reservation.setSeanceId(seanceId);
+
+            reservationDAO.save(reservation);
+        }
+    }
+
+    @Transactional
+    public Collection<Reservation> retrieveReservationsByEmail(String email) {
+        return reservationDAO.findByEmail(email);
     }
 }

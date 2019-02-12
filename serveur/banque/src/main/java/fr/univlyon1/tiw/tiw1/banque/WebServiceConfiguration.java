@@ -10,9 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.xml.ws.Endpoint;
-import javax.xml.ws.handler.Handler;
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 public class WebServiceConfiguration {
@@ -21,10 +18,7 @@ public class WebServiceConfiguration {
     // Config from http://cxf.apache.org/docs/springboot.html
     @Bean
     public Endpoint endpoint(Bus bus, CompteService compteService) {
-        List<Handler> h = new ArrayList<>();
-        h.add(new BanqueEventHandler(rabbitTemplate, new Queue("cinema-11301169")));
         EndpointImpl endpoint = new EndpointImpl(bus, compteService);
-        endpoint.setHandlers(h);
         endpoint.publish("/compte");
         return endpoint;
     }

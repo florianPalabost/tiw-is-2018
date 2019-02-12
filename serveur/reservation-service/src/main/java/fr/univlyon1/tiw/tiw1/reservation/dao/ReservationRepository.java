@@ -34,8 +34,9 @@ public interface ReservationRepository extends CrudRepository<Reservation,Long> 
     Reservation getById(Long id);
 
     @Modifying
-    @Query(value = "UPDATE reservation r set paye = true where r.id = :idR",
+    @Query(value = "UPDATE reservation r set paye = :isPaye where r.id = :idR",
             nativeQuery = true)
-    void updateReservation(@Param("idR") long idR);
+    void updateReservation(@Param("idR") long idR , @Param("isPaye") boolean isPaye);
 
+    // Iterable<Reservation> getAllByEmail(String email);
 }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import javax.jws.WebService;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 
 @WebService(targetNamespace = ServiceReservation.NAMESPACE,
         endpointInterface = "fr.univ_lyon1.tiw.tiw1.cinema.reservation.ReservationService",
@@ -56,4 +58,25 @@ public class ServiceReservation implements ReservationService {
         }
         return new ReservationAnnulee();
     }
+
+    public List<Reservation> retrieveReservationsBySeanceId(String id) {
+        return serviceReservationComponent.retrieveReservationsBySeanceId(id);
+    }
+
+    public Reservation retrieveReservationByRId(Long id) {
+        return serviceReservationComponent.retrieveReservationByRId(id);
+    }
+
+    public void updateReservation(String email, String nom, String prenom, Long reservationid, String seanceId) throws SeanceComplete_Exception {
+        serviceReservationComponent.updateReservation(email,nom,prenom,reservationid,seanceId);
+    }
+
+    public Collection<Reservation> retrieveReservationsByEmail(String email) {
+        return serviceReservationComponent.retrieveReservationsByEmail(email);
+    }
+
+    public void updateReservationPaye(Long reservationId, boolean isPaye){
+        serviceReservationComponent.updateReservationPaye(reservationId,isPaye);
+    }
+
 }

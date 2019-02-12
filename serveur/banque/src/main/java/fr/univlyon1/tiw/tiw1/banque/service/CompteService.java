@@ -16,6 +16,8 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 @WebService(targetNamespace = CompteService.NAMESPACE)
 @Component
@@ -36,6 +38,16 @@ public class CompteService {
             @WebParam(name = "montant") double valeur)
             throws CompteInconnuException, OperationImpossibleException {
         operations.prelevement(idCompte, destinataire, valeur);
+    }
+
+    @Transactional
+    public void prelevementRef(
+            @WebParam(name = "source") long idCompte,
+            @WebParam(name = "destinataire") long destinataire,
+            @WebParam(name = "montant") double valeur,
+            @WebParam(name = "ref") String ref)
+            throws CompteInconnuException, OperationImpossibleException, IOException, TimeoutException {
+        operations.prelevementWithREF(idCompte, destinataire, valeur, ref);
     }
 
     @Transactional()

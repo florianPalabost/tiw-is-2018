@@ -6,12 +6,11 @@ import fr.univlyon1.tiw.tiw1.reservation.services.ServiceReservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -25,14 +24,18 @@ import java.util.logging.Logger;
 
 @Controller
 @RequestMapping(value = "/controleur")
-public class ServiceSoap {
+public class ReservationController {
+
+    // TODO VERIF LES METHODES ENTRE LES 2 CONTROLEURS
+
+
     @Autowired
     protected ApplicationContext context;
 
     @Autowired
     protected ServiceReservation serviceReservation;
 
-    private static final Logger LOGGER = Logger.getLogger(ServiceSoap.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ReservationController.class.getName());
 
     @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/xml")
     @ResponseBody
@@ -125,4 +128,17 @@ public class ServiceSoap {
         // appeler Banque
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping(value="/reservations/updatePaye",headers = {
+            "content-type=application/json" }, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Reservation> updateReservationPaye(@RequestBody Reservation reservation, BindingResult result) {
+        LOGGER.info("Update Paye Reservation controller  .... Reservation id n°"+reservation.getId());
+        // reservationService.updateReservationById(idR,);
+        if(result.hasErrors()){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        serviceReservation.updateReservationPaye(reservation.getId(),true);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
