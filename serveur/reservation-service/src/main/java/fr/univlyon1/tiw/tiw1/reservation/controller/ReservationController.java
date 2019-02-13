@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 
 @Controller
 @RequestMapping(value = "/controleur")
+@CrossOrigin(origins = "*", methods = RequestMethod.OPTIONS)
 public class ReservationController {
 
     // TODO VERIF LES METHODES ENTRE LES 2 CONTROLEURS

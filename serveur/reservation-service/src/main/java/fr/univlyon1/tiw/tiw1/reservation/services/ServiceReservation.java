@@ -9,12 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.jws.WebService;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
+@CrossOrigin(origins = "*", methods = RequestMethod.OPTIONS)
 @WebService(targetNamespace = ServiceReservation.NAMESPACE,
         endpointInterface = "fr.univ_lyon1.tiw.tiw1.cinema.reservation.ReservationService",
         wsdlLocation = "/reservation.wsdl")

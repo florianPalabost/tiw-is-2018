@@ -65,9 +65,11 @@ services:
     build: ./serveur/borne-tickets
     container_name: borne_tickets
     depends_on:
-    - "rabbitmq"
+      - "rabbitmq"
     links:
-    - "rabbitmq:rabbitmq"
+      - "rabbitmq:rabbitmq"
+    ports:
+      - "8095:8095"
     
   banque:
     container_name: banque

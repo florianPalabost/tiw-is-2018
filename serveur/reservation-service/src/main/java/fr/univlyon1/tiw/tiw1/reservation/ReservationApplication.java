@@ -18,11 +18,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.instrument.classloading.LoadTimeWeaver;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.concurrent.TimeoutException;
 
+@CrossOrigin(origins = "*", methods = RequestMethod.OPTIONS)
 @SpringBootApplication
 @EnableTransactionManagement
 public class ReservationApplication {
