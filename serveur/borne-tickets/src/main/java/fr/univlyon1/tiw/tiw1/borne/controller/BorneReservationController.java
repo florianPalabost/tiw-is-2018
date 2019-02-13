@@ -42,30 +42,9 @@ public class BorneReservationController {
         if (result.hasErrors()) {
             return "reservation";
         }
-        LOGGER.info("info from form : "+reservation.toString());
-        LOGGER.info("COntroller save Reservation form borne...");
-
-        // COnstruction d'un msg soap
-        MessageFactory factory = MessageFactory.newInstance();
-        SOAPMessage soapMsg = factory.createMessage();
-        SOAPPart part = soapMsg.getSOAPPart();
-
-        SOAPEnvelope envelope = part.getEnvelope();
-        SOAPHeader header = envelope.getHeader();
-        SOAPBody body = envelope.getBody();
-
-        header.addTextNode("Reservation from borne");
-
-        SOAPBodyElement element = body.addBodyElement(envelope.createName("reserver", "res",null));
-        element.addChildElement("prenom").addTextNode(reservation.getPrenom());
-        element.addChildElement("nom").addTextNode(reservation.getNom());
-        element.addChildElement("email").addTextNode(reservation.getEmail());
-        element.addChildElement("seance").addTextNode(reservation.getSeanceId());
-
-        LOGGER.info("Message SOAP::::"+body.getTextContent());
-        // LOGGER.info("Message SOAP::::"+body.toString());
 
 
+        LOG.info("borne_reserver");
         // TODO appeler reservationService soap pour reserver
         /* RestTemplate restTemplate = new RestTemplate();
         String ressUrl = "http://reservations:8091/reservations";
@@ -73,27 +52,29 @@ public class BorneReservationController {
 
         HttpURLConnection postConnection = null;
                 URL obj = null;
-                obj = new URL("http://reservations:8091/services/reservation");
+                obj = new URL("http://reservations:8091/controleur/reserver");
+         String SOAPAction = "http://localhost:8091/services/reservation";
                 postConnection = (HttpURLConnection) obj.openConnection();
                 postConnection.setRequestMethod("POST");
                 postConnection.setRequestProperty("Content-Type", "text/xml");
+                postConnection.setRequestProperty("api-key", "key-api-2");
+                postConnection.setRequestProperty("SOAPAction", "http://localhost:8091/services/reservation");
 
-               /* obj = new URL("http://localhost:8091/reservations/" + reservationId + "/delete");
-                postConnection = (HttpURLConnection) obj.openConnection();
-                postConnection.setRequestMethod("DELETE"); */
+                // postConnection = (HttpURLConnection) obj.openConnection();
+                //postConnection.setRequestMethod("OPTIONS");
 
         final String POST_PARAMS =
-                       "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" \"xmlns:res=\"http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation\">"+
-                            "\t<soapenv:Header/>"+
-                            "\t<soapenv:Body>"+
-                                "\t\t<res:reserver>"+
-                                   "\t\t\t<res:prenom>"+reservation.getPrenom()+"</res:prenom>"+
-                                    "\t\t\t<res:nom>"+reservation.getNom()+"</res:nom>"+
-                                   "\t\t\t<res:email>"+reservation.getEmail()+"</res:email>"+
-                                    "\t\t\t<res:seance>"+reservation.getSeanceId()+"</res:seance>"+
-                               "\t\t</res:reserver>"+
-                            "\t</soapenv:Body>"+
-                        "</soapenv:Envelope>";
+                       "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:res=\"http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation\">"+
+                            "\n\t<soapenv:Header/>"+
+                            "\n\t<soapenv:Body>"+
+                                "\n\t\t<res:reserver>"+
+                                   "\n\t\t\t<res:prenom>"+reservation.getPrenom()+"</res:prenom>"+
+                                    "\n\t\t\t<res:nom>"+reservation.getNom()+"</res:nom>"+
+                                   "\n\t\t\t<res:email>"+reservation.getEmail()+"</res:email>"+
+                                    "\n\t\t\t<res:seance>"+reservation.getSeanceId()+"</res:seance>"+
+                               "\n\t\t</res:reserver>"+
+                            "\n\t</soapenv:Body>"+
+                        "\n</soapenv:Envelope>";
         LOG.info("POST_PARAMS : "+ POST_PARAMS);
                 postConnection.setDoOutput(true);
                 OutputStream os = postConnection.getOutputStream();

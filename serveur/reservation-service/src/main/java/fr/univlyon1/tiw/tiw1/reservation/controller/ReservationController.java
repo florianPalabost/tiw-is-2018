@@ -102,6 +102,7 @@ public class ReservationController {
     @RequestMapping(value="/reserver",method = RequestMethod.POST, headers = "Accept=application/xml")
     @ResponseBody
     public ResponseEntity<Reservation> recordReservation(@RequestBody String source) throws ReservationInconnue_Exception, IOException, SAXException, ParserConfigurationException, SeanceComplete_Exception, SeanceInconnue_Exception {
+        LOGGER.info("ping");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
         builder = factory.newDocumentBuilder();

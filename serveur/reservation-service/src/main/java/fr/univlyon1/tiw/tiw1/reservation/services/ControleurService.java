@@ -3,12 +3,15 @@ package fr.univlyon1.tiw.tiw1.reservation.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.w3c.dom.Node;
 
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.ws.Provider;
 
+@CrossOrigin(origins = "*", methods = RequestMethod.OPTIONS)
 @Component
 public class ControleurService implements Provider<Source> {
 
