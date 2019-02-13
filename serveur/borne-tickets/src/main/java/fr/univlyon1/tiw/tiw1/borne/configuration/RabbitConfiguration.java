@@ -1,7 +1,7 @@
-package fr.univlyon1.tiw.tiw1.rabbitMq.configuration;
+package fr.univlyon1.tiw.tiw1.borne.configuration;
 
-import fr.univlyon1.tiw.tiw1.rabbitMq.consumer.RabbitReceiver;
-import fr.univlyon1.tiw.tiw1.rabbitMq.producer.RabbitSender;
+import fr.univlyon1.tiw.tiw1.borne.consumer.RabbitReceiver;
+import fr.univlyon1.tiw.tiw1.borne.producer.RabbitSender;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;

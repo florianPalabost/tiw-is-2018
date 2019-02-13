@@ -1,8 +1,8 @@
-package fr.univlyon1.tiw.tiw1.rabbitMq.consumer;
+package fr.univlyon1.tiw.tiw1.borne.consumer;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.univlyon1.tiw.tiw1.rabbitMq.producer.RabbitSender;
+import fr.univlyon1.tiw.tiw1.borne.producer.RabbitSender;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

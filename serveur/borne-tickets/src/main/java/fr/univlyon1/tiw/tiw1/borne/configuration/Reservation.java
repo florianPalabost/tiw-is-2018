@@ -1,4 +1,4 @@
-package fr.univlyon1.tiw.tiw1.reservation.metier;
+package fr.univlyon1.tiw.tiw1.borne.configuration;
 
 //import javax.persistence.*;
 
