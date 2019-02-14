@@ -45,10 +45,8 @@ public class BorneReservationController {
 
 
         LOG.info("borne_reserver");
-        // TODO appeler reservationService soap pour reserver
-        /* RestTemplate restTemplate = new RestTemplate();
-        String ressUrl = "http://reservations:8091/reservations";
-        Collection<Object> res = restTemplate.getForObject(ressUrl, Collection.class); */
+        // TODO appeler reservation Service soap pour reserver
+
 
         HttpURLConnection postConnection = null;
                 URL obj = null;
@@ -92,6 +90,7 @@ public class BorneReservationController {
                 LOG.info("POST BORNE Response Message : " + POST_PARAMS);
 
                 if (responseCode == HttpURLConnection.HTTP_OK) { //success
+                    model.addAttribute("succes_reservation", true);
 
                     BufferedReader in = new BufferedReader(new InputStreamReader(
 
@@ -112,15 +111,86 @@ public class BorneReservationController {
                    LOG.info(response.toString());
 
                 } else {
-
+                    model.addAttribute("succes_reservation",false);
                     LOG.info("POST NOT WORKED");
 
                 }
 
+        // reponse reservation -> ok
 
 
-        // reponse reservation
         // next call banque pour prelever user
+
+        // on met le compte en dur pour le test, normalement il faudrait rediriger l'utilisateur vers un autre formulaire
+        // pour son numero de compte ou vers une vrai api de paiement
+//        postConnection.disconnect();
+//
+//        HttpURLConnection postConnection1 = null;
+//
+//        obj = new URL("http://localhost:8082/services/compte");
+//        SOAPAction = "http://localhost:8082/services/compte";
+//        postConnection1 = (HttpURLConnection) obj.openConnection();
+//        postConnection1.setRequestMethod("POST");
+//        postConnection1.setRequestProperty("Content-Type", "text/xml");
+//        postConnection1.setRequestProperty("SOAPAction", "http://localhost:8082/services/compte");
+//
+//
+//        final String POST_PARAMSS =
+//                "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:res=\"http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation\">"+
+//                        "\n\t<soapenv:Header/>"+
+//                        "\n\t<soapenv:Body>"+
+//                        "\n\t\t<com:prelevement>"+
+//                        "\n\t\t\t<source>123456789</source>"+
+//                        "\n\t\t\t<destinataire>234567890</destinataire>"+
+//                        "\n\t\t\t<montant>10.0</montant>"+
+//                        // "\n\t\t\t<ref>"+re+"</ref>"+
+//                        "\n\t\t</com:prelevement>"+
+//                        "\n\t</soapenv:Body>"+
+//                        "\n</soapenv:Envelope>";
+//        LOG.info("POST_PARAMSS : "+ POST_PARAMSS);
+//        postConnection1.setDoOutput(true);
+//        os = postConnection1.getOutputStream();
+//        os.write(POST_PARAMSS.getBytes());
+//        os.flush();
+//        os.close();
+//
+//        responseCode = postConnection1.getResponseCode();
+//
+//        // LOG.info("Reservation: " + reservationId + " success: " + success);
+//
+//        LOG.info("POST PRELEV BORNE Response Code :  " + responseCode);
+//
+//        LOG.info("POST PRELEV BORNE Response Message : " + postConnection1.getResponseMessage());
+//
+//        LOG.info("POST PRELEV BORNE Response Message : " + POST_PARAMSS);
+//
+//        if (responseCode == HttpURLConnection.HTTP_OK) { //success
+//            model.addAttribute("succes_prelevement", true);
+//
+//            BufferedReader in = new BufferedReader(new InputStreamReader(
+//
+//                    postConnection1.getInputStream()));
+//
+//            String inputLine;
+//
+//            StringBuffer response = new StringBuffer();
+//
+//            while ((inputLine = in .readLine()) != null) {
+//
+//                response.append(inputLine);
+//
+//            } in .close();
+//
+//            // print result
+//
+//            LOG.info(response.toString());
+//
+//        } else {
+//            model.addAttribute("succes_prelevement",false);
+//            LOG.info("POST 2 NOT WORKED");
+//
+//        }
+
         // reponse banque -> borne et banque -> reservation
         // rep reservation maj -> borne
 

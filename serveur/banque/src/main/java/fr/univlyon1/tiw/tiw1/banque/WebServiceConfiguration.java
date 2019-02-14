@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.xml.ws.Endpoint;
 
+
 @Configuration
 public class WebServiceConfiguration {
     @Autowired

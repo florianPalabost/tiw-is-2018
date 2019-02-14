@@ -9,7 +9,6 @@
 <div th:replace="header :: header"/>
 <div class="container">
     <h1>Seance</h1>
-    <a class="btn btn-primary" th:href="@{'/cinema/seances/{id}/addReservation'(id=${seance.getId()})}">Reservez</a>
     <p>Titre film : <span th:text="${seance.getFilm().titre}"></span></p>
     <p>Nom salle : <span th:text="${seance.getSalle().nom}"></span></p>
     <p>Prix : <span th:text="${seance.getPrix()}"></span> €</p>

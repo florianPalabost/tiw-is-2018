@@ -13,9 +13,12 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.sql.DataSource;
 
+@CrossOrigin(origins = "*", methods = RequestMethod.OPTIONS)
 @SpringBootApplication
 @EnableTransactionManagement
 public class App {

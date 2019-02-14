@@ -11,6 +11,8 @@
 <div th:replace="header :: header"/>
 
 <!-- /.container -->
+<span th:if="${succes_reservation == true}">Reservation effectuée</span>
+<span th:unless="${succes_reservation == true}">Pas de reservation </span>
 
 <div th:replace="footer :: footer"/>
 
