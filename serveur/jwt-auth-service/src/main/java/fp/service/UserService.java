@@ -1,9 +1,9 @@
-package murraco.service;
+package fp.service;
 
-import murraco.exception.CustomException;
-import murraco.model.User;
-import murraco.repository.UserRepository;
-import murraco.security.JwtTokenProvider;
+import fp.exception.CustomException;
+import fp.model.User;
+import fp.repository.UserRepository;
+import fp.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;

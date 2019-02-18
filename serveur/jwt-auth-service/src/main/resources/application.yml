@@ -1,3 +1,19 @@
+security:
+  jwt:
+    token:
+      secret-key: secret-key
+      expire-length: 36000
+
+UserController:
+  signin: Authenticates user and returns its JWT token.
+  signup: Creates user and returns its JWT token
+  delete: Deletes specific user by username
+  search: Returns specific user by username
+  me: Returns current user's data
+
+server:
+  port: 8081
+
 spring:
   datasource:
     url: jdbc:h2:mem:mytestdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -8,7 +24,6 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
-
   tomcat:
     max-wait: 20000
     max-active: 50
@@ -22,19 +37,3 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         show_sql: true
         format_sql: false
-          
-security:
-  jwt:
-    token:
-      secret-key: secret-key
-      expire-length: 36000
-      
-UserController:
-  signin: Authenticates user and returns its JWT token.
-  signup: Creates user and returns its JWT token
-  delete: Deletes specific user by username
-  search: Returns specific user by username
-  me: Returns current user's data
-
-server:
-    port: 8081

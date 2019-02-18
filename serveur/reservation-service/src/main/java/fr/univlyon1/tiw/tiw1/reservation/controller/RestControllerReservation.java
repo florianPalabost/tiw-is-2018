@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -18,7 +17,7 @@ import java.util.logging.Logger;
 @CrossOrigin(origins = {"http://localhost:4200","http://localhost","http://127.0.0.1:4200","http://127.0.0.1","http://127.0.0.1:8080"})
 @RestController
 public class RestControllerReservation {
-//    // TODO Verify that works with the new architecture
+//     TODO Verify that works with the new architecture
     @Autowired
     ReservationServiceREST reservationService;
 //
@@ -122,9 +121,9 @@ public class RestControllerReservation {
             "content-type=application/json" }, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Reservation> updateReservation(@PathVariable String idR) {
         LOGGER.info("Update is not yet done Coming soon .... Reservation id :"+idR);
-        // reservationService.updateReservationById(idR,);
+        reservationService.updateReservationById(idR);
 
-        // TODO finir la methode pour qu'elle prenne en compte le boolean ispaye
+        // TODO finir la methode pour qu'elle prenne en compte le boolean ispaye --> DONE
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

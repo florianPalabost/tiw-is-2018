@@ -1,6 +1,6 @@
-package murraco.repository;
+package fp.repository;
 
-import murraco.model.User;
+import fp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;

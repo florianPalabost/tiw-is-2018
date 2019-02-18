@@ -1,4 +1,4 @@
-package murraco.exception;
+package fp.exception;
 
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;

@@ -7,18 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
-import javax.xml.soap.*;
+import javax.xml.soap.SOAPException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -42,10 +39,8 @@ public class BorneReservationController {
         if (result.hasErrors()) {
             return "reservation";
         }
-
-
         LOG.info("borne_reserver");
-        // TODO appeler reservation Service soap pour reserver
+        // appeler reservation Service soap pour reserver
 
 
         HttpURLConnection postConnection = null;
@@ -57,9 +52,6 @@ public class BorneReservationController {
                 postConnection.setRequestProperty("Content-Type", "text/xml");
                 postConnection.setRequestProperty("api-key", "key-api-2");
                 postConnection.setRequestProperty("SOAPAction", "http://localhost:8091/services/reservation");
-
-                // postConnection = (HttpURLConnection) obj.openConnection();
-                //postConnection.setRequestMethod("OPTIONS");
 
         final String POST_PARAMS =
                        "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:res=\"http://www.univ-lyon1.fr/tiw/tiw1/cinema/reservation\">"+
@@ -81,32 +73,22 @@ public class BorneReservationController {
                 os.close();
                 int responseCode = postConnection.getResponseCode();
 
-               // LOG.info("Reservation: " + reservationId + " success: " + success);
-
                 LOG.info("POST BORNE Response Code :  " + responseCode);
-
                 LOG.info("POST BORNE Response Message : " + postConnection.getResponseMessage());
-
                 LOG.info("POST BORNE Response Message : " + POST_PARAMS);
 
                 if (responseCode == HttpURLConnection.HTTP_OK) { //success
                     model.addAttribute("succes_reservation", true);
 
                     BufferedReader in = new BufferedReader(new InputStreamReader(
-
                             postConnection.getInputStream()));
-
                     String inputLine;
-
                     StringBuffer response = new StringBuffer();
 
                     while ((inputLine = in .readLine()) != null) {
-
                         response.append(inputLine);
-
                     } in .close();
 
-                    // print result
 
                    LOG.info(response.toString());
 
@@ -118,8 +100,7 @@ public class BorneReservationController {
 
         // reponse reservation -> ok
 
-
-        // next call banque pour prelever user
+        // next call banque pour prelever user : ne marche pas donc je le commente
 
         // on met le compte en dur pour le test, normalement il faudrait rediriger l'utilisateur vers un autre formulaire
         // pour son numero de compte ou vers une vrai api de paiement
@@ -155,33 +136,22 @@ public class BorneReservationController {
 //        os.close();
 //
 //        responseCode = postConnection1.getResponseCode();
-//
-//        // LOG.info("Reservation: " + reservationId + " success: " + success);
-//
+//        LOG.info("Reservation: " + reservationId + " success: " + success);
 //        LOG.info("POST PRELEV BORNE Response Code :  " + responseCode);
-//
 //        LOG.info("POST PRELEV BORNE Response Message : " + postConnection1.getResponseMessage());
-//
 //        LOG.info("POST PRELEV BORNE Response Message : " + POST_PARAMSS);
 //
 //        if (responseCode == HttpURLConnection.HTTP_OK) { //success
 //            model.addAttribute("succes_prelevement", true);
-//
 //            BufferedReader in = new BufferedReader(new InputStreamReader(
-//
 //                    postConnection1.getInputStream()));
 //
 //            String inputLine;
-//
 //            StringBuffer response = new StringBuffer();
-//
 //            while ((inputLine = in .readLine()) != null) {
-//
 //                response.append(inputLine);
-//
 //            } in .close();
 //
-//            // print result
 //
 //            LOG.info(response.toString());
 //

@@ -1,8 +1,8 @@
-package murraco;
+package fp;
 
-import murraco.model.Role;
-import murraco.model.User;
-import murraco.service.UserService;
+import fp.model.Role;
+import fp.model.User;
+import fp.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

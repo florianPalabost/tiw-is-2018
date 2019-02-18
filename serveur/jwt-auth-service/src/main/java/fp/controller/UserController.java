@@ -1,10 +1,10 @@
-package murraco.controller;
+package fp.controller;
 
 import io.swagger.annotations.*;
-import murraco.dto.UserDataDTO;
-import murraco.dto.UserResponseDTO;
-import murraco.model.User;
-import murraco.service.UserService;
+import fp.dto.UserDataDTO;
+import fp.dto.UserResponseDTO;
+import fp.model.User;
+import fp.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

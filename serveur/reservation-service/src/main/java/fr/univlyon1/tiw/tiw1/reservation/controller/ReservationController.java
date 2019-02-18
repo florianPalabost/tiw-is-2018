@@ -59,28 +59,6 @@ public class ReservationController {
             e.printStackTrace();
         }
 
-        /*DOMResult dom = new DOMResult();
-        Transformer trans = null;
-
-        try {
-            trans = TransformerFactory.newInstance().newTransformer();
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        }
-        try {
-            trans.transform(source, dom);
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("je suis dans controleurprincipal");
-        Node node = dom.getNode();
-//        Node root = node.getFirstChild().getNextSibling();
-
-//        System.out.println("nom"+root.getNodeName());
-        System.out.println(node.getFirstChild().getFirstChild().getNextSibling().getNextSibling().getNextSibling().getNodeName());
-
-        context.getBean(ControleurService.class).invoke(source);*/
     }
 
     @RequestMapping(value="/cancel",method = RequestMethod.POST, headers = "Accept=application/xml")

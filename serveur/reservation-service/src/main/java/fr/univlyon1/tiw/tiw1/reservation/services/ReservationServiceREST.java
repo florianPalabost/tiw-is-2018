@@ -92,4 +92,8 @@ public class ReservationServiceREST {
         }
     }
 
+    public void updateReservationById(String idR) {
+        Reservation r = reservationRepository.getById(Long.valueOf(idR));
+        reservationRepository.save(r);
+    }
 }

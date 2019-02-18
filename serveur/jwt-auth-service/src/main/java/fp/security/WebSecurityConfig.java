@@ -1,4 +1,4 @@
-package murraco.security;
+package fp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -46,13 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // Apply JWT
     http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
-    // Optional, if you want to test the API from a browser
-
   }
 
   @Override
   public void configure(WebSecurity web) throws Exception {
-    // Allow swagger to be accessed without authentication
+    // Allow swagger to be accessed without authentication useless in our project
     web.ignoring().antMatchers("/v2/api-docs")//
         .antMatchers("/swagger-resources/**")//
         .antMatchers("/swagger-ui.html")//
@@ -60,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/webjars/**")//
         .antMatchers("/public")
         
-        // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
+        // Un-secure H2 Database, don't do this in prod env
         .and()
         .ignoring()
         .antMatchers("/h2-console/**/**");

@@ -1,4 +1,4 @@
-package murraco.model;
+package fp.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

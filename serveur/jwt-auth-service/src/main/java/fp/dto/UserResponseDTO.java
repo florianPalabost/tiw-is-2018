@@ -1,27 +1,27 @@
-package murraco.dto;
+package fp.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import murraco.model.Role;
+import fp.model.Role;
 
 import java.util.List;
 
-public class UserDataDTO {
-  
-  @ApiModelProperty(position = 0)
-  private String username;
-  @ApiModelProperty(position = 1)
-  private String email;
-  @ApiModelProperty(position = 2)
-  List<Role> roles;
-  @ApiModelProperty(position = 3)
-  private String password;
+public class UserResponseDTO {
 
-  public String getPassword() {
-    return password;
+  @ApiModelProperty(position = 0)
+  private Integer id;
+  @ApiModelProperty(position = 1)
+  private String username;
+  @ApiModelProperty(position = 2)
+  private String email;
+  @ApiModelProperty(position = 3)
+  List<Role> roles;
+
+  public Integer getId() {
+    return id;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public String getUsername() {
@@ -48,12 +48,4 @@ public class UserDataDTO {
     this.roles = roles;
   }
 
-  @Override
-  public String toString() {
-    return "UserDataDTO{" +
-            "username='" + username + '\'' +
-            ", email='" + email + '\'' +
-            ", roles=" + roles +
-            '}';
-  }
 }
